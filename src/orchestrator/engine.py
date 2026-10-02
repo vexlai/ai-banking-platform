@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import json
 import logging
 from datetime import datetime, timezone
+from typing import Any
 
 from contracts import (
     ChatRequest,
@@ -14,7 +16,7 @@ from contracts import (
     Handoff,
     Intent,
 )
-from src.orchestrator import prompts
+from src.orchestrator import llm, prompts
 from src.orchestrator.state_machine import State, StateMachine
 from src.policy.handoff import build_evidence, build_handoff
 from src.policy.rules import RiskAssessment, assess_risk, contains_pii, redact_pii
@@ -31,6 +33,25 @@ def classify_intent(message: str) -> Intent:
     return Intent.UNKNOWN
 
 
+def _assistant_message(turn: llm.LLMTurn) -> dict[str, Any]:
+    """Rebuilds the OpenAI assistant message so tool results can follow it."""
+    return {
+        "role": "assistant",
+        "content": turn.content,
+        "tool_calls": [
+            {
+                "id": call.id,
+                "type": "function",
+                "function": {
+                    "name": call.name,
+                    "arguments": json.dumps(call.arguments),
+                },
+            }
+            for call in turn.tool_calls
+        ],
+    }
+
+
 class OrchestratorEngine:
     """Runs one turn through UNDERSTAND -> GATHER -> DECIDE -> RESPOND.
 
@@ -39,10 +60,15 @@ class OrchestratorEngine:
     """
 
     def __init__(
-        self, *, use_mocks: bool = True, logger: logging.Logger | None = None
+        self,
+        *,
+        use_mocks: bool = True,
+        logger: logging.Logger | None = None,
+        llm_client: llm.LLMClient | None = None,
     ) -> None:
         self._use_mocks = use_mocks
         self._logger = logger or get_logger()
+        self._llm = llm_client if llm_client is not None else llm.from_env()
 
     def process_turn(self, request: ChatRequest) -> ChatResponse:
         trace_id = new_trace_id()
@@ -128,7 +154,10 @@ class OrchestratorEngine:
     ) -> ChatResponse:
         evidence = build_evidence(bundle)
         handoff = self._handoff_or_none(bundle, request, assessment)
-        raw_reply = self._render_reply(intent, assessment, bundle, evidence, handoff)
+        llm_reply = self._llm_reply(request, intent, assessment, trace_id)
+        raw_reply = llm_reply or self._render_reply(
+            intent, assessment, bundle, evidence, handoff
+        )
         reply = redact_pii(raw_reply)
         response = ChatResponse(
             session_id=request.session_id,
@@ -149,6 +178,77 @@ class OrchestratorEngine:
             extra={"trace_id": trace_id},
         )
         return response
+
+    def _llm_reply(
+        self,
+        request: ChatRequest,
+        intent: Intent,
+        assessment: RiskAssessment,
+        trace_id: str,
+    ) -> str | None:
+        """Runs the tool-calling loop for a grounded reply.
+
+        Returns `None` when the client is disabled or the provider fails, letting the
+        deterministic template take over; escalations never surface model text.
+        """
+        if self._llm is None or assessment.decision is not Decision.RESPOND:
+            return None
+        messages: list[dict[str, Any]] = [
+            {"role": "system", "content": prompts.SYSTEM_PROMPT},
+            {"role": "user", "content": self._llm_user_prompt(request, intent)},
+        ]
+        try:
+            for _ in range(llm.MAX_TOOL_ROUNDS):
+                turn = self._llm.complete(messages, tools=prompts.TOOL_DEFINITIONS)
+                if not turn.tool_calls:
+                    return turn.content
+                messages.append(_assistant_message(turn))
+                messages.extend(
+                    self._tool_message(call, trace_id) for call in turn.tool_calls
+                )
+            self._logger.warning(
+                "LLM tool loop exhausted without a final answer",
+                extra={"trace_id": trace_id},
+            )
+        except Exception as exc:  # noqa: BLE001 - any provider failure must fall back
+            self._logger.warning(
+                "LLM turn failed, using heuristic reply: %s",
+                exc,
+                extra={"trace_id": trace_id},
+            )
+        return None
+
+    def _tool_message(self, call: llm.ToolCall, trace_id: str) -> dict[str, Any]:
+        try:
+            content = llm.execute_tool(call.name, call.arguments)
+        except llm.ToolExecutionError as exc:
+            self._logger.warning(
+                "LLM requested an unavailable tool: %s",
+                exc,
+                extra={"trace_id": trace_id, "tool": call.name},
+            )
+            content = json.dumps({"error": str(exc)})
+        else:
+            self._logger.info(
+                "LLM tool executed: %s",
+                call.name,
+                extra={"trace_id": trace_id, "tool": call.name},
+            )
+        return {
+            "role": "tool",
+            "tool_call_id": call.id,
+            "name": call.name,
+            "content": content,
+        }
+
+    @staticmethod
+    def _llm_user_prompt(request: ChatRequest, intent: Intent) -> str:
+        return (
+            f"Customer {request.customer_id} in session {request.session_id} asks: "
+            f"{request.message}\n"
+            f"Classified intent: {intent.value}. Call the context tools you need, then "
+            "answer using only the returned evidence."
+        )
 
     @staticmethod
     def _handoff_or_none(
