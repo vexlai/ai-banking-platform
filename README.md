@@ -154,6 +154,8 @@ Create a .env file in the root directory:
 # API Keys & LLM Config
 OPENAI_API_KEY=your_openai_api_key
 LLM_MODEL=gpt-4o-mini
+USE_LLM=true                                   # enable live tool-calling; unset = deterministic heuristics
+OPENAI_BASE_URL=https://api.deepseek.com       # optional: DeepSeek or any OpenAI-compatible endpoint
 
 # Front-End
 API_BASE_URL=http://localhost:8000

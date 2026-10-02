@@ -3,6 +3,9 @@ fastapi>=0.115
 uvicorn[standard]>=0.30
 pydantic>=2.7
 
+# --- LLM Provider Abstraction (OpenAI-compatible: OpenAI / DeepSeek / etc.) ---
+openai>=1.40
+
 # --- Streamlit UI ---
 streamlit>=1.36
 requests>=2.32
