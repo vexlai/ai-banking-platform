@@ -29,7 +29,9 @@ def build_router(engine: OrchestratorEngine) -> APIRouter:
                 exc,
                 extra={"session_id": request.session_id},
             )
-            raise HTTPException(status.HTTP_501_NOT_IMPLEMENTED, detail=str(exc)) from exc
+            raise HTTPException(
+                status.HTTP_501_NOT_IMPLEMENTED, detail=str(exc)
+            ) from exc
         logger.info(
             "Chat turn completed decision=%s trace_id=%s",
             response.decision,

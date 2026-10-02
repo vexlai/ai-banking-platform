@@ -13,7 +13,9 @@ _ACTION_BY_SIGNAL = {
     "MISSING_CONTEXT": "Collect the missing identifiers before attempting an answer.",
 }
 
-_AGENT_ONLY_ACTION = "Route to a human agent; automation must not move money or approve credit."
+_AGENT_ONLY_ACTION = (
+    "Route to a human agent; automation must not move money or approve credit."
+)
 
 
 def _redacted(source: SourceTool, source_id: str, snippet: str) -> Evidence:
@@ -78,10 +80,15 @@ def _verified_facts(bundle: EvidenceBundle, assessment: RiskAssessment) -> list[
     customer = bundle.customer_360
     journey = bundle.journey_summary
     facts = [
-        f"Profile: {customer.full_name}, segment {customer.segment}, country {customer.country}, "
-        f"as of {customer.as_of.isoformat()}.",
-        f"Session {journey.session_id}: {journey.error_count} error(s) and "
-        f"{journey.abandoned_forms} abandoned form(s) in the last {journey.window_hours}h.",
+        (
+            f"Profile: {customer.full_name}, segment {customer.segment}, "
+            f"country {customer.country}, as of {customer.as_of.isoformat()}."
+        ),
+        (
+            f"Session {journey.session_id}: {journey.error_count} error(s) and "
+            f"{journey.abandoned_forms} abandoned form(s) in the last "
+            f"{journey.window_hours}h."
+        ),
     ]
     facts += [signal.detail for signal in assessment.signals]
     facts += [
@@ -103,7 +110,9 @@ def _recommended_actions(assessment: RiskAssessment) -> list[str]:
     return actions
 
 
-def build_handoff(bundle: EvidenceBundle, session_id: str, assessment: RiskAssessment) -> Handoff:
+def build_handoff(
+    bundle: EvidenceBundle, session_id: str, assessment: RiskAssessment
+) -> Handoff:
     return Handoff(
         handoff_id=f"HND_{bundle.customer_id}_{session_id}",
         customer_id=bundle.customer_id,

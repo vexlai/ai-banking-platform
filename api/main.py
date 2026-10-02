@@ -42,7 +42,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(build_router(OrchestratorEngine(use_mocks=USE_MOCKS)))
-logger.info("API gateway configured: version=%s mocks_enabled=%s", API_VERSION, USE_MOCKS)
+logger.info(
+    "API gateway configured: version=%s mocks_enabled=%s", API_VERSION, USE_MOCKS
+)
 
 
 @app.get("/health", response_model=HealthResponse, tags=["ops"])
