@@ -35,6 +35,9 @@ The system interfaces with the LATAM Bank dataset (~19M records spanning June 17
 
 ```text
 ai-banking-platform/
+├── contracts/                  # Pure Pydantic wire contracts (no logic; pydantic-only)
+│   └── schemas.py              # DTOs shared by api/, src/, evals/ (single source of truth)
+│
 ├── api/                        # FastAPI Gateway & Middleware
 │   ├── main.py                 # App initialization, CORS, authentication hooks
 │   └── routes/                 # REST routes (/v1/chat, /v1/context, /v1/trace)
@@ -48,8 +51,7 @@ ai-banking-platform/
 │   │   ├── ingest.py           # Parquet sync, deduplication & schema validation
 │   │   └── views.py            # SQL definitions for pre-aggregated serving views
 │   │
-│   ├── tools/                  # Interface Contracts & Tool Implementations
-│   │   ├── schemas.py          # Pydantic schemas (Shared Interface Contract)
+│   ├── tools/                  # Tool Implementations (contracts live in contracts/)
 │   │   ├── mocks.py            # Mock outputs for isolated component testing
 │   │   └── context_tools.py    # DuckDB-backed context lookup tools
 │   │
@@ -80,18 +82,33 @@ ai-banking-platform/
 └── requirements.txt            # Python environment dependencies
 ```
 
-## 4. Directory Usage Guidelines
+## 4. Modularity Guardrails (Non-Negotiable)
 
-| Directory | Allowed Usage | Prohibited Practices |
-| --------- | ------------- | -------------------- |
-| **`src/tools/schemas.py`** | Shared Pydantic data models for API requests/responses, tool parameters, and evidence payloads. | Database queries, LLM calls, or raw business logic. |
-| **`src/data/`** | Data ingestion, deduplication scripts, DuckDB view creations, and SQL query definitions. | Direct LLM prompt construction or API routing logic. |
-| **`src/tools/`** | Python wrappers connecting DuckDB queries and vector retrievers to executable tools. | UI formatting, raw HTML rendering, or unvalidated state manipulation. |
-| **`src/retrieval/`** | FAISS index creation, vector similarity search, and transcript chunking. | Relational database queries or PII redaction rules. |
-| **`src/orchestrator/`** | Intent parsing, LLM tool-calling loops, state machine transitions, and text synthesis. | Bypassing tools to guess financial facts or executing money movements. |
-| **`src/policy/`** | Deterministic safety logic: PII sanitization, risk evaluation, fraud triggers, and handoff formatting. | Generative text prompts or stochastic decision-making. |
-| **`api/` & `apps/**` | FastAPI endpoint logic, header validation, and Streamlit frontend rendering. | Core business logic or inline SQL execution. |
-| **`evals/`** | Golden test datasets (`.jsonl`) and benchmark scripts for precision, latency, and claim grounding. | Production application code or temporary exploratory scripts. |
+To keep the codebase modular and prevent it from devolving into a monolithic "spaghetti" system, all contributors must adhere to these four guardrails.
+
+### Guardrail 1 — Strict HTTP Boundary for the Front-End
+
+- `apps/demo_ui/app.py` must never import modules from `src/` directly; it imports only the shared `contracts/` package.
+- It operates strictly as an HTTP client, calling the gateway over the network (`POST http://localhost:8000/v1/chat`) with mandatory request timeouts (`timeout=30`).
+
+### Guardrail 2 — Contract-First Integration (`contracts/schemas.py`)
+
+- The wire contract is defined once in the pure `contracts/` package and imported directly by every layer (`api/`, `src/**`, `evals/`); there is no re-export shim.
+- All tools, database queries, and orchestrator engines accept and return strongly typed Pydantic objects from that contract.
+- The orchestrator stays agnostic as to whether data originates from `src/tools/mocks.py` or `src/tools/context_tools.py`.
+
+### Guardrail 3 — Strict Directory Partitioning
+
+- Scope ownership is split cleanly between data engineers and AI engineers:
+  - **Data Scope:** `src/data/` and `src/retrieval/`.
+  - **AI & Platform Scope:** `api/`, `apps/`, `src/orchestrator/`, `src/policy/`, `src/telemetry/`, and `evals/`.
+  - **Shared:** `contracts/` (pure types, dependency-light; owned by neither scope).
+- `.gitignore` uses root-anchored rules (`/data/`) so local DuckDB databases are ignored without ignoring source code under `src/data/`.
+
+### Guardrail 4 — Container & Process Isolation
+
+- The API gateway and the Streamlit UI run in separate processes and separate Docker containers (port 8000 vs 8501).
+- UI containers reach the gateway dynamically via environment variables (`API_BASE_URL`).
 
 ## 5. End-to-End Execution Flow
 
@@ -137,6 +154,9 @@ Create a .env file in the root directory:
 # API Keys & LLM Config
 OPENAI_API_KEY=your_openai_api_key
 LLM_MODEL=gpt-4o-mini
+
+# Front-End
+API_BASE_URL=http://localhost:8000
 
 # Data & Storage
 DUCKDB_PATH=./data/bank_serving.duckdb

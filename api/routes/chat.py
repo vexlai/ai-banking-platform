@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException, status
 
+from contracts import ChatRequest, ChatResponse
 from src.orchestrator.engine import OrchestratorEngine
 from src.telemetry.logger import get_logger
-from src.tools.schemas import ChatRequest, ChatResponse
 
 logger = get_logger(__name__)
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from src.tools.schemas import Decision, EvidenceBundle, RiskLevel
+from contracts import Decision, EvidenceBundle, RiskLevel
 
 CARD_PATTERN = re.compile(r"(?<!\d)(?:\d{4}[ -]?){3}\d{4}(?!\d)")
 SSN_PATTERN = re.compile(r"(?<!\d)\d{3}-\d{2}-\d{4}(?!\d)")

@@ -1,0 +1,46 @@
+# Keep the build context small and reproducible: only `requirements.txt`,
+# `contracts/`, `src/`, `api/`, and `apps/` are needed by the image.
+
+# --- VCS & CI ---
+.git
+.github
+.gitignore
+
+# --- Python bytecode & caches ---
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+build/
+dist/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Environment & secrets ---
+.env
+.env.*
+
+# --- Data & generated artifacts (synced from S3, never in the image) ---
+data/
+*.duckdb
+*.duckdb.wal
+*.faiss
+*.parquet
+*.log
+
+# --- Not needed inside the runtime image ---
+notebooks/
+tests/
+evals/
+PLAN.md
+Dockerfile
+docker-compose.yml

@@ -5,13 +5,7 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
-from src.orchestrator import prompts
-from src.orchestrator.state_machine import State, StateMachine
-from src.policy.handoff import build_evidence, build_handoff
-from src.policy.rules import RiskAssessment, assess_risk, contains_pii, redact_pii
-from src.telemetry.logger import LatencyTimer, get_logger, new_trace_id
-from src.tools import mocks
-from src.tools.schemas import (
+from contracts import (
     ChatRequest,
     ChatResponse,
     Decision,
@@ -20,6 +14,12 @@ from src.tools.schemas import (
     Handoff,
     Intent,
 )
+from src.orchestrator import prompts
+from src.orchestrator.state_machine import State, StateMachine
+from src.policy.handoff import build_evidence, build_handoff
+from src.policy.rules import RiskAssessment, assess_risk, contains_pii, redact_pii
+from src.telemetry.logger import LatencyTimer, get_logger, new_trace_id
+from src.tools import mocks
 
 
 def classify_intent(message: str) -> Intent:

@@ -1,7 +1,7 @@
 """Tests for the orchestrator engine (`src/orchestrator/engine.py`)."""
 
+from contracts import ChatRequest, Decision
 from src.orchestrator.engine import OrchestratorEngine
-from src.tools.schemas import ChatRequest, Decision
 
 
 def test_benign_turn_responds_without_handoff() -> None:

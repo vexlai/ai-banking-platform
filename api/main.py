@@ -8,9 +8,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.routes.chat import build_router
+from contracts import HealthResponse
 from src.orchestrator.engine import OrchestratorEngine
 from src.telemetry.logger import get_logger
-from src.tools.schemas import HealthResponse
 
 API_VERSION = "0.1.0"
 DEFAULT_CORS_ORIGINS = ("*",)
