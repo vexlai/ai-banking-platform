@@ -98,12 +98,28 @@ TOOL_DEFINITIONS: tuple[dict[str, Any], ...] = (
 INTENT_KEYWORDS: tuple[tuple[Intent, tuple[str, ...]], ...] = (
     (
         Intent.FRAUD_REPORT,
-        ("fraud", "unauthorized", "unrecognized", "stolen", "scam", "didn't make", "did not make"),
+        (
+            "fraud",
+            "unauthorized",
+            "unrecognized",
+            "stolen",
+            "scam",
+            "didn't make",
+            "did not make",
+        ),
     ),
     (Intent.CARD_ISSUE, ("card", "declined", "blocked", "replacement", "chip", "pin")),
     (
         Intent.COMPLAINT,
-        ("complaint", "angry", "upset", "dissatisfied", "unacceptable", "manager", "escalate"),
+        (
+            "complaint",
+            "angry",
+            "upset",
+            "dissatisfied",
+            "unacceptable",
+            "manager",
+            "escalate",
+        ),
     ),
     (Intent.BALANCE_INQUIRY, ("balance", "available", "funds", "how much")),
     (

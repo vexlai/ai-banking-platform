@@ -105,15 +105,29 @@ def _cust_001() -> EvidenceBundle:
         ),
         recent_transactions=[
             _txn(
-                customer_id, "C001_001", 1250.00, "Supermercado Central",
-                "posted", 0.02, 180, "MXN",
+                customer_id,
+                "C001_001",
+                1250.00,
+                "Supermercado Central",
+                "posted",
+                0.02,
+                180,
+                "MXN",
             ),
             _txn(
-                customer_id, "C001_002", 430.75, "Farmacia del Sol",
-                "posted", 0.01, 2400, "MXN",
+                customer_id,
+                "C001_002",
+                430.75,
+                "Farmacia del Sol",
+                "posted",
+                0.01,
+                2400,
+                "MXN",
             ),
         ],
-        journey_summary=_journey(customer_id, "SESS_C001", error_count=0, abandoned_forms=0),
+        journey_summary=_journey(
+            customer_id, "SESS_C001", error_count=0, abandoned_forms=0
+        ),
         interaction_history=[
             Interaction(
                 interaction_id="INT_C001_001",
@@ -150,15 +164,29 @@ def _cust_002() -> EvidenceBundle:
         ),
         recent_transactions=[
             _txn(
-                customer_id, "C002_001", 4820.50, "UNKNOWN_ECOM_MERCHANT",
-                "flagged", FRAUD_ALERT_SCORE, 45, "COP",
+                customer_id,
+                "C002_001",
+                4820.50,
+                "UNKNOWN_ECOM_MERCHANT",
+                "flagged",
+                FRAUD_ALERT_SCORE,
+                45,
+                "COP",
             ),
             _txn(
-                customer_id, "C002_002", 120.00, "Coffee Corner",
-                "posted", 0.03, 3000, "COP",
+                customer_id,
+                "C002_002",
+                120.00,
+                "Coffee Corner",
+                "posted",
+                0.03,
+                3000,
+                "COP",
             ),
         ],
-        journey_summary=_journey(customer_id, "SESS_C002", error_count=2, abandoned_forms=1),
+        journey_summary=_journey(
+            customer_id, "SESS_C002", error_count=2, abandoned_forms=1
+        ),
         interaction_history=[
             Interaction(
                 interaction_id="INT_C002_001",
@@ -204,11 +232,19 @@ def _cust_003() -> EvidenceBundle:
         ),
         recent_transactions=[
             _txn(
-                customer_id, "C003_001", 9800.00, "Boutique Norte",
-                "posted", 0.04, 600, "ARS",
+                customer_id,
+                "C003_001",
+                9800.00,
+                "Boutique Norte",
+                "posted",
+                0.04,
+                600,
+                "ARS",
             ),
         ],
-        journey_summary=_journey(customer_id, "SESS_C003", error_count=0, abandoned_forms=0),
+        journey_summary=_journey(
+            customer_id, "SESS_C003", error_count=0, abandoned_forms=0
+        ),
         interaction_history=[
             Interaction(
                 interaction_id="INT_C003_001",
@@ -244,11 +280,19 @@ def _default_bundle(customer_id: str) -> EvidenceBundle:
         ),
         recent_transactions=[
             _txn(
-                customer_id, f"{customer_id}_001", 100.00, "Generic Merchant",
-                "posted", 0.0, 120, "MXN",
+                customer_id,
+                f"{customer_id}_001",
+                100.00,
+                "Generic Merchant",
+                "posted",
+                0.0,
+                120,
+                "MXN",
             ),
         ],
-        journey_summary=_journey(customer_id, f"SESS_{customer_id}", error_count=0, abandoned_forms=0),
+        journey_summary=_journey(
+            customer_id, f"SESS_{customer_id}", error_count=0, abandoned_forms=0
+        ),
         interaction_history=[],
         similar_transcripts=[],
         open_cases=[],
@@ -262,7 +306,9 @@ _BUILDERS = {
     "CUST_003": _cust_003,
 }
 
-_FIXTURES: dict[str, EvidenceBundle] = {cid: build() for cid, build in _BUILDERS.items()}
+_FIXTURES: dict[str, EvidenceBundle] = {
+    cid: build() for cid, build in _BUILDERS.items()
+}
 
 
 def is_mock_customer(customer_id: str) -> bool:

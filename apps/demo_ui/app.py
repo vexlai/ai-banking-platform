@@ -78,7 +78,6 @@ def send_turn(base_url: str, request: ChatRequest) -> ChatResponse:
     return turn
 
 
-
 def _group_by_source(evidence: list[Evidence]) -> dict[str, list[Evidence]]:
     grouped: dict[str, list[Evidence]] = {}
     for item in evidence:
@@ -87,7 +86,9 @@ def _group_by_source(evidence: list[Evidence]) -> dict[str, list[Evidence]]:
 
 
 def _render_handoff(handoff: Handoff) -> None:
-    st.markdown(f"**Handoff `{handoff.handoff_id}`** — risk_level={handoff.risk_level.value}")
+    st.markdown(
+        f"**Handoff `{handoff.handoff_id}`** — risk_level={handoff.risk_level.value}"
+    )
     st.markdown("Reason")
     st.write(handoff.reason)
     st.markdown("Verified facts")
@@ -145,7 +146,7 @@ def _http_error_detail(exc: requests.HTTPError) -> str:
 
 
 def _render_failure(exc: Exception, message: str) -> None:
-    logger.error("Chat turn failed: %s", message, exc_info=True)
+    logger.error("Chat turn failed: %s", message, exc_info=exc)
     st.error(message)
     st.session_state.messages.append({"role": "assistant", "content": message})
 
@@ -214,7 +215,9 @@ def main() -> None:
                 "Start it with `uvicorn api.main:app --port 8000`."
             )
         else:
-            st.success(f"Gateway OK — v{health.version}, mocks_enabled={health.mocks_enabled}")
+            st.success(
+                f"Gateway OK — v{health.version}, mocks_enabled={health.mocks_enabled}"
+            )
         st.divider()
         st.header("Session")
         st.selectbox("Customer", CUSTOMER_FIXTURES, key="customer_id")
@@ -237,4 +240,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -71,7 +71,10 @@ def load_cases(path: Path = GOLDEN_CASES_PATH) -> list[GoldenCase]:
 
 def _grounded(response: ChatResponse) -> bool:
     if response.decision is Decision.ESCALATE:
-        return response.handoff is not None and response.handoff.handoff_id in response.reply
+        return (
+            response.handoff is not None
+            and response.handoff.handoff_id in response.reply
+        )
     if response.decision is Decision.RESPOND:
         return RESPOND_GROUNDING_MARKER in response.reply
     return bool(response.reply.strip())
@@ -96,7 +99,9 @@ def _failures(case: GoldenCase, response: ChatResponse) -> tuple[str, ...]:
         checks["risk_level"] = response.handoff.risk_level is case.expected_risk_level
 
     present = {item.source for item in response.evidence}
-    missing = [source.value for source in case.expected_sources if source not in present]
+    missing = [
+        source.value for source in case.expected_sources if source not in present
+    ]
     if missing:
         checks["sources"] = False
 
@@ -134,7 +139,11 @@ def _actual(response: ChatResponse, name: str) -> object:
 
 def evaluate(engine: OrchestratorEngine, case: GoldenCase) -> CaseResult:
     response = engine.process_turn(
-        ChatRequest(customer_id=case.customer_id, session_id=case.session_id, message=case.message)
+        ChatRequest(
+            customer_id=case.customer_id,
+            session_id=case.session_id,
+            message=case.message,
+        )
     )
     return CaseResult(case=case, response=response, failures=_failures(case, response))
 
@@ -158,15 +167,20 @@ def _report(results: list[CaseResult]) -> None:
         else 0.0
     )
     precision = (
-        sum(_evidence_precision(r.case, r.response) for r in results) / total if total else 0.0
+        sum(_evidence_precision(r.case, r.response) for r in results) / total
+        if total
+        else 0.0
     )
     escalations = [r for r in results if r.case.expected_decision is Decision.ESCALATE]
     escalation_recall = (
-        sum(1 for r in escalations if r.response.decision is Decision.ESCALATE) / len(escalations)
+        sum(1 for r in escalations if r.response.decision is Decision.ESCALATE)
+        / len(escalations)
         if escalations
         else 1.0
     )
-    unsupported_rate = sum(1 for r in results if not _grounded(r.response)) / total if total else 0.0
+    unsupported_rate = (
+        sum(1 for r in results if not _grounded(r.response)) / total if total else 0.0
+    )
     p95 = _p95([r.response.latency_ms for r in results]) if results else 0.0
 
     logger.info("Intent accuracy: %s", _percent(intent_accuracy))

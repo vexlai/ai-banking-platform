@@ -38,7 +38,9 @@ class OrchestratorEngine:
     is reserved for the real DuckDB tools (Developer A, INT-01).
     """
 
-    def __init__(self, *, use_mocks: bool = True, logger: logging.Logger | None = None) -> None:
+    def __init__(
+        self, *, use_mocks: bool = True, logger: logging.Logger | None = None
+    ) -> None:
         self._use_mocks = use_mocks
         self._logger = logger or get_logger()
 
@@ -65,7 +67,9 @@ class OrchestratorEngine:
         )
         return response
 
-    def _understand(self, request: ChatRequest, machine: StateMachine, trace_id: str) -> Intent:
+    def _understand(
+        self, request: ChatRequest, machine: StateMachine, trace_id: str
+    ) -> Intent:
         for field in ("customer_id", "session_id", "message"):
             if not getattr(request, field).strip():
                 self._logger.warning(
@@ -80,9 +84,13 @@ class OrchestratorEngine:
         machine.advance(State.GATHER)
         return intent
 
-    def _gather(self, request: ChatRequest, machine: StateMachine, trace_id: str) -> EvidenceBundle:
+    def _gather(
+        self, request: ChatRequest, machine: StateMachine, trace_id: str
+    ) -> EvidenceBundle:
         if not self._use_mocks:
-            raise NotImplementedError("Real DuckDB context tools belong to Developer A (INT-01).")
+            raise NotImplementedError(
+                "Real DuckDB context tools belong to Developer A (INT-01)."
+            )
         bundle = mocks.get_context(request.customer_id)
         self._logger.info(
             "Evidence gathered for customer %s: %s transaction(s), %s interaction(s), %s case(s)",
