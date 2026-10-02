@@ -1,0 +1,9 @@
+# --- API Gateway ---
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+
+# --- Streamlit UI ---
+streamlit>=1.36
+requests>=2.32
+
