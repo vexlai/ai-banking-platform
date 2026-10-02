@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from contracts import Evidence, EvidenceBundle, Handoff, SourceTool
 from src.policy.rules import RiskAssessment, redact_pii
-from src.tools.schemas import Evidence, EvidenceBundle, Handoff, SourceTool
 
 _ACTION_BY_SIGNAL = {
     "FRAUD_SCORE_SPIKE": "Confirm the flagged transaction with the customer before any account action.",

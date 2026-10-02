@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from src.tools.schemas import Intent, SourceTool
+from contracts import Intent, SourceTool
 
 SYSTEM_PROMPT = (
     "You are the AI banking service orchestrator. Every operational statement you make "

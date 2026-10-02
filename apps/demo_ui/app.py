@@ -1,11 +1,12 @@
 """Streamlit dashboard: chat over the FastAPI gateway with a live evidence side-panel.
 
-The UI is a thin HTTP client of the B-05 gateway and never imports the orchestrator, so
-the gateway health probe and the `USE_MOCKS=false` 501 boundary stay observable here.
+The UI is a thin HTTP client of the B-05 gateway and never imports `src/`, so the
+gateway health probe and the `USE_MOCKS=false` 501 boundary stay observable here.
 """
 
 from __future__ import annotations
 
+import logging
 import os
 import sys
 import uuid
@@ -19,8 +20,7 @@ if str(_REPO_ROOT) not in sys.path:
 import requests
 import streamlit as st
 
-from src.telemetry.logger import get_logger
-from src.tools.schemas import (
+from contracts import (
     ChatRequest,
     ChatResponse,
     Decision,
@@ -34,7 +34,7 @@ REQUEST_TIMEOUT_SECONDS = 30
 CUSTOMER_FIXTURES = ("CUST_001", "CUST_002", "CUST_003")
 DEFAULT_MESSAGE = "I do not recognize a charge on my card"
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def new_session_id() -> str:
@@ -193,6 +193,10 @@ def _reset_session() -> None:
 
 
 def main() -> None:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+    )
     st.set_page_config(page_title="AI Banking Platform", page_icon="🏦", layout="wide")
 
     if "messages" not in st.session_state:

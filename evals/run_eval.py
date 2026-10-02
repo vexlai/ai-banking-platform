@@ -20,9 +20,7 @@ if str(_REPO_ROOT) not in sys.path:
 
 from pydantic import Field
 
-from src.orchestrator.engine import OrchestratorEngine
-from src.telemetry.logger import get_logger
-from src.tools.schemas import (
+from contracts import (
     ChatRequest,
     ChatResponse,
     Contract,
@@ -31,6 +29,8 @@ from src.tools.schemas import (
     RiskLevel,
     SourceTool,
 )
+from src.orchestrator.engine import OrchestratorEngine
+from src.telemetry.logger import get_logger
 
 GOLDEN_CASES_PATH = Path(__file__).with_name("golden_cases.jsonl")
 RESPOND_GROUNDING_MARKER = "grounded in"
