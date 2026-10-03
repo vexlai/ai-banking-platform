@@ -4,13 +4,18 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
+from api.security import require_api_key
 from src.telemetry.logger import get_logger, get_trace
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/v1", tags=["trace"])
+router = APIRouter(
+    prefix="/v1",
+    tags=["trace"],
+    dependencies=[Depends(require_api_key)],
+)
 
 
 @router.get("/trace/{request_id}")
