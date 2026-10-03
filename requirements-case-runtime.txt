@@ -1,0 +1,4 @@
+# Minimal offline core and acceptance tests; no LLM SDK required.
+pydantic==2.13.5
+pytest==9.1.1
+ruff==0.16.10

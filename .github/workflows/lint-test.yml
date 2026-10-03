@@ -40,6 +40,14 @@ jobs:
     - name: Run Golden Set Evaluations
       run: python evals/run_eval.py
 
+    - name: Check deterministic case core (no LLM)
+      run: |
+        ruff check src/cases tests/test_case_runtime.py scripts/demo_dispute_cases.py
+        ruff format --check src/cases tests/test_case_runtime.py scripts/demo_dispute_cases.py
+        pytest tests/test_case_runtime.py -q
+        python scripts/demo_dispute_cases.py
+        python scripts/demo_dispute_cases.py
+
   analytics-integrity:
     runs-on: ubuntu-latest
     steps:

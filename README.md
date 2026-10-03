@@ -15,6 +15,17 @@ ni constituyen requisitos aprobados. Autorización por cliente, persistencia y g
 de selección/ownership siguen pendientes. No conectar datos reales antes de ello.
 Esta integración no cambia API, UI, herramientas ni comportamiento del runtime.
 
+### Entrega 1: núcleo determinístico de casos
+
+Ya existe un núcleo independiente con SQLite, versionado, idempotencia, confirmación
+explícita, ownership/as_of, evidencia y handoff local durable, probado sin LLM.
+Consulte [contratos, estados y ejecución](docs/DETERMINISTIC_CASE_RUNTIME.md).
+La demo usa exclusivamente fixtures sintéticos y un verificador de identidad de prueba.
+La API/UI legado NO está conectada al núcleo nuevo; no confundir los dos flujos.
+
+    .venv/bin/python -m pytest tests/test_case_runtime.py -q
+    .venv/bin/python scripts/demo_dispute_cases.py
+
 An enterprise-grade, evidence-grounded customer service orchestration engine designed to reconstruct customer context, analyze digital event histories, enforce safety policies, and deliver grounded AI responses or structured human agent handoffs.
 
 ---

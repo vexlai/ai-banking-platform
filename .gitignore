@@ -50,5 +50,9 @@ htmlcov/
 /.jupyter_runtime/
 .venv-analytics/
 .execution.lock
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
 # Small reproducible discovery outputs are part of the analytical handoff.
 !/artifacts/**/*.parquet
