@@ -1,0 +1,7 @@
+dataset,date_basis,min_date,max_date,active_days,calendar_days,days_without_records
+customers,registration_date,2018-06-18,2026-06-17,2922,2922,0
+products,opening_date,2018-06-18,2026-06-17,2922,2922,0
+branches,branch_opening_date,1990-01-03,2023-05-11,346,12182,11836
+service_agents,hire_date,2013-06-20,2026-03-17,1055,4654,3599
+marketing_campaigns,start_date,2023-07-01,2026-06-14,186,1080,894
+daily_exchange_rates,date,2023-06-17,2026-06-17,1097,1097,0

@@ -44,3 +44,14 @@ evals/
 PLAN.md
 Dockerfile
 docker-compose.yml
+
+# Analytics do not belong to the runtime build context.
+dataset
+reports/
+artifacts/
+docs/
+scripts/
+.tmp/
+.ipython/
+.jupyter_runtime/
+.venv-analytics/

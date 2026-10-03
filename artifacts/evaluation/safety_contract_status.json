@@ -1,0 +1,20 @@
+{
+  "cases": 15,
+  "implemented_offline_checks": [
+    "invalid/expired auth blocks fixture retrieval",
+    "ownership",
+    "as_of",
+    "currency",
+    "candidate ambiguity"
+  ],
+  "not_implemented": [
+    "production authentication/authorization",
+    "prompt-injection defense runtime",
+    "tool orchestration",
+    "policy engine",
+    "financial action",
+    "state engine",
+    "handoff UI"
+  ],
+  "remaining_scenarios": "Expected deny/clarify/abstain/handoff in safety_fixtures.jsonl; future implementation must be tested"
+}

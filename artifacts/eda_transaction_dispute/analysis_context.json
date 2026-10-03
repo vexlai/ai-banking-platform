@@ -1,0 +1,21 @@
+{
+  "execution_started": "2026-10-01T23:44:03.623637-05:00",
+  "feature_cutoff_inclusive": "2026-06-17",
+  "primary_population": "Full observed extract; row dates beyond the inherited cutoff are counted separately.",
+  "availability_warning": "Labels and snapshot outcomes have no known availability timestamp; a row before cutoff does not prove its label was available.",
+  "source_manifest_sha256": "edaa6b4db2c0053ead935ffc30d0d2928d0d4769bfa8e7b9d880e57043827074",
+  "source_files_sha256_checked": 3291,
+  "reference_files_sha256": {
+    "notebooks/02_eda.ipynb": "b0929f98f5da16e6488b03c2edf8a3de16d74d35d9acd55f63a6d22c2af3fabf",
+    "reports/eda/EDA_FINDINGS.md": "f043c56fd8d65d81a0b6e10ed68b4b90ff184d5bf6a53f429353cde2e0955a62",
+    "reports/eda/analysis_context.json": "de3707365afe981743c6c1c479aa073133e3afbdf1928ce4ebc00308ea504e4d",
+    "reports/eda/semantic_validation.csv": "fde21ed18f9df35c273d4c870115a7e3f8d86195bea15dcfc37092d56e71faa3",
+    "reports/eda/transcript_coverage.csv": "dc04bd964bbb130e135d1e29dca4360f5544a073f6832acb93f2137a79337709",
+    "reports/eda/survey_coverage.csv": "cccbe2d9dcc5c660cbb221f4d3743ed45f92e42ac5e8202f79996b8031e80823",
+    "reports/profiling/source_manifest.json": "7397fbca1e1ca2f47477f1720e2f75d83b08d644e9fb3a9fb0150f8bda0cb3cb"
+  },
+  "fraud_rate_denominator": "valid boolean labels in the indicated population; rate is a fraction, *_pct is percent.",
+  "coverage_denominator": "all rows of the indicated dataset or explicit group, including nulls.",
+  "potential_taxonomy": "Descriptive annotations on observed categories; not a final cohort.",
+  "input_mode": "read-only EDA DuckDB + missing resolution column"
+}

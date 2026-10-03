@@ -1,0 +1,68 @@
+dataset,variable,category,records,pct
+customers,country,México,74907,49.938
+customers,country,Colombia,45251,30.167333333333332
+customers,country,Argentina,29842,19.894666666666666
+customers,state,Jalisco,12643,8.428666666666667
+customers,state,Ciudad de México,12506,8.337333333333333
+customers,state,Querétaro,12500,8.333333333333334
+customers,state,Baja California,12489,8.326
+customers,state,Puebla,12400,8.266666666666667
+customers,state,Nuevo León,12369,8.246
+customers,state,Cundinamarca,9140,6.093333333333334
+customers,state,Antioquia,9107,6.0713333333333335
+customers,state,Atlántico,9076,6.050666666666666
+customers,state,Valle del Cauca,8972,5.981333333333334
+customers,state,Bolívar,8956,5.970666666666666
+customers,state,Santa Fe,6081,4.054
+customers,state,Ciudad Autónoma de Buenos Aires,6037,4.024666666666667
+customers,state,Buenos Aires,5973,3.982
+customers,state,Mendoza,5959,3.9726666666666666
+customers,state,Córdoba,5792,3.8613333333333335
+customers,city,Guadalajara,12643,8.428666666666667
+customers,city,Ciudad de México,12506,8.337333333333333
+customers,city,Querétaro,12500,8.333333333333334
+customers,city,Tijuana,12489,8.326
+customers,city,Puebla,12400,8.266666666666667
+customers,city,Monterrey,12369,8.246
+customers,city,Bogotá,9140,6.093333333333334
+customers,city,Medellín,9107,6.0713333333333335
+customers,city,Barranquilla,9076,6.050666666666666
+customers,city,Cali,8972,5.981333333333334
+customers,city,Cartagena,8956,5.970666666666666
+customers,city,Rosario,6081,4.054
+customers,city,Buenos Aires,6037,4.024666666666667
+customers,city,La Plata,5973,3.982
+customers,city,Mendoza,5959,3.9726666666666666
+customers,city,Córdoba,5792,3.8613333333333335
+customers,segment,Basic,89756,59.83733333333333
+customers,segment,Plus,37547,25.031333333333333
+customers,segment,Premium,15207,10.138
+customers,segment,Student,7490,4.993333333333333
+customers,customer_status,Active,127700,85.13333333333334
+customers,customer_status,Inactive,14914,9.942666666666666
+customers,customer_status,Suspended,4407,2.938
+customers,customer_status,Closed,2979,1.986
+customers,gender,F,50508,33.672
+customers,gender,O,49808,33.205333333333336
+customers,gender,M,49684,33.12266666666667
+customers,occupation,,15039,10.026
+customers,occupation,Manager,6862,4.574666666666666
+customers,occupation,Accountant,6857,4.5713333333333335
+customers,occupation,Salesperson,6823,4.548666666666667
+customers,occupation,Homemaker,6806,4.537333333333334
+customers,occupation,Entrepreneur,6805,4.536666666666667
+customers,occupation,Doctor,6794,4.529333333333334
+customers,occupation,Lawyer,6779,4.519333333333333
+customers,occupation,Technician,6778,4.518666666666666
+customers,occupation,Artist,6762,4.508
+customers,occupation,Driver,6752,4.501333333333333
+customers,occupation,Director,6747,4.498
+customers,occupation,Retired,6743,4.495333333333333
+customers,occupation,Student,6723,4.482
+customers,occupation,Consultant,6721,4.480666666666667
+customers,occupation,Teacher,6703,4.468666666666667
+customers,occupation,Merchant,6699,4.466
+customers,occupation,Administrative,6677,4.451333333333333
+customers,occupation,Employee,6651,4.434
+customers,occupation,Engineer,6651,4.434
+customers,occupation,Independent Professional,6628,4.418666666666667

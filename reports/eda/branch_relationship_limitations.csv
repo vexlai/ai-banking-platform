@@ -1,0 +1,3 @@
+relation,nonnull,unmatched,use
+customers.registration_branch_id -> branches.branch_id,150000,149995,excluded; existing profiling
+service_agents.assigned_branch_id -> branches.branch_id,833,831,excluded; existing profiling

@@ -1,0 +1,7 @@
+validation,total,eligible,linked,orphan,inconsistent,consistent,consistent_pct
+transaction_product_customer,4425008,4425008,4425008,0,0,4425008,100.0
+transcript_customer,171321,171321,171321,0,0,171321,100.0
+transcript_agent,171321,171321,171321,0,0,171321,100.0
+survey_customer,212759,212759,212759,0,0,212759,100.0
+survey_agent,212759,212759,212759,0,0,212759,100.0
+complaint_product_customer,67095,44570,44570,0,44570,0,0.0

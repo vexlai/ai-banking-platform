@@ -1,0 +1,20 @@
+dataset,variable,category,records,pct
+products,product_type,Cuenta Ahorro,120203,30.05075
+products,product_type,Tarjeta Crédito,100102,25.0255
+products,product_type,Cuenta Corriente,99979,24.99475
+products,product_type,Tarjeta Débito,39938,9.9845
+products,product_type,Préstamo Personal,19960,4.99
+products,product_type,Préstamo Hipotecario,11910,2.9775
+products,product_type,Inversión,5859,1.46475
+products,product_type,Seguro,2049,0.51225
+products,product_status,Active,339965,84.99125
+products,product_status,Closed,32039,8.00975
+products,product_status,Blocked,19935,4.98375
+products,product_status,Suspended,8061,2.01525
+products,currency,USD,220501,55.12525
+products,currency,COP,107975,26.99375
+products,currency,ARS,71524,17.881
+products,opening_channel,Branch,199838,49.9595
+products,opening_channel,Web,100282,25.0705
+products,opening_channel,App,79726,19.9315
+products,opening_channel,Call Center,20154,5.0385

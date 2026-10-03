@@ -7,6 +7,9 @@ on:
 jobs:
   test-and-lint:
     runs-on: ubuntu-latest
+    env:
+      USE_LLM: 'false'
+      USE_MOCKS: 'true'
 
     steps:
     - name: Check out repository
@@ -25,13 +28,33 @@ jobs:
         pip install ruff mypy
 
     - name: Run Ruff Linter
-      run: ruff check .
+      # Keep imported, hash-locked analytics out of automatic formatting.
+      run: ruff check api apps contracts evals src/orchestrator src/policy src/telemetry src/tools src/data src/retrieval tests/test_api.py tests/test_guardrails.py tests/test_orchestrator_engine.py tests/test_policy.py tests/conftest.py
 
     - name: Run Ruff Format Check
-      run: ruff format --check .
+      run: ruff format --check api apps contracts evals src/orchestrator src/policy src/telemetry src/tools src/data src/retrieval tests/test_api.py tests/test_guardrails.py tests/test_orchestrator_engine.py tests/test_policy.py tests/conftest.py
 
     - name: Run Pytest Suite
-      run: pytest tests/
+      run: pytest tests/test_api.py tests/test_guardrails.py tests/test_orchestrator_engine.py tests/test_policy.py
 
     - name: Run Golden Set Evaluations
       run: python evals/run_eval.py
+
+  analytics-integrity:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: pip
+        cache-dependency-path: requirements-analytics.txt
+    - run: python -m pip install -r requirements-analytics.txt
+    - name: Verify frozen outputs without raw data or model calls
+      run: python scripts/verify_analytics_integration.py
+    - name: Run offline analytical unit tests
+      run: |
+        python -m unittest discover -s tests -p 'test_intake_evaluation.py'
+        python -m unittest discover -s tests -p 'test_profiling.py'
+        python -m unittest discover -s tests -p 'test_dispute_addendum.py'
+        python -m unittest discover -s tests -p 'test_dispute_workflow.py'

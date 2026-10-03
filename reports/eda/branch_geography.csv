@@ -1,0 +1,34 @@
+dataset,branch_coverage,country,city,records
+products,known,Colombia,Bogotá,25323
+products,known,México,Monterrey,32137
+products,known,México,Querétaro,29895
+products,known,México,Tijuana,33096
+products,known,México,Puebla,37658
+products,known,México,Ciudad de México,33213
+products,known,Argentina,La Plata,17996
+products,known,Argentina,Córdoba,22848
+products,known,Argentina,Buenos Aires,12435
+products,known,Argentina,Rosario,7921
+products,known,Colombia,Cartagena,26070
+products,known,Argentina,Mendoza,18242
+products,known,México,Guadalajara,34399
+products,known,Colombia,Barranquilla,27760
+products,known,Colombia,Cali,24050
+products,known,Colombia,Medellín,16957
+transactions,known,Argentina,Córdoba,78435
+transactions,known,Colombia,Bogotá,86942
+transactions,known,México,Guadalajara,119381
+transactions,known,Argentina,Rosario,27824
+transactions,known,Argentina,La Plata,62832
+transactions,known,Argentina,Buenos Aires,43684
+transactions,known,México,Ciudad de México,115692
+transactions,known,Colombia,Cali,83658
+transactions,known,Argentina,Mendoza,63208
+transactions,known,México,Monterrey,111011
+transactions,known,México,Querétaro,103472
+transactions,known,Colombia,Barranquilla,94852
+transactions,known,México,Puebla,130740
+transactions,known,México,Tijuana,114823
+transactions,known,Colombia,Cartagena,91535
+transactions,known,Colombia,Medellín,59843
+transactions,unknown,,,3037076

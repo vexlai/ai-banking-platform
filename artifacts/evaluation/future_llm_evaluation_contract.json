@@ -1,0 +1,23 @@
+{
+  "component": "Structured Dispute Intake Extraction",
+  "input": {
+    "user_utterance": "untrusted string only"
+  },
+  "output_schema": "intake_output.schema.json",
+  "unknown_policy": "null; intent unknown; no inferred currency/customer/transaction",
+  "relative_dates": "symbolic hints only; trusted as_of/time zone required for later resolution",
+  "validation": "JSON schema plus semantic calendar validation; reject extra keys; preserve raw output and validation errors",
+  "no_authority": [
+    "auth",
+    "authorization",
+    "ownership",
+    "selection truth",
+    "policy",
+    "fraud verdict",
+    "financial action",
+    "closure"
+  ],
+  "comparison": "Same cases, schema, normalization, metrics and retrieval fixtures; freeze prompt/model/version before test",
+  "held_out_rule": "No test-driven tuning; changes need new version and a fresh holdout",
+  "label_access": "Never send expected_* labels, fixture truth or split labels to the extractor"
+}

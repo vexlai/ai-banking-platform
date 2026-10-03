@@ -1,0 +1,30 @@
+dataset,variable,category,records,pct
+digital_events,event_type,PageView,1431772,38.22700954706062
+digital_events,event_type,Click,858970,22.93371737304449
+digital_events,event_type,Logout,583831,15.587756438085076
+digital_events,event_type,Login,583821,15.58748944718466
+digital_events,event_type,FormSubmit,143343,3.827127663834961
+digital_events,event_type,Error,86060,2.297723688981232
+digital_events,event_type,Purchase,57649,1.5391758418089594
+digital_events,event_category,Authentication,1167652,31.17524588526974
+digital_events,event_category,Navigation,948701,25.329453421568488
+digital_events,event_category,Product,908123,24.246057745859904
+digital_events,event_category,Transaction,720970,19.24924294730187
+digital_events,channel,Android App,1309237,34.95543654881154
+digital_events,channel,iOS App,933954,24.935721940724815
+digital_events,channel,Desktop Web,752875,20.10107741507954
+digital_events,channel,Mobile Web,749380,20.0077640953841
+digital_events,platform,Android,1599424,42.70316539071715
+digital_events,platform,iOS,1243297,33.19489855146757
+digital_events,platform,Linux,240074,6.409757342650248
+digital_events,platform,MacOS,239618,6.397582557591273
+digital_events,platform,Windows,235559,6.289210951112365
+digital_events,platform,,187474,5.005385206461393
+digital_events,browser,,2318393,61.898983458845755
+digital_events,browser,Chrome,415999,11.106794758221051
+digital_events,browser,Safari,414323,11.062047083311306
+digital_events,browser,Samsung Internet,238443,6.366211126792376
+digital_events,browser,Edge,179254,4.785918686319333
+digital_events,browser,Firefox,179034,4.780044886510178
+digital_events,is_mobile,True,2992571,79.89892258492046
+digital_events,is_mobile,False,752875,20.10107741507954

@@ -1,0 +1,22 @@
+{
+  "valid_fixture": {
+    "completeness": 1.0,
+    "missing_required_section_count": 0,
+    "missing_sections": [],
+    "unsupported_claim_count": 0,
+    "invalid_reference_count": 0,
+    "evidence_reference_validity": 1.0,
+    "limitation": "Checks structured claims only; natural-language entailment still requires human review"
+  },
+  "corrupt_fixture": {
+    "completeness": 0.9090909090909091,
+    "missing_required_section_count": 1,
+    "missing_sections": [
+      "as_of_time"
+    ],
+    "unsupported_claim_count": 1,
+    "invalid_reference_count": 1,
+    "evidence_reference_validity": 0.0,
+    "limitation": "Checks structured claims only; natural-language entailment still requires human review"
+  }
+}

@@ -43,3 +43,12 @@ htmlcov/
 # --- Logs ---
 *.log
 
+# Local analytical datasets and scratch space: never committed.
+/dataset
+/.tmp/
+/.ipython/
+/.jupyter_runtime/
+.venv-analytics/
+.execution.lock
+# Small reproducible discovery outputs are part of the analytical handoff.
+!/artifacts/**/*.parquet

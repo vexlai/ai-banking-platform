@@ -1,0 +1,341 @@
+{
+  "version": "mvp-contract-v1",
+  "decision": "GO WITH CONSTRAINTS",
+  "name": "Transaction Dispute Intake & Investigation Copilot",
+  "outcome": "HANDOFF_RECORDED",
+  "in_scope": [
+    "authenticated intake",
+    "structured clue extraction",
+    "clarification",
+    "deterministic transaction lookup",
+    "bounded candidate retrieval",
+    "explicit transaction confirmation",
+    "ownership verification",
+    "evidence retrieval",
+    "historical context retrieval",
+    "grounded summarization",
+    "unknown/missing evidence representation",
+    "state tracking",
+    "human handoff",
+    "audit/provenance"
+  ],
+  "out_of_scope": [
+    "autonomous dispute adjudication",
+    "automatic reimbursement",
+    "money movement",
+    "fraud verdict",
+    "automated rejection",
+    "automatic complaint-to-transaction linking",
+    "automatic closure",
+    "invented banking policy",
+    "unsupported customer identity inference"
+  ],
+  "responsibilities": [
+    {
+      "owner": "AI / LLM",
+      "allowed": "intent/clue extraction; clarification drafting; evidence-grounded summary; unresolved questions; handoff draft",
+      "forbidden": "auth/authz; ownership; resolving ambiguity as truth; policy invention; fraud verdict; approval/rejection; financial action; closure"
+    },
+    {
+      "owner": "DETERMINISTIC",
+      "allowed": "external auth validation; authorization/account access; retrieval/filtering; temporal cutoff; currency/units; ownership; state guards; policy interface; audit; idempotency",
+      "forbidden": "inventing policy, treating heuristic candidate as true match, claiming dataset identity equals authentication"
+    },
+    {
+      "owner": "HUMAN",
+      "allowed": "unresolved ambiguity; conflicts; authoritative policy interpretation; adjudication; financial decisions; final outcome; closure",
+      "forbidden": "bypassing authentication/authorization or leaving approvals unaudited"
+    }
+  ],
+  "data_contracts": [
+    {
+      "contract": "AuthenticatedPrincipal",
+      "required_fields": [
+        "principal_ref",
+        "subject_ref",
+        "authorization_scope",
+        "verified_at",
+        "expires_at",
+        "auth_provider_ref"
+      ],
+      "optional_fields": [
+        "session_ref"
+      ],
+      "provenance": "External identity provider; never utterance/LLM",
+      "as_of_time_rule": "verified_at <= as_of_time < expires_at",
+      "trust_level": "trusted only after external deterministic validation",
+      "LLM_values_require_confirmation": false
+    },
+    {
+      "contract": "DisputeIntake",
+      "required_fields": [
+        "case_id",
+        "user_utterance",
+        "language",
+        "principal_ref",
+        "as_of_time",
+        "request_id"
+      ],
+      "optional_fields": [
+        "customer_confirmed_clues"
+      ],
+      "provenance": "Untrusted customer request; exact text retained with access controls",
+      "as_of_time_rule": "server-assigned case.as_of_time",
+      "trust_level": "untrusted input",
+      "LLM_values_require_confirmation": true
+    },
+    {
+      "contract": "TransactionSearchRequest",
+      "required_fields": [
+        "case_id",
+        "principal_ref",
+        "as_of_time",
+        "rule_version",
+        "lookback_days"
+      ],
+      "optional_fields": [
+        "transaction_id",
+        "amount",
+        "currency",
+        "date_hint",
+        "merchant",
+        "transaction_type_hint",
+        "channel_hint"
+      ],
+      "provenance": "Confirmed clues and trusted principal separately; no currency/date guessing",
+      "as_of_time_rule": "bounded event_time <= as_of_time; explicit start/end inclusivity",
+      "trust_level": "validated request, not fact",
+      "LLM_values_require_confirmation": true
+    },
+    {
+      "contract": "TransactionCandidate",
+      "required_fields": [
+        "candidate_transaction_id",
+        "owner_ref",
+        "product_ref",
+        "event_time",
+        "amount",
+        "currency",
+        "source_ref",
+        "retrieval_rule"
+      ],
+      "optional_fields": [
+        "merchant",
+        "recorded_status",
+        "channel",
+        "type"
+      ],
+      "provenance": "Deterministic query result; relation to complaint is HEURISTIC",
+      "as_of_time_rule": "event_time <= as_of_time; availability warning mandatory",
+      "trust_level": "observed transaction, unverified dispute link",
+      "LLM_values_require_confirmation": false
+    },
+    {
+      "contract": "TransactionSelection",
+      "required_fields": [
+        "case_id",
+        "candidate_transaction_id",
+        "confirmed_by",
+        "confirmed_at",
+        "confirmation_ref"
+      ],
+      "optional_fields": [
+        "clarification_history"
+      ],
+      "provenance": "Explicit customer/authorized-human confirmation; never count=1 alone",
+      "as_of_time_rule": "confirmation timestamp audited",
+      "trust_level": "attributed selection, not fraud verdict",
+      "LLM_values_require_confirmation": true
+    },
+    {
+      "contract": "EvidenceBundle",
+      "required_fields": [
+        "case_id",
+        "as_of_time",
+        "source_refs",
+        "core_facts",
+        "unknowns",
+        "guard_results",
+        "availability_limitations"
+      ],
+      "optional_fields": [
+        "optional_context",
+        "retrospective_context"
+      ],
+      "provenance": "Allowlisted source evidence, independently aggregated domains",
+      "as_of_time_rule": "admissible and retrospective evidence separate; snapshot attributes flagged",
+      "trust_level": "mixed trust with field provenance",
+      "LLM_values_require_confirmation": false
+    },
+    {
+      "contract": "GroundedSummary",
+      "required_fields": [
+        "case_id",
+        "facts_with_evidence_refs",
+        "unknowns",
+        "unresolved_questions",
+        "generator_version"
+      ],
+      "optional_fields": [
+        "draft_narrative"
+      ],
+      "provenance": "LLM-generated draft; deterministic references + human factual review",
+      "as_of_time_rule": "only intake-admissible evidence may be asserted as intake facts",
+      "trust_level": "untrusted generated content",
+      "LLM_values_require_confirmation": true
+    },
+    {
+      "contract": "HandoffPackage",
+      "required_fields": [
+        "case_id",
+        "user_request",
+        "authenticated_identity_reference",
+        "selected_transaction_or_candidates",
+        "verified_facts",
+        "evidence_references",
+        "actions_taken",
+        "missing_evidence",
+        "unresolved_questions",
+        "guard_results",
+        "state",
+        "as_of_time"
+      ],
+      "optional_fields": [
+        "draft_summary",
+        "handoff_receipt"
+      ],
+      "provenance": "Deterministic assembly; optional generated draft; authorized recipient",
+      "as_of_time_rule": "evidence snapshot/as_of plus handoff time distinct",
+      "trust_level": "auditable package, not adjudication",
+      "LLM_values_require_confirmation": true
+    },
+    {
+      "contract": "CaseState",
+      "required_fields": [
+        "case_id",
+        "state",
+        "version",
+        "updated_at",
+        "last_transition_id"
+      ],
+      "optional_fields": [
+        "failure_reason"
+      ],
+      "provenance": "Deterministic guarded state store; FUTURE DESIGN",
+      "as_of_time_rule": "versioned event/recorded timestamps",
+      "trust_level": "trusted only after guards; no engine implemented",
+      "LLM_values_require_confirmation": false
+    },
+    {
+      "contract": "AuditEvent",
+      "required_fields": [
+        "event_id",
+        "case_id",
+        "request_id",
+        "idempotency_key",
+        "actor_ref",
+        "source_state",
+        "target_state",
+        "event_time",
+        "recorded_at",
+        "evidence_refs",
+        "guard_results",
+        "rule_version"
+      ],
+      "optional_fields": [
+        "policy_version",
+        "model_version",
+        "approval_ref"
+      ],
+      "provenance": "Append-only future service audit; immutable evidence versions",
+      "as_of_time_rule": "event_time and recorded_at separately",
+      "trust_level": "system-generated; LLM cannot author authority",
+      "LLM_values_require_confirmation": false
+    }
+  ],
+  "success_criteria": [
+    {
+      "criterion": "extraction correctness",
+      "measurement": "per-field EM/P/R/F1 and full-schema EM, dev/test and es/pt separately",
+      "target": "Report baseline; future improvement on frozen test without degrading safety"
+    },
+    {
+      "criterion": "schema validity",
+      "measurement": "valid schemas / outputs",
+      "target": "100% proposed acceptance gate"
+    },
+    {
+      "criterion": "hallucination",
+      "measurement": "unsupported nonnull fields / expected-unknown slots and / predicted slots",
+      "target": "0 desired; observed baseline failures retained"
+    },
+    {
+      "criterion": "clarification and missing clues",
+      "measurement": "should_clarify accuracy; exact missing required clue set",
+      "target": "Baseline first; human-reviewed annotations needed"
+    },
+    {
+      "criterion": "retrieval invariants",
+      "measurement": "exact candidate set; missing/extra; future/ownership/auth exposure",
+      "target": "100% fixture correctness; zero safety violations"
+    },
+    {
+      "criterion": "abstention",
+      "measurement": "correct deny/clarify/abstain/handoff on contract fixtures",
+      "target": "No autonomous decision; safety scenarios mandatory"
+    },
+    {
+      "criterion": "handoff quality",
+      "measurement": "completeness; unsupported structured claims; valid evidence refs",
+      "target": "All required sections; no unsupported facts"
+    },
+    {
+      "criterion": "state/audit validity",
+      "measurement": "valid guarded transitions and audit fields",
+      "target": "Future runtime only; NOT MEASURED here"
+    },
+    {
+      "criterion": "unsafe actions / authorization violations",
+      "measurement": "forbidden actions or access violations / attempted requests",
+      "target": "Zero required; fixture checks are not production certification"
+    },
+    {
+      "criterion": "latency/cost",
+      "measurement": "per-case parser latency; future end-to-end/model cost",
+      "target": "Report measured parser only; no invented production savings"
+    }
+  ],
+  "source_signatures": {
+    "amount_currency_candidate_matching.csv": "60c3d72a3a7cbafd915746ccaefc9a77c30cbdcc78d20874082f4e289ef972c4",
+    "behavioral_feature_feasibility.csv": "649bc544faddfa8990702f410a6bd0678c291052a26dc55f0adc10bd822039e9",
+    "candidate_cohort_definitions.csv": "9b8384c1902963d0f07affd8bc8e95eb1d7163b3b3f7e82e9bb479d32996cc2f",
+    "candidate_cohort_distributions.csv": "b5dbee85aa3c4dc330b8b1d19f1c0ba1fe755203d6adffd6e199ae65798f27b8",
+    "candidate_currency_support.csv": "a0b17f3d0fc8e5413abcf51c423ee912d2575849316c02e8deb6c60038e54a0d",
+    "candidate_dispute_cohorts.csv": "80ef075f83b1304d6d4d8ddedc3608ac5d5903bfa3ba5d72877268c75a160b6e",
+    "candidate_rule_comparison.csv": "eebb395fc4e82f3970d5d55253569bccb07402384a3cbab63bc2893fe8d84e59",
+    "candidate_rules_common_eligibility.csv": "0cbdb9c4afc0a8f0ee3c29edaf4b5e1ccfab804e674f80024a65349a9fec5377",
+    "candidate_transaction_characteristics.csv": "42ed0b31edd97278e977ba60bd025654d1ba095270bf6403b4501743cd63c29e",
+    "case_archetypes.csv": "5d1412a818fed71d0f23a345c96a6085112827aa09ee59eb451b01d570d5d2e7",
+    "cohort_overlap.csv": "44c2a5b412f767b004139c833284dc2ec7a973cc59adcbc854b2563e7d66fecd",
+    "complaint_transaction_window_summary.csv": "30323cf90c52009f8860c66309194f56672277521adc9b65e4ed1f55ed79a935",
+    "digital_context_distributions.csv": "66785ccd63202f3abffa7c957f55e940fbd6bd761f34d1fecdc9dbcf19d0a212",
+    "digital_context_feasibility.csv": "f408ea1273d9b18b887e011256cdc9add0f53a2a384ead749c0d1bc18dcca4a7",
+    "digital_event_value_availability.csv": "47cb9a455848a6a62604f0df3ebea23e56cd9a8399827daa113abdabb91326c4",
+    "evidence_bundle_summary.csv": "2aa2ae5612a28b4538173e0d36993433653bfe2571fd618f2d1a7be8e6ede4d4",
+    "fraud_amount_without_score_by_currency.csv": "fb294edb531133753347217a3a29123b5eb5ea8e0d91a9576d5962bba283aebf",
+    "fraud_prior_behavior_without_score.csv": "c78b3b541f6b556caa208a25975d33df4b4e21111b825e933e4484291157ae4c",
+    "fraud_signal_without_score.csv": "208151562076a9eb6b2d47b46dcb59d57f63d96fddd81c70e9884a3c1c51b93e",
+    "mvp_scope_assessment.csv": "1ddd973b2f1a9f51f471240639c27fe47ff4e2fac52a425e5cd16772fbe6e70f",
+    "non_score_fraud_rate_ranges.csv": "681bd2964ca9f81efa435c5023fc6ddb984ec0d2633f6082fa2126235adf2c26",
+    "population_cutoff_audit.csv": "0f020a92086b2cac86e7adfe187bcd67262b6343dad2a627e41c57a5888ab51c",
+    "proposed_case_state_machine.csv": "8c52ddbec2d9ba334eb1204c1b77d549a5a9928a041067715100cdd926a674bb",
+    "retrieval_population.csv": "da4783eeef9f002e4d304c6b1756875e6a6e01cf854a1afb6128caeb4d2385ad",
+    "service_interaction_proximity.csv": "7b9db291a1811b6e10e75764d026ebed068808d3ff25f2d16613dbdf87769c1b",
+    "service_proximity_distributions.csv": "b8b1fb9a7532379f02c8fbbb372abdf367497d391548d25aa9c391ce71146bbb",
+    "temporal_candidate_distribution.csv": "53c191c35fa787a4123dfdb57ff2cffcd45f14a8f05ddb6da1de118f7807c3d5",
+    "transcript_feasibility.csv": "d29cb06ca8a663fea17ab2f4f98438bce621787a39b46cf4d611236146a11044",
+    "transcript_metadata_feasibility.csv": "bac745e863523bb94daf5e26d1c16d8659b262269935c023acd16678c93f316a",
+    "transcript_selection_comparison.csv": "d3fa6531c720d1054af062a9d22ef2be93c05c92aeebfa27508566eedb1318b3",
+    "workflow_responsibility_matrix.csv": "7f9a7a212c4545952279a90b311f804a66d95ee329f12ebea4f180c1ea3715aa"
+  }
+}

@@ -1,0 +1,55 @@
+cohort,field,value,records,pct_cohort
+A,status,Closed,476,4.11373260738052
+A,status,Escalated,576,4.977962146746176
+A,status,In Process,4583,39.607639789127994
+A,status,Open,3441,29.738138449572208
+A,status,Rejected,106,0.9160833117275948
+A,status,Resolved,2389,20.64644369544551
+B,status,Closed,431,4.113773026629761
+B,status,Escalated,529,5.049155292545576
+B,status,In Process,4153,39.63920969743247
+B,status,Open,3102,29.607712131335305
+B,status,Rejected,95,0.9067481149183927
+B,status,Resolved,2167,20.683401737138492
+C,status,Closed,364,3.5091101899161283
+C,status,Escalated,553,5.331148173141811
+C,status,In Process,4179,40.28728429576786
+C,status,Open,3089,29.779234551238794
+C,status,Rejected,106,1.0218837366239275
+C,status,Resolved,2082,20.071339053311483
+A,priority,Critical,559,4.8310431250540145
+A,priority,High,1746,15.089447757324345
+A,priority,Low,3495,30.20482240082966
+A,priority,Medium,5771,49.87468671679198
+B,priority,Critical,496,4.734179631573924
+B,priority,High,1591,15.185644745633292
+B,priority,Low,3160,30.161305717285483
+B,priority,Medium,5230,49.9188699055073
+C,priority,Critical,530,5.109418683119637
+C,priority,High,1530,14.749831292779332
+C,priority,Low,3188,30.7336353995951
+C,priority,Medium,5125,49.40711462450593
+A,reception_channel,App,1212,10.474462017111746
+A,reception_channel,Branch,454,3.923602108720076
+A,reception_channel,Call Center,5804,50.15988246478265
+A,reception_channel,Email,2233,19.29824561403509
+A,reception_channel,Regulator,133,1.1494252873563218
+A,reception_channel,Web,1735,14.994382507994123
+B,reception_channel,App,1121,10.699627756037033
+B,reception_channel,Branch,409,3.903789252648659
+B,reception_channel,Call Center,5248,50.09067481149184
+B,reception_channel,Email,2021,19.28987305526391
+B,reception_channel,Regulator,115,1.0976424549012123
+B,reception_channel,Web,1563,14.918392669657345
+C,reception_channel,App,1054,10.160994890581318
+C,reception_channel,Branch,420,4.0489732960570715
+C,reception_channel,Call Center,5255,50.66036826376169
+C,reception_channel,Email,2024,19.51219512195122
+C,reception_channel,Regulator,107,1.0315241492335872
+C,reception_channel,Web,1513,14.585944278415116
+A,is_repeat_complainer,False,9871,85.30809783078385
+A,is_repeat_complainer,True,1700,14.691902169216144
+B,is_repeat_complainer,False,8942,85.3488594063186
+B,is_repeat_complainer,True,1535,14.651140593681397
+C,is_repeat_complainer,False,8761,84.45965487322857
+C,is_repeat_complainer,True,1612,15.540345126771426

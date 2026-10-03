@@ -1,5 +1,20 @@
 # AI Banking Platform (`ai-banking-platform`)
 
+## Estado actual: repositorio unificado
+
+La analítica 00–05, informes y evaluación congelada están integrados.
+La autoridad de alcance es [Frozen MVP Contract](reports/FROZEN_MVP_CONTRACT.md):
+**Transaction Dispute Intake & Investigation Copilot — GO WITH CONSTRAINTS**.
+El resultado previsto es **HANDOFF_RECORDED**, no resolución de disputas.
+
+Consulte [integración y reproducción](docs/ANALYTICS_INTEGRATION.md).
+El runtime descrito debajo es el scaffold anterior con mocks, no una implementación
+validada del contrato congelado. Sus afirmaciones de seguridad, volúmenes aproximados,
+fraud_score, journeys y búsqueda vectorial no sustituyen los hallazgos analíticos
+ni constituyen requisitos aprobados. Autorización por cliente, persistencia y guards
+de selección/ownership siguen pendientes. No conectar datos reales antes de ello.
+Esta integración no cambia API, UI, herramientas ni comportamiento del runtime.
+
 An enterprise-grade, evidence-grounded customer service orchestration engine designed to reconstruct customer context, analyze digital event histories, enforce safety policies, and deliver grounded AI responses or structured human agent handoffs.
 
 ---

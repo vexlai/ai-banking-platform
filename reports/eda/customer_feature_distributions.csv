@@ -1,0 +1,7 @@
+dataset,variable,rows,valid,invalid_numeric,minimum,maximum,mean,median,p90,p95,p99
+customer_360_eda,transaction_count,150000,134515,0,2.0,150.0,32.885968107645986,29.0,59.0,68.0,88.0
+customer_360_eda,digital_event_count,150000,149997,0,1.0,238.0,79.16149656326459,77.0,116.0,128.0,152.0
+customer_360_eda,interaction_count,150000,148439,0,1.0,18.0,4.622242133132128,4.0,7.0,8.0,10.0
+customer_360_eda,complaint_count,150000,54127,0,1.0,6.0,1.2390489035047203,1.0,2.0,2.0,3.0
+customer_360_eda,survey_count,150000,113609,0,1.0,10.0,1.8713834291297344,2.0,3.0,4.0,5.0
+customer_360_eda,sends,150000,150000,0,1.0,30.0,11.641926666666667,11.0,16.0,17.0,20.0
