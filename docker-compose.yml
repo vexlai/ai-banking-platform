@@ -9,6 +9,8 @@ services:
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000
     environment:
       USE_MOCKS: "true"
+      API_KEY_REQUIRED: "${API_KEY_REQUIRED:-false}"
+      API_KEY: "${API_KEY:-}"
     ports:
       - "8000:8000"
     healthcheck:
@@ -30,6 +32,7 @@ services:
     command: streamlit run apps/demo_ui/app.py --server.port 8501 --server.address 0.0.0.0
     environment:
       API_BASE_URL: http://api_gateway:8000
+      API_KEY: "${API_KEY:-}"
     ports:
       - "8501:8501"
     depends_on:

@@ -41,6 +41,12 @@ def new_session_id() -> str:
     return f"SESS_{uuid.uuid4().hex[:8].upper()}"
 
 
+def _auth_headers() -> dict[str, str]:
+    """Forwards the shared gateway key when configured (see `api/security.py`)."""
+    api_key = os.getenv("API_KEY")
+    return {"X-API-Key": api_key} if api_key else {}
+
+
 def probe_health(base_url: str) -> HealthResponse | None:
     """Returns the gateway health payload, or None when the gateway is unreachable."""
     try:
@@ -64,6 +70,7 @@ def send_turn(base_url: str, request: ChatRequest) -> ChatResponse:
     response = requests.post(
         f"{base_url.rstrip('/')}/v1/chat",
         json=request.model_dump(),
+        headers=_auth_headers(),
         timeout=REQUEST_TIMEOUT_SECONDS,
     )
     response.raise_for_status()

@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
+from api.security import require_api_key
 from contracts import ChatRequest, ChatResponse
 from src.orchestrator.engine import OrchestratorEngine
 from src.telemetry.logger import get_logger
@@ -12,7 +13,11 @@ logger = get_logger(__name__)
 
 
 def build_router(engine: OrchestratorEngine) -> APIRouter:
-    router = APIRouter(prefix="/v1", tags=["chat"])
+    router = APIRouter(
+        prefix="/v1",
+        tags=["chat"],
+        dependencies=[Depends(require_api_key)],
+    )
 
     @router.post("/chat", response_model=ChatResponse)
     def chat(request: ChatRequest) -> ChatResponse:
