@@ -7,10 +7,11 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.routes import context, trace
 from api.routes.chat import build_router
+from contracts import HealthResponse
 from src.orchestrator.engine import OrchestratorEngine
 from src.telemetry.logger import get_logger
-from src.tools.schemas import HealthResponse
 
 API_VERSION = "0.1.0"
 DEFAULT_CORS_ORIGINS = ("*",)
@@ -42,6 +43,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(build_router(OrchestratorEngine(use_mocks=USE_MOCKS)))
+app.include_router(context.router)
+app.include_router(trace.router)
 logger.info(
     "API gateway configured: version=%s mocks_enabled=%s", API_VERSION, USE_MOCKS
 )
