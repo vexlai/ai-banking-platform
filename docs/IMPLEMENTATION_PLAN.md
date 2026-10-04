@@ -1004,11 +1004,16 @@ El MVP está terminado cuando existe:
 
 ### Identity & Intake
 
-- [ ] trusted demo IAM;
-- [ ] learned extractor;
-- [ ] structured schema validation;
+- [x] trusted demo IAM (JWT local firmado; no IAM productivo);
+- [x] learned extractor (adapter implementado/probado con mocks; inferencia real pendiente);
+- [x] structured schema validation;
 - [ ] baseline vs learned evaluation;
 - [ ] ES/PT metrics.
+
+Estado parcial de Phase 2: baseline reproducido, identidad y boundary probados;
+sin credenciales/proveedor/modelo configurados, no hay resultados learned ni mejora
+demostrada. No avanzar a Phase 3 antes de evaluar DEV, congelar configuración y
+puntuar TEST. Véase reports/IDENTITY_AI_INTAKE_DELIVERY.md.
 
 ### Investigation
 

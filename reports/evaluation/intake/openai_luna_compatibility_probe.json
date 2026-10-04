@@ -1,0 +1,24 @@
+{
+  "status": "ok",
+  "metadata": {
+    "extractor_type": "learned",
+    "model": "gpt-5.6-luna",
+    "model_version": "gpt-5.6-luna",
+    "provider": "openai-compatible",
+    "prompt_version": "dispute-extraction-prompt-v1",
+    "schema_version": "dispute-intake-eval-v1",
+    "schema_valid": true,
+    "success": true,
+    "token_usage": {
+      "input": 514,
+      "output": 60
+    },
+    "estimated_cost_usd": 0.00017480000000000002,
+    "fallback": false,
+    "returned_model": "gpt-5.6-luna",
+    "response_sha256": "f5a9f40209d3466804ff0263d530611eb09c9d77ae078b04ce24c21b3bdaa0d6",
+    "latency_ms": 3779.5472479992895
+  },
+  "purpose": "one DEV compatibility probe; not held-out scoring",
+  "reserved_maximum_usd": 0.1
+}

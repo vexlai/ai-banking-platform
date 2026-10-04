@@ -1,0 +1,2 @@
+# Optional signed demo identity. LLM SDK is already in requirements.txt.
+PyJWT==2.10.1

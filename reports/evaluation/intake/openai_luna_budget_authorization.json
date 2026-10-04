@@ -1,0 +1,10 @@
+{
+  "provider": "OpenAI",
+  "model": "gpt-5.6-luna",
+  "authorized_total_usd": 2.0,
+  "supersedes_prior_total_usd": 3.0,
+  "allocations_usd": {"compatibility_probes": 0.1, "development": 0.9, "held_out_test": 0.9, "unallocated_safety_margin": 0.1},
+  "no_automatic_retries": true,
+  "billing_assumptions": "Standard US endpoint, no tools, short context. Input allowance includes 25% cache-write surcharge. Actual API invoice may differ from token estimates.",
+  "snapshot_limitation": "Official model page lists gpt-5.6-luna only; no dated snapshot is documented. Pin exact model ID and verify returned ID; do not claim immutable underlying weights."
+}

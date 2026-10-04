@@ -62,6 +62,22 @@ es exclusivamente un harness de validación, no una opción temporal del cliente
 
 Próxima fase: Trusted Demo Identity / IAM Adapter (no implementada aquí).
 
+### Phase 2 actual: Identity & AI Intake (implementada, evaluación learned pendiente)
+
+El plan consolidó las entregas anteriores como Foundation & Secure Runtime.
+Ahora hay identidad JWT de demo, extractor estructurado consultivo y harness DEV→freeze→TEST.
+CaseService y sus guards no cambiaron. El baseline y sus 384 predicciones permanecen congelados.
+El modelo no tiene autoridad; la búsqueda todavía requiere confirmación explícita.
+
+La evaluación learned real está NOT_MEASURED: falta configurar proveedor/modelo, clave y presupuesto.
+Los mocks prueban integración/fallos, no calidad del LLM ni mejora sobre regex.
+Consulte [configuración y ejecución](docs/IDENTITY_AI_INTAKE.md) y
+[reporte y Definition of Done](reports/IDENTITY_AI_INTAKE_DELIVERY.md).
+
+    pip install -r requirements-identity-intake.txt
+    python scripts/evaluate_intake.py baseline-check
+    USE_LLM=false pytest tests/test_identity_intake.py tests/test_structured_intake.py tests/test_intake_harness.py -q
+
 ## Legacy scaffold — referencia histórica
 
 Las secciones siguientes describen el scaffold anterior, no garantías del MVP actual.

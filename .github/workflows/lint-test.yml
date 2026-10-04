@@ -26,6 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-dataset-tools.txt
+        pip install -r requirements-identity-intake.txt
         pip install ruff mypy
 
     - name: Run Ruff Linter
@@ -60,6 +61,12 @@ jobs:
         ruff check tests/test_dataset_tools.py scripts/prepare_banking_serving.py scripts/validate_dataset_tools.py
         ruff format --check tests/test_dataset_tools.py scripts/prepare_banking_serving.py scripts/validate_dataset_tools.py
         pytest tests/test_dataset_tools.py -q
+
+    - name: Check trusted identity and intake (mock provider, no paid calls)
+      run: |
+        ruff check src/identity src/intake scripts/evaluate_intake.py scripts/issue_demo_token.py tests/test_identity_intake.py tests/test_structured_intake.py tests/test_intake_harness.py
+        ruff format --check src/identity src/intake scripts/evaluate_intake.py scripts/issue_demo_token.py tests/test_identity_intake.py tests/test_structured_intake.py tests/test_intake_harness.py
+        pytest tests/test_identity_intake.py tests/test_structured_intake.py tests/test_intake_harness.py -q
 
   analytics-integrity:
     runs-on: ubuntu-latest

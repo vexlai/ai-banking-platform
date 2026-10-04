@@ -14,7 +14,9 @@ from src.cases.tools import FixtureTools
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def fixture_service(path: Path, token_a: str, token_b: str, anchor: datetime):
+def fixture_service(
+    path: Path, token_a: str, token_b: str, anchor: datetime, *, identity_adapter=None
+):
     """Reuse development A/C fixtures; translate timestamps by a server-configured offset.
 
     Product/type/channel/status are explicitly synthetic additions required by the
@@ -22,7 +24,9 @@ def fixture_service(path: Path, token_a: str, token_b: str, anchor: datetime):
     Anchor must remain fixed across server restarts; the AUTH clock stays live.
     """
     aware(anchor)
-    if len(token_a) < 32 or len(token_b) < 32 or token_a == token_b:
+    if identity_adapter is None and (
+        len(token_a) < 32 or len(token_b) < 32 or token_a == token_b
+    ):
         raise ValueError(
             "Two distinct fixture credentials of at least 32 characters required"
         )
@@ -66,7 +70,9 @@ def fixture_service(path: Path, token_a: str, token_b: str, anchor: datetime):
         )
         for r in rows.values()
     ]
-    resolve = local_credential_verifier(token_a, token_b, owner_a, owner_b)
+    resolve = identity_adapter or local_credential_verifier(
+        token_a, token_b, owner_a, owner_b
+    )
     tools = FixtureTools(
         transactions,
         {f"synthetic-product:{owner}": owner for owner in (owner_a, owner_b)},
@@ -107,16 +113,18 @@ def local_credential_verifier(token_a, token_b, owner_a, owner_b):
     return resolve
 
 
-def from_environment():
+def from_environment(*, identity_adapter=None):
     if os.getenv("DISPUTE_FIXTURE_MODE") != "true":
         return None  # Fail closed; no default credential or implicit principal.
     try:
         anchor = aware(datetime.fromisoformat(os.environ["DISPUTE_FIXTURE_ANCHOR"]))
-        token_a = os.environ["DISPUTE_DEMO_TOKEN_A"]
-        token_b = os.environ["DISPUTE_DEMO_TOKEN_B"]
+        token_a = os.environ["DISPUTE_DEMO_TOKEN_A"] if identity_adapter is None else ""
+        token_b = os.environ["DISPUTE_DEMO_TOKEN_B"] if identity_adapter is None else ""
     except (KeyError, ValueError):
         raise RuntimeError(
             "Explicit fixture credentials and timezone-aware anchor required"
         ) from None
     path = Path(os.getenv("DISPUTE_DB_PATH", ".tmp/disputes/http.sqlite3"))
-    return fixture_service(path, token_a, token_b, anchor)
+    return fixture_service(
+        path, token_a, token_b, anchor, identity_adapter=identity_adapter
+    )

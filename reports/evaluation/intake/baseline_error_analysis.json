@@ -1,0 +1,142 @@
+{
+  "development": {
+    "categories": {
+      "amount_extraction": 36,
+      "currency_extraction": 12,
+      "intent_extraction": 12,
+      "clarification_false_positive": 12
+    },
+    "sanitized_references": [
+      {
+        "case_id": "group-0009c22232890f00-es-01",
+        "language": "es",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-0009c22232890f00-es-08",
+        "language": "es",
+        "categories": [
+          "amount_extraction",
+          "currency_extraction"
+        ]
+      },
+      {
+        "case_id": "group-0009c22232890f00-es-12",
+        "language": "es",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-0009c22232890f00-es-13",
+        "language": "es",
+        "categories": [
+          "intent_extraction",
+          "clarification_false_positive"
+        ]
+      },
+      {
+        "case_id": "group-0009c22232890f00-pt-01",
+        "language": "pt",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-0009c22232890f00-pt-08",
+        "language": "pt",
+        "categories": [
+          "amount_extraction",
+          "currency_extraction"
+        ]
+      },
+      {
+        "case_id": "group-0009c22232890f00-pt-12",
+        "language": "pt",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-0009c22232890f00-pt-13",
+        "language": "pt",
+        "categories": [
+          "intent_extraction",
+          "clarification_false_positive"
+        ]
+      }
+    ]
+  },
+  "test": {
+    "categories": {
+      "amount_extraction": 36,
+      "currency_extraction": 12,
+      "intent_extraction": 12,
+      "clarification_false_positive": 12
+    },
+    "sanitized_references": [
+      {
+        "case_id": "group-001d624f0208b967-es-01",
+        "language": "es",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-001d624f0208b967-es-08",
+        "language": "es",
+        "categories": [
+          "amount_extraction",
+          "currency_extraction"
+        ]
+      },
+      {
+        "case_id": "group-001d624f0208b967-es-12",
+        "language": "es",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-001d624f0208b967-es-13",
+        "language": "es",
+        "categories": [
+          "intent_extraction",
+          "clarification_false_positive"
+        ]
+      },
+      {
+        "case_id": "group-001d624f0208b967-pt-01",
+        "language": "pt",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-001d624f0208b967-pt-08",
+        "language": "pt",
+        "categories": [
+          "amount_extraction",
+          "currency_extraction"
+        ]
+      },
+      {
+        "case_id": "group-001d624f0208b967-pt-12",
+        "language": "pt",
+        "categories": [
+          "amount_extraction"
+        ]
+      },
+      {
+        "case_id": "group-001d624f0208b967-pt-13",
+        "language": "pt",
+        "categories": [
+          "intent_extraction",
+          "clarification_false_positive"
+        ]
+      }
+    ]
+  }
+}

@@ -10,9 +10,22 @@ from src.cases.store import CaseStore
 
 
 def from_environment():
+    identity = os.getenv("DISPUTE_IDENTITY_BACKEND", "local")
+    if identity not in {"local", "jwt"}:
+        raise ValueError("DISPUTE_IDENTITY_BACKEND must be local or jwt")
+    jwt_resolve = None
+    if identity == "jwt":
+        if os.getenv("ENABLE_LEGACY_API") != "false":
+            raise ValueError("Signed dispute identity requires legacy API disabled")
+        from src.identity.demo_jwt import from_environment as jwt_environment
+
+        jwt_resolve = jwt_environment()
     backend = os.getenv("BANKING_TOOLS_BACKEND", "fixture")
     if backend == "fixture":
-        return fixture_environment()
+        runtime = fixture_environment(identity_adapter=jwt_resolve)
+        if jwt_resolve and runtime is None:
+            raise ValueError("Explicit fixture backend configuration required")
+        return runtime
     if backend != "dataset":
         raise ValueError("BANKING_TOOLS_BACKEND must be fixture or dataset")
     if os.getenv("ENABLE_LEGACY_API") != "false":
@@ -24,7 +37,7 @@ def from_environment():
     try:
         source = Path(os.environ["BANKING_SERVING_PATH"])
         policy = os.environ["BANKING_TIME_POLICY"]
-        resolve = local_credential_verifier(
+        resolve = jwt_resolve or local_credential_verifier(
             os.environ["DISPUTE_DEMO_TOKEN_A"],
             os.environ["DISPUTE_DEMO_TOKEN_B"],
             os.environ["DISPUTE_DEMO_CUSTOMER_A"],

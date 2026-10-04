@@ -1,0 +1,4 @@
+{
+  "status": "NOT_MEASURED",
+  "reason": "Live provider/model configuration and credentials required; mocked tests are not learned results"
+}

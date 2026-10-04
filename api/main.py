@@ -35,10 +35,19 @@ def _cors_origins() -> list[str]:
 USE_MOCKS = _env_flag("USE_MOCKS", default=True)
 
 
-def create_app(case_service: CaseService | None = None, *, include_legacy: bool = True):
+def create_app(
+    case_service: CaseService | None = None,
+    *,
+    include_legacy: bool = True,
+    intake_extractor=None,
+):
     """Composition only. Dispute routes exclusively call the injected CaseService."""
     application = FastAPI(title="AI Banking Platform", version=API_VERSION)
     application.state.case_service = case_service
+    from api.routes.intake_extraction import router as intake_router
+    from src.intake.extractor import RegexBaselineExtractor
+
+    application.state.intake_extractor = intake_extractor or RegexBaselineExtractor()
     application.add_middleware(
         CORSMiddleware,
         allow_origins=_cors_origins(),
@@ -48,6 +57,7 @@ def create_app(case_service: CaseService | None = None, *, include_legacy: bool 
         expose_headers=["X-Request-ID"],
     )
     application.include_router(disputes.router)
+    application.include_router(intake_router)
     if include_legacy:
         from api.routes import context, trace
         from api.routes.chat import build_router
@@ -66,6 +76,10 @@ def create_app(case_service: CaseService | None = None, *, include_legacy: bool 
     return application
 
 
+from src.intake.extractor import from_environment as extractor_environment
+
 app = create_app(
-    from_environment(), include_legacy=_env_flag("ENABLE_LEGACY_API", default=True)
+    from_environment(),
+    include_legacy=_env_flag("ENABLE_LEGACY_API", default=True),
+    intake_extractor=extractor_environment(),
 )
