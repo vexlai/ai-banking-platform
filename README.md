@@ -2,6 +2,16 @@
 
 An enterprise-grade, evidence-grounded customer service orchestration engine designed to reconstruct customer context, analyze digital event histories, enforce safety policies, and deliver grounded AI responses or structured human agent handoffs.
 
+## 0. Delivery Status
+
+| Scope | Status | Notes |
+| :--- | :--- | :--- |
+| `api/`, `src/orchestrator/`, `src/policy/`, `src/telemetry/` | **Completed** | Gateway, orchestrator state machine, policy engine, telemetry tracing. |
+| `src/data/` (`config`, `data_utils`, `eda/`, `workflows/`, `evaluation/`) | **Completed** | Analytics & EDA modules migrated from the `analitica` branch. |
+| `notebooks/`, `docs/` | **Completed** | 7 EDA notebooks plus the analytics docs and EDA runbook. |
+| `src/tools/context_tools.py` (INT-01) | **Projected** | DuckDB context tools replacing `src/tools/mocks.py`; currently stubs. |
+| `src/retrieval/vector_store.py` (INT-02) | **Projected** | FAISS retrieval over `call_transcripts.parquet`; currently stubs. |
+
 ---
 
 ## 1. System Objectives & Architectural Standards
@@ -30,7 +40,7 @@ The system interfaces with the LATAM Bank dataset (~19M records spanning June 17
 | **Customer Support** | `call_center_interactions`, `call_transcripts`, `service_agents` | **`interaction_history`** & **`similar_transcripts`**: Last 5–10 interactions + FAISS top-3 semantic transcript match. |
 | **Cases & Feedback** | `complaints`, `satisfaction_surveys` | **`open_cases`**: Active cases, SLA breach indicators, and repeat complaint flags. |
 
-> **Implementation note:** The serving views and FAISS index above are the target contract. Until Developer A delivers `src/tools/context_tools.py` (INT-01) and `src/retrieval/vector_store.py` (INT-02), every tool is served from the deterministic fixtures in `src/tools/mocks.py`; the orchestrator and HTTP layers are agnostic to the data source.
+> **Implementation note:** The serving views and FAISS index above are the target contract. `src/tools/context_tools.py` (INT-01) and `src/retrieval/vector_store.py` (INT-02) are **currently stubs** that raise `NotImplementedError`; until they are implemented, every tool is served from the deterministic fixtures in `src/tools/mocks.py`, and the orchestrator and HTTP layers stay agnostic to the data source.
 
 ---
 
@@ -53,18 +63,36 @@ ai-banking-platform/
 │   └── demo_ui/                # Streamlit UI with live evidence side-panel
 │
 ├── src/                        # Core Application Packages
-│   ├── data/                   # Data Access & Ingestion Engine        [Dev A · INT-01, planned]
-│   │   ├── db.py               # DuckDB connection & query runner      (planned)
-│   │   ├── ingest.py           # Parquet sync, dedup & schema validation (planned)
-│   │   └── views.py            # SQL definitions for serving views     (planned)
+│   ├── data/                   # Data Access, EDA & Analytics engine
+│   │   ├── config.py           # Analytics paths & reference date
+│   │   ├── data_utils.py       # DuckDB connection & dataset discovery helpers
+│   │   ├── eda/                # Domain EDA & profiling
+│   │   │   ├── eda_core.py     # Shared EDA primitives (OUT, FIG, start, finish)
+│   │   │   ├── eda_domains.py  # Per-domain descriptive analysis
+│   │   │   ├── eda_outputs.py  # Figure/CSV writers
+│   │   │   ├── eda_readiness.py# Readiness & integrity checks before analysis
+│   │   │   ├── eda_utils.py    # Start/finish helpers wiring the EDA stages
+│   │   │   ├── dispute_eda.py  # Transaction-dispute EDA addendum
+│   │   │   └── profiling_utils.py  # Dataset profiling & inventory
+│   │   ├── workflows/          # Dispute case-workflow discovery & reporting
+│   │   │   ├── dispute_workflow_data.py     # Cohort/retrieval data pulls
+│   │   │   ├── dispute_workflow_context.py  # Context enrichment
+│   │   │   ├── dispute_workflow_design.py   # Future-state workflow design
+│   │   │   ├── dispute_reporting.py         # Artifact tables & reports
+│   │   │   ├── reporting.py                 # Report formatting helpers
+│   │   │   └── mvp_definition.py            # MVP use-case definition
+│   │   └── evaluation/         # Baseline harness & eval dataset generation
+│   │       ├── dataset.py      # Synthetic eval-dataset generation
+│   │       ├── metrics.py      # Extraction/retrieval/handoff metrics
+│   │       ├── baseline_intake_parser.py    # Baseline intake parsing
+│   │       └── run_baseline.py # Baseline runner & report
 │   │
 │   ├── tools/                  # Tool Implementations (contracts live in contracts/)
 │   │   ├── mocks.py            # Deterministic fixtures — active today
-│   │   └── context_tools.py    # DuckDB-backed context lookup tools    [Dev A · INT-01, planned]
+│   │   └── context_tools.py    # DuckDB-backed context lookup tools    [INT-01, stub]
 │   │
-│   ├── retrieval/              # Vector Search & Unstructured Data      [Dev A · INT-02, planned]
-│   │   ├── embeddings.py       # Sentence Transformer embedding pipelines (planned)
-│   │   └── vector_store.py     # FAISS index & semantic transcript retriever (planned)
+│   ├── retrieval/              # Vector Search & Unstructured Data
+│   │   └── vector_store.py     # FAISS index & semantic transcript retriever [INT-02, stub]
 │   │
 │   ├── orchestrator/           # LLM Orchestration & State Machine
 │   │   ├── state_machine.py    # UNDERSTAND -> GATHER -> DECIDE -> RESPOND
@@ -83,7 +111,8 @@ ai-banking-platform/
 │   ├── golden_cases.jsonl      # Test scenarios covering standard & high-risk cases
 │   └── run_eval.py             # Evaluation runner (Accuracy, Precision, Latency)
 │
-├── notebooks/                  # Exploratory Data Analysis (EDA)
+├── notebooks/                  # EDA notebooks (00–05: inventory → baseline/eval)
+├── docs/                       # Analytics docs & EDA runbook
 ├── tests/                      # pytest suites (19 tests)
 │   ├── test_policy.py          # PII redaction & risk decision rules
 │   ├── test_api.py             # /health, /v1/chat, context, trace & auth guard
@@ -91,6 +120,7 @@ ai-banking-platform/
 │   └── test_guardrails.py      # module-boundary checks (contract purity, HTTP boundary)
 ├── Dockerfile                  # Multi-stage image (python:3.13-slim)
 ├── docker-compose.yml          # api_gateway:8000 + streamlit_ui:8501
+├── pyproject.toml              # Ruff lint/format configuration
 └── requirements.txt            # Python environment dependencies
 ```
 
@@ -215,10 +245,14 @@ AWS_DEFAULT_REGION=us-east-2
 # Sync dataset from S3 to local ./data folder
 aws s3 sync s3://factored-datathon-2026-s3-157725502942-us-east-2-an/data/ ./data/
 
-# Run data pipeline to build DuckDB serving views and FAISS index
-python -m src.data.ingest
-python -m src.retrieval.vector_store
+# Build the DuckDB serving views and the FAISS index (INT-01 / INT-02)
+python -m src.data.ingest             # pending — context_tools.py is a stub
+python -m src.retrieval.vector_store  # pending — vector_store.py is a stub
 ```
+
+> **Pending:** `src/tools/context_tools.py` (INT-01) and `src/retrieval/vector_store.py`
+> (INT-02) are stubs, so the two pipeline commands above are non-functional until those
+> modules are implemented.
 
 ### 7.4 Running System Components
 Execute components in separate terminal sessions:
