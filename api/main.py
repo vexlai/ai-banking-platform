@@ -7,7 +7,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.dispute_fixture import from_environment
+from api.dispute_configuration import from_environment
 from api.routes import disputes
 from contracts import HealthResponse
 from src.cases.service import CaseService

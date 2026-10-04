@@ -66,6 +66,24 @@ def fixture_service(path: Path, token_a: str, token_b: str, anchor: datetime):
         )
         for r in rows.values()
     ]
+    resolve = local_credential_verifier(token_a, token_b, owner_a, owner_b)
+    tools = FixtureTools(
+        transactions,
+        {f"synthetic-product:{owner}": owner for owner in (owner_a, owner_b)},
+        anchor - timedelta(days=30),
+    )
+    return CaseService(CaseStore(path), tools, resolve)
+
+
+def local_credential_verifier(token_a, token_b, owner_a, owner_b):
+    """Existing one-hour LOCAL DEMO verifier; mapping is server configuration only."""
+    if (
+        len(token_a) < 32
+        or len(token_b) < 32
+        or token_a == token_b
+        or owner_a == owner_b
+    ):
+        raise ValueError("Distinct local credentials and customers required")
     now = datetime.now(timezone.utc)
     principals = [
         Principal(
@@ -86,12 +104,7 @@ def fixture_service(path: Path, token_a: str, token_b: str, anchor: datetime):
                     return principal
         raise Rejected("AUTH_DENIED")
 
-    tools = FixtureTools(
-        transactions,
-        {f"synthetic-product:{owner}": owner for owner in (owner_a, owner_b)},
-        anchor - timedelta(days=30),
-    )
-    return CaseService(CaseStore(path), tools, resolve)
+    return resolve
 
 
 def from_environment():

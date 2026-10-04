@@ -41,7 +41,26 @@ Consulte [arranque, requests y seguridad](docs/SECURE_APPLICATION_ADAPTER.md) y
     USE_LLM=false .venv/bin/python scripts/smoke_dispute_http.py
 
 Para el nuevo MVP ejecutar con ENABLE_LEGACY_API=false; no usar la UI antigua como
-demostración del flujo nuevo. Serving read-only real sigue pendiente.
+demostración del flujo nuevo.
+
+### Fase 2: Dataset-backed Banking Tools
+
+El mismo CaseService y la misma API admiten BANKING_TOOLS_BACKEND=fixture (default)
+o dataset. DatasetTools abre una proyección DuckDB indexada read-only de 4,425,008
+transacciones, 400,000 productos y 150,000 clientes. SQLite sólo almacena casos.
+No se agregaron LLM, matching de complaints ni adjudicación.
+
+Consulte [preparación y arranque](docs/DATASET_BACKED_TOOLS.md),
+[entrega y limitaciones](reports/DATASET_BACKED_TOOLS_DELIVERY.md) y
+[benchmark local](reports/dataset_tool_benchmark.json).
+La demo exige configuración explícita de credenciales locales y política temporal;
+no es IAM productivo. Las fechas fuente no documentan timezone. El replay histórico
+es exclusivamente un harness de validación, no una opción temporal del cliente HTTP.
+
+    pip install -r requirements.txt -r requirements-dataset-tools.txt
+    USE_LLM=false pytest tests/test_dataset_tools.py -q
+
+Próxima fase: Trusted Demo Identity / IAM Adapter (no implementada aquí).
 
 ## Legacy scaffold — referencia histórica
 

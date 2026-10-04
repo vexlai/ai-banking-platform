@@ -1,10 +1,12 @@
-# IMPLEMENTATION_PLAN.md 
+# IMPLEMENTATION_PLAN.md
 
 ## 1. Propósito
 
-Este plan parte del estado real del repositorio y del **Frozen MVP Contract v1**. No reabre discovery ni baseline ya cerrados.
+Este plan parte del estado actual del repositorio y del **Frozen MVP Contract v1**.
 
-MVP:
+No reabre discovery, EDA, definición del caso de uso ni baseline ya cerrados.
+
+### MVP
 
 > **Transaction Dispute Intake & Investigation Copilot**
 
@@ -12,69 +14,156 @@ Resultado final observable:
 
 > **HANDOFF_RECORDED**
 
-No incluye adjudicación, fraude definitivo, compensación, money movement ni cierre autónomo.
+El sistema ayuda a recibir, investigar, estructurar y preparar una disputa transaccional para revisión humana.
+
+### Fuera de alcance
+
+El MVP **no realiza**:
+
+- adjudicación autónoma de disputas;
+- determinación definitiva de fraude;
+- compensaciones;
+- movimientos de dinero;
+- reversos;
+- cierre autónomo de casos;
+- decisiones financieras irreversibles.
+
+La autoridad final permanece fuera del componente generativo.
 
 ---
 
-## 2. Estado actual
+# 2. Principios de arquitectura
 
-### DONE / FROZEN
+El MVP mantiene una separación explícita entre:
 
-- [x] Dataset inventory.
-- [x] Ingestion/profiling analítico.
-- [x] EDA general.
-- [x] Transaction-dispute EDA addendum.
-- [x] Workflow discovery.
-- [x] `04_mvp_use_case_definition.ipynb`.
-- [x] Frozen MVP Contract v1.
-- [x] `05_baseline_and_eval_dataset.ipynb`.
-- [x] 384 utterances authored ES/PT con split agrupado.
-- [x] Baseline regex congelado.
-- [x] 132 controlled retrieval fixtures.
-- [x] Safety-contract fixtures offline.
-- [x] Runtime determinístico de casos.
-- [x] SQLite persistence/versioning/idempotency.
-- [x] Explicit candidate confirmation.
-- [x] Ownership/as_of/evidence guards.
-- [x] Handoff local durable/idempotente.
-- [x] Auditoría de runtime.
+```text
+Code / Guards
+     ↓
+Deterministic authority
 
-### CURRENT GAP
+Database / Tools
+     ↓
+Verified facts
 
-FastAPI ya integra el runtime nuevo mediante /v1/disputes, separado del API/orchestrator/UI legado. La demo HTTP sigue usando fixtures sintéticos y credenciales locales explícitas; no usa serving bancario real ni IAM productivo. Ver reports/APPLICATION_ADAPTER_DELIVERY.md.
+AI
+     ↓
+Extraction + clarification + narrative
+
+Human
+     ↓
+Final authority
+```
+
+## Reglas invariantes
+
+Los componentes de IA no pueden modificar ni decidir:
+
+- identidad del cliente;
+- autorización;
+- ownership;
+- `as_of_time`;
+- cross-customer access;
+- idempotencia;
+- confirmación de transacción;
+- state transitions críticas;
+- ejecución del handoff;
+- operaciones financieras.
+
+El usuario debe confirmar explícitamente una transacción candidata cuando corresponda.
+
+No se permite SQL arbitrario generado por modelos.
 
 ---
 
-## 3. Gate 0 — Freeze preservation
+# 3. Estado actual
 
-Antes de cualquier feature:
+## DONE / FROZEN
 
-- [ ] marcar 04, 05 y `mvp-contract-v1` como read-only lógico;
-- [ ] documentar hashes/versiones de eval artifacts usados por CI;
-- [ ] impedir overwrite silencioso de baseline/test fixtures;
-- [x] actualizar README para distinguir claramente legacy scaffold vs current MVP runtime.
+- Dataset inventory.
+- Ingestion/profiling.
+- EDA general.
+- Transaction-dispute EDA.
+- Workflow discovery.
+- `04_mvp_use_case_definition.ipynb`.
+- Frozen MVP Contract v1.
+- `05_baseline_and_eval_dataset.ipynb`.
+- 384 utterances ES/PT.
+- Baseline regex congelado.
+- Controlled retrieval fixtures.
+- Safety fixtures offline.
+- Deterministic case runtime.
+- SQLite persistence/versioning.
+- Idempotency.
+- Explicit candidate confirmation.
+- Ownership guards.
+- `as_of` guards.
+- Durable/idempotent local handoff.
+- Runtime audit.
+- FastAPI → `CaseService`.
+- Secure application adapter.
+- Dataset-backed `TransactionTools`.
 
-**DoD:** ninguna tarea posterior necesita modificar discovery/baseline para funcionar.
+## CURRENT POSITION
+
+```text
+Phase 1 — Foundation & Secure Runtime      ✅ DONE
+Phase 2 — Identity & AI Intake             ← NEXT
+Phase 3 — Investigation Intelligence
+Phase 4 — Safety, Evaluation & Observability
+Phase 5 — Demo Productization
+Phase 6 — Submission
+```
 
 ---
 
-## 4. Fase 1 — Secure Application Adapter
+# 4. Phase 1 — Foundation & Secure Runtime ✅
 
-### Objetivo
+## Objetivo
 
-Conectar FastAPI al runtime determinístico nuevo sin duplicar su business logic.
+Construir un runtime determinístico, seguro y reproducible que exponga el workflow mediante API y consulte datos transaccionales reales de manera read-only.
 
-### Tareas
+Esta fase consolida las antiguas:
 
-- [x] crear endpoints de casos/disputes que deleguen en `CaseService`;
-- [x] mapear errores del dominio a respuestas HTTP seguras;
-- [x] exigir principal/session context;
-- [x] transportar idempotency key y expected version; generar request_id HTTP (v1 no admite persistirlo en audit);
-- [x] exponer estado/audit/handoff sólo dentro del scope autorizado;
-- [x] mantener `/health` y compatibilidad de demo cuando sea útil;
-- [x] no enrutar el nuevo workflow por el orchestrator legado.
+- Freeze preservation.
+- Secure Application Adapter.
+- Dataset-backed Banking Tools.
 
-### Endpoints conceptuales
+---
+
+## 4.1 Frozen artifacts
+
+Mantener como read-only lógico:
+
+- `04_mvp_use_case_definition.ipynb`;
+- `05_baseline_and_eval_dataset.ipynb`;
+- `mvp-contract-v1`;
+- evaluation fixtures;
+- baseline artifacts.
+
+Registrar:
+
+- hashes;
+- versiones;
+- configuración;
+- datasets utilizados.
+
+No modificar discovery/baseline para hacer funcionar features posteriores.
+
+---
+
+## 4.2 Secure Application Adapter
+
+Arquitectura:
+
+```text
+FastAPI
+   ↓
+CaseService
+   ↓
+Domain/runtime
+```
+
+Endpoints principales:
 
 ```text
 POST /v1/disputes
@@ -82,216 +171,441 @@ POST /v1/disputes/{case_id}/search
 POST /v1/disputes/{case_id}/confirm
 POST /v1/disputes/{case_id}/evidence
 POST /v1/disputes/{case_id}/handoff
+
 GET  /v1/disputes/{case_id}
 GET  /v1/disputes/{case_id}/audit
 GET  /v1/disputes/{case_id}/handoff
 ```
 
-Rutas implementadas; detalles y ejemplos en docs/SECURE_APPLICATION_ADAPTER.md.
+Requisitos:
 
-### DoD
-
-- [x] API tests cubren happy/ambiguous/no-candidate/unauthorized/idempotent replay.
-- [x] No existe bypass de `CaseService`.
-- [x] El flujo nuevo puede ejecutarse completamente vía HTTP usando fixtures.
-
-Validado: 30 tests nuevos API, 103 tests totales; Uvicorn real + reinicio/replay sin duplicados.
-Contratos/baseline/fixtures congelados preservados. El verificador histórico de importación
-tiene discrepancias preexistentes documentadas; no se afirma CI remoto completo verde.
+- no bypass de `CaseService`;
+- HTTP error mapping seguro;
+- principal/session context;
+- idempotency key;
+- expected version;
+- request/correlation ID;
+- audit y handoff protegidos por scope.
 
 ---
 
-## 5. Fase 2 — Dataset-backed Banking Tools
+## 4.3 Dataset-backed TransactionTools
 
-### Objetivo
-
-Reemplazar fixtures de transacciones por serving read-only sobre el dataset real sin cambiar el contrato del runtime.
-
-### Arquitectura
+Arquitectura:
 
 ```text
 CaseService
-   ↓
-TransactionTools interface
-   ├── FixtureTransactionTools
-   └── DuckDBTransactionTools / equivalent
-               ↓
-         Parquet / curated dataset
+      ↓
+TransactionTools
+      │
+      ├── FixtureTransactionTools
+      │
+      └── DuckDBTransactionTools
+                    ↓
+             Parquet / Dataset
 ```
 
-### Tareas
+Capacidades:
 
-- [ ] inspeccionar ubicación y formatos reales;
-- [ ] definir queries bounded y parameterized;
-- [ ] implementar transaction search;
-- [ ] implementar exact transaction lookup;
-- [ ] implementar ownership/product lookup;
-- [ ] implementar strictly-prior history;
-- [ ] preservar `as_of_time`;
-- [ ] reportar truncation/missingness;
-- [ ] validar performance básica;
-- [ ] añadir contract tests compartidos entre fixture y dataset implementation.
+- transaction search;
+- exact transaction lookup;
+- ownership lookup;
+- product lookup;
+- strictly-prior history;
+- `as_of_time`;
+- bounded queries;
+- parameterized queries;
+- truncation reporting;
+- missingness reporting.
 
-### DoD
+### Definition of Done
 
-- [ ] mismos contratos y guards para fixtures y dataset;
-- [ ] cero cross-customer leakage en tests;
-- [ ] no SQL arbitrario desde LLM/API;
-- [ ] tres journeys reproducibles usando datos del dataset o fixtures explícitamente etiquetados cuando no sea posible.
+- API funciona end-to-end;
+- runtime usa `CaseService`;
+- persistence/idempotency funcionando;
+- Dataset TransactionTools read-only;
+- mismo contrato fixture/dataset;
+- cero cross-customer leakage;
+- no SQL generado por IA;
+- journeys reproducibles;
+- tests contractuales compartidos.
 
----
+### Estado
 
-## 6. Fase 3 — Trusted Demo Identity / IAM Adapter
-
-### Objetivo
-
-Cumplir identidad confiable sin fingir que `customer_id` escrito por el usuario autentica al cliente.
-
-### Tareas
-
-- [ ] implementar adapter de principal de prueba firmado o mecanismo equivalente;
-- [ ] expiración;
-- [ ] scope;
-- [ ] issuer/audience según mecanismo elegido;
-- [ ] revocación o limitación documentada;
-- [ ] customer mapping fuera del LLM;
-- [ ] registrar rechazos sin filtrar existencia de recursos.
-
-### DoD
-
-- [ ] valid/expired/invalid/cross-customer tests;
-- [ ] identidad del texto nunca cambia autoridad;
-- [ ] limitaciones de IAM demo documentadas.
+> ✅ COMPLETADA
 
 ---
 
-## 7. Fase 4 — Learned Structured Intake Extraction
+# 5. Phase 2 — Identity & AI Intake
 
-### Objetivo
+## Objetivo
 
-Implementar el componente AI/ML requerido y compararlo con el baseline congelado.
+Construir una entrada confiable al workflow combinando:
 
-### Tareas
+1. identidad autoritativa;
+2. extracción estructurada basada en AI/ML;
+3. validación determinística.
 
-- [ ] seleccionar modelo/provider;
-- [ ] prompt/schema versionado;
-- [ ] output estructurado y validado;
-- [ ] no incluir labels ni principal autoritativo en prompt;
-- [ ] congelar configuración antes del test final;
-- [ ] correr dev y luego test una sola vez por versión evaluada;
-- [ ] medir ES/PT por separado;
-- [ ] persistir outputs, latency y cost;
-- [ ] error analysis.
+Arquitectura:
+
+```text
+                Request
+                   │
+          ┌────────┴────────┐
+          ↓                 ↓
+ Trusted Identity      User Utterance
+          │                 │
+          │                 ▼
+          │          Learned Extractor
+          │                 │
+          │                 ▼
+          │         Structured Intake
+          │                 │
+          └────────┬────────┘
+                   ▼
+        Deterministic Validation
+                   │
+                   ▼
+              CaseService
+```
+
+---
+
+## 5.1 Trusted Demo Identity
+
+La identidad nunca se obtiene del contenido escrito por el usuario.
+
+Implementar un adapter de identidad confiable mediante:
+
+- token firmado;
+- principal;
+- issuer;
+- audience;
+- expiration;
+- scopes;
+- customer mapping;
+- demo IAM adapter.
+
+El modelo jamás debe poder cambiar:
+
+```text
+customer_id
+principal
+scope
+ownership
+```
+
+### Tests mínimos
+
+- valid token;
+- expired token;
+- invalid signature;
+- invalid audience;
+- insufficient scope;
+- cross-customer access.
+
+---
+
+## 5.2 Learned Structured Intake Extraction
+
+Objetivo:
+
+Transformar lenguaje natural en una representación estructurada del reclamo.
+
+Ejemplo:
+
+```text
+"Me aparece un cargo de aproximadamente
+80 dólares en Amazon de la semana pasada."
+```
+
+↓
+
+```json
+{
+  "merchant": "Amazon",
+  "amount": 80,
+  "currency": "USD",
+  "transaction_date": null,
+  "should_clarify": true
+}
+```
+
+El output debe utilizar schema validado.
+
+Requisitos:
+
+- modelo/provider definido;
+- prompt versionado;
+- schema versionado;
+- structured output;
+- validación Pydantic/equivalente;
+- no incluir identidad autoritativa;
+- no incluir labels del evaluation set;
+- configuración congelada antes del test final.
+
+---
+
+## 5.3 Baseline vs Learned
+
+Comparar contra el baseline congelado utilizando exactamente el mismo held-out workload.
 
 ### Métricas
 
 - full-schema exact match;
-- per-field precision/recall/F1/EM;
+- per-field precision;
+- per-field recall;
+- per-field F1;
+- per-field exact match;
 - schema validity;
 - hallucinated-field rate;
 - missing-required-clue exact match;
-- should-clarify accuracy;
-- p50/p95 latency;
+- `should_clarify` accuracy;
+- p50 latency;
+- p95 latency;
 - cost/case.
 
-### DoD
+Reportar por separado:
 
-- [ ] comparación baseline vs learned sobre mismo held-out workload;
-- [ ] safety guards sin cambios;
-- [ ] resultados y limitaciones reproducibles;
-- [ ] PT identificado explícitamente como team-generated.
+```text
+ES
+PT
+Overall
+```
 
----
-
-## 8. Fase 5 — Controlled Clarification
-
-### Objetivo
-
-Usar AI para redactar/interpretar aclaraciones sin ceder autoridad del workflow.
-
-### Reglas
-
-- preguntar sólo datos útiles y permitidos;
-- no inferir moneda/fecha crítica sin confirmación;
-- no auto-seleccionar por unicidad;
-- máximo de turnos definido por contrato versionado;
-- al agotar aclaración, abstain/handoff;
-- salida estructurada además de texto.
-
-### DoD
-
-- [ ] casos missing amount/date/currency/merchant;
-- [ ] multiple candidates;
-- [ ] contradictory clues;
-- [ ] no candidate;
-- [ ] ES/PT;
-- [ ] clarification correctness evaluada con referencias.
+El dataset PT debe identificarse explícitamente como team-generated cuando corresponda.
 
 ---
 
-## 9. Fase 6 — Grounded Summary & Handoff Narrative
+## 5.4 Experimentos opcionales
 
-### Objetivo
+Solamente después de establecer el baseline del learned extractor pueden evaluarse modelos especializados de decisión.
 
-Generar texto útil al humano sin convertirlo en autoridad.
+Ejemplo:
 
-### Tareas
+```text
+Structured Intake
+       ↓
+Decision Model
+       ↓
+SEARCH / CLARIFY / HANDOFF
+```
 
-- [ ] construir contexto sólo desde EvidenceBundle allowlisted;
-- [ ] requerir evidence refs para factual claims;
-- [ ] mantener unknowns/unresolved questions;
-- [ ] validar claims estructurados determinísticamente;
-- [ ] conservar paquete determinístico incluso si el LLM falla.
+Cualquier modelo adicional debe demostrar una mejora medible antes de incorporarse al runtime principal.
 
-### DoD
-
-- [ ] handoff completo sin LLM sigue funcionando;
-- [ ] resumen no introduce datos sin evidencia;
-- [ ] quality rubric y muestra revisada humanamente.
+No debe convertirse en autoridad del workflow.
 
 ---
 
-## 10. Fase 7 — End-to-End Safety / Adversarial Suite
+## Definition of Done
 
-### Casos mínimos
-
-- [ ] cross-customer access;
-- [ ] expired/invalid auth;
-- [ ] prompt injection;
-- [ ] request de revelar system prompt/secrets;
-- [ ] tool timeout/error;
-- [ ] malformed model output;
-- [ ] no candidate;
-- [ ] multiple candidates;
-- [ ] contradictory user claims;
-- [ ] future transaction leakage;
-- [ ] unauthorized financial action;
-- [ ] out-of-scope workflow;
-- [ ] Portuguese ambiguity.
-
-### Métricas
-
-- unsafe outcomes con n y denominador;
-- missed handoffs;
-- unnecessary handoffs;
-- auth/ownership violations;
-- recovery/fallback correctness.
-
-### DoD
-
-- [ ] ningún caso crítico carece de expected behavior;
-- [ ] resultados automatizados persistidos;
-- [ ] se distingue runtime-only safety de LLM-integrated safety.
+- trusted identity funcionando;
+- identity/ownership separados del lenguaje del usuario;
+- learned extractor integrado;
+- output estructurado validado;
+- baseline vs learned ejecutado;
+- métricas ES/PT disponibles;
+- latency/cost registrado;
+- error analysis disponible;
+- safety guards originales preservados.
 
 ---
 
-## 11. Fase 8 — Evaluation Harness consolidado
+# 6. Phase 3 — Investigation Intelligence
 
-### Objetivo
+## Objetivo
 
-Tener una sola ejecución reproducible que produzca el evidence pack del hackathon.
+Añadir inteligencia conversacional al proceso de investigación sin entregar autoridad al modelo.
 
-### Salidas
+Agrupa:
+
+- controlled clarification;
+- candidate handling;
+- EvidenceBundle;
+- grounded summary;
+- handoff narrative.
+
+Arquitectura:
+
+```text
+Structured Intake
+       ↓
+Transaction Search
+       ↓
+Candidate Transactions
+       ↓
+Need clarification?
+       │
+   ┌───┴────┐
+   ↓        ↓
+  YES       NO
+   │        │
+Clarify     │
+   │        │
+   └───┬────┘
+       ↓
+User Confirmation
+       ↓
+EvidenceBundle
+       ↓
+Grounded Summary
+       ↓
+HANDOFF_RECORDED
+```
+
+---
+
+## 6.1 Controlled Clarification
+
+Preguntar únicamente información necesaria y permitida.
+
+Reglas:
+
+- no inventar moneda;
+- no inventar fecha crítica;
+- no inferir atributos importantes sin confirmación;
+- no seleccionar transacción automáticamente;
+- número máximo de turnos;
+- abstain/handoff cuando la incertidumbre no pueda resolverse.
+
+Casos mínimos:
+
+- missing amount;
+- missing date;
+- missing currency;
+- missing merchant;
+- multiple candidates;
+- contradictory clues;
+- no candidate;
+- ES ambiguity;
+- PT ambiguity.
+
+---
+
+## 6.2 Candidate Confirmation
+
+Una recomendación o ranking puede ayudar al usuario, pero:
+
+> **ranking ≠ authority**
+
+Flujo:
+
+```text
+Candidates
+    ↓
+Optional relevance ranking
+    ↓
+Presentation
+    ↓
+USER CONFIRMATION
+    ↓
+Selected transaction
+```
+
+Está prohibida la auto-confirmación de una transacción.
+
+---
+
+## 6.3 EvidenceBundle
+
+Toda afirmación factual utilizada para handoff debe provenir de evidencia allowlisted.
+
+Ejemplo conceptual:
+
+```json
+{
+  "selected_transaction": {},
+  "verified_customer_facts": {},
+  "transaction_history": [],
+  "user_claims": [],
+  "unknowns": [],
+  "evidence_refs": []
+}
+```
+
+---
+
+## 6.4 Grounded Summary
+
+El modelo puede generar narrativa solamente sobre el `EvidenceBundle`.
+
+Debe mantener:
+
+- evidence refs;
+- unknowns;
+- unresolved questions;
+- distinction entre user claim y verified fact.
+
+El resumen generado nunca sustituye al paquete determinístico.
+
+Si el modelo falla:
+
+```text
+EvidenceBundle
+       ↓
+Deterministic handoff
+       ↓
+HANDOFF_RECORDED
+```
+
+debe continuar funcionando.
+
+---
+
+## Definition of Done
+
+- clarification evaluada;
+- ambiguity handling correcto;
+- explicit candidate confirmation preservada;
+- EvidenceBundle construido;
+- factual claims grounded;
+- unknowns preservados;
+- grounded handoff funcionando;
+- handoff funciona incluso sin LLM.
+
+---
+
+# 7. Phase 4 — Safety, Evaluation & Observability
+
+## Objetivo
+
+Evaluar el sistema como una unidad y producir evidencia cuantitativa reproducible.
+
+Esta fase consolida:
+
+- adversarial testing;
+- evaluation harness;
+- observability.
+
+---
+
+## 7.1 Safety / Adversarial Suite
+
+Casos mínimos:
+
+- cross-customer access;
+- expired authentication;
+- invalid authentication;
+- prompt injection;
+- system prompt extraction;
+- secret extraction;
+- malformed model output;
+- model timeout;
+- tool timeout;
+- tool error;
+- no candidate;
+- multiple candidates;
+- contradictory user claims;
+- future transaction leakage;
+- unauthorized financial action;
+- out-of-scope workflow;
+- Portuguese ambiguity.
+
+---
+
+## 7.2 Evaluation Harness
+
+Una ejecución reproducible debe generar:
 
 ```text
 reports/evaluation/
@@ -303,180 +617,458 @@ reports/evaluation/
 └── error_analysis.*
 ```
 
-### Debe reportar
+### Métricas
 
-- baseline vs learned component;
-- system path distribution;
-- clarification/handoff correctness;
+#### Component
+
+- baseline vs learned;
+- extraction accuracy;
+- clarification accuracy;
+- grounding accuracy.
+
+#### System
+
+- successful path distribution;
+- clarification rate;
+- handoff rate;
+- unnecessary handoff rate;
+- missed handoff rate.
+
+#### Safety
+
 - unsafe outcomes;
-- p50/p95 end-to-end latency;
-- cost per attempted case;
+- auth violations;
+- ownership violations;
+- future-data leakage;
+- unauthorized action attempts.
+
+#### Operational
+
+- p50 latency;
+- p95 latency;
+- cost/case;
+- token usage;
 - tool failure rate;
+- model failure rate.
+
+---
+
+## 7.3 Observability
+
+Registrar:
+
+- correlation ID;
+- request ID;
+- principal reference no sensible;
+- case ID;
+- state transitions;
+- tool invocation;
+- tool status;
+- retries;
+- model version;
+- prompt version;
+- latency;
+- token estimates;
+- cost estimates;
+- handoff reason;
+- audit refs.
+
+Un journey completo debe poder reconstruirse sin:
+
+- chain-of-thought;
+- secrets;
+- PII innecesaria.
+
+---
+
+## Definition of Done
+
+- adversarial suite automatizada;
+- critical cases con expected behavior;
+- evaluation reproducible;
+- resultados persistidos;
 - ES/PT breakdown;
-- sample sizes y limitaciones.
-
-### Nota
-
-`safe automated resolution` puede ser **not defined / not applicable** si el MVP deliberadamente termina en handoff y no resuelve disputas. No inflar containment como resolución.
+- latency/cost medidos;
+- observability suficiente para reconstruir journeys;
+- runtime-only safety diferenciada de AI-integrated safety.
 
 ---
 
-## 12. Fase 9 — Observability
+# 8. Phase 5 — Demo Productization
 
-### Tareas
+## Objetivo
 
-- [ ] correlation/request ID;
-- [ ] principal ref no sensible;
-- [ ] state transitions;
-- [ ] tool name/result status;
-- [ ] retries;
-- [ ] model/prompt version;
-- [ ] latency;
-- [ ] token/cost estimates;
-- [ ] handoff reason;
-- [ ] audit refs.
+Convertir el MVP técnico en una demo clara, reproducible y compartible.
 
-### DoD
+Agrupa:
 
-Un journey completo puede reconstruirse sin chain-of-thought y sin exponer secretos/PII innecesarios.
+- customer UI;
+- investigator UI;
+- deployment;
+- smoke testing.
 
 ---
 
-## 13. Fase 10 — Demo UI integrada
+## 8.1 Customer View
 
-### Objetivo
+Mostrar:
 
-La UI debe llamar a la API que usa el runtime nuevo; no al scaffold legado.
-
-### Customer view
-
-- session state;
+- authenticated session;
 - chat/input;
 - clarification;
-- candidate confirmation;
-- safe status/error UX.
+- transaction candidates;
+- confirmation;
+- case status;
+- safe errors.
 
-### Human view
+---
+
+## 8.2 Human Investigator View
+
+Mostrar:
 
 - user request;
-- candidates / selected transaction;
+- selected transaction;
+- candidates;
 - verified facts;
+- user claims;
 - evidence refs;
-- actions/guards;
+- actions;
+- guards;
 - unresolved questions;
 - escalation reason;
 - handoff receipt.
 
-### DoD
+---
 
-- [ ] normal path;
-- [ ] ambiguous path;
-- [ ] no-candidate/handoff;
-- [ ] safety denial;
-- [ ] ES/PT examples.
+## 8.3 Deployment
+
+Requisitos:
+
+- reproducible Docker/build;
+- secrets por environment/secret manager;
+- CORS restringido;
+- health endpoint;
+- readiness endpoint;
+- persistent demo state cuando aplique;
+- backend URL;
+- frontend URL;
+- E2E smoke test.
 
 ---
 
-## 14. Fase 11 — Deployment
+## Journeys mínimos
 
-### Tareas
-
-- [ ] Docker/build reproducible;
-- [ ] secrets sólo por environment/secret manager;
-- [ ] CORS no wildcard en deployment público si expone rutas sensibles;
-- [ ] health/readiness;
-- [ ] persistent demo state cuando aplique;
-- [ ] working backend + UI URL;
-- [ ] smoke E2E post-deploy;
-- [ ] capacity/limitations documentadas.
-
-### DoD
-
-- [ ] working link público/compartible;
-- [ ] tres journeys estables;
-- [ ] safe fallback ante model/tool outage;
-- [ ] README reproduce setup local.
-
----
-
-## 15. Fase 12 — Submission Evidence Pack
-
-### GitHub
-
-- [ ] repo público sanitizado;
-- [ ] sin datasets restringidos ni credenciales;
-- [ ] README corto con arquitectura, setup, demo, evals y limitaciones.
-
-### Slides 4–6
-
-1. Problem + data evidence.
-2. Critical discovery: no complaint→transaction ground truth.
-3. Architecture and AI/deterministic/human boundary.
-4. Baseline vs learned + safety/e2e metrics.
-5. Demo + production path / limitations.
-
-### Video ≤ 3 min
-
-- problema;
-- one normal/ambiguous/handoff sequence;
-- architectural judgment;
-- measured result;
-- safe human handoff.
-
----
-
-## 16. Priorización crítica
-
-Orden recomendado desde hoy:
+### Journey A — Normal
 
 ```text
-P0  FastAPI → CaseService vertical slice
-P0  Dataset-backed TransactionTools
-P0  Trusted demo identity
-P0  Learned extractor vs frozen baseline
-P0  E2E safety/evaluation
-P1  Clarification + grounded summary
-P1  UI integration
-P1  Deployment
-P1  Latency/cost/observability polish
-P1  Slides/video/README
-P2  External queue/policy integration beyond demo
-P3  RAG/vector search/multi-agent/new workflows
+Complaint
+   ↓
+Extraction
+   ↓
+Transaction found
+   ↓
+Confirmation
+   ↓
+Evidence
+   ↓
+Handoff
+```
+
+### Journey B — Ambiguous
+
+```text
+Complaint
+   ↓
+Extraction
+   ↓
+Multiple candidates
+   ↓
+Clarification
+   ↓
+Confirmation
+   ↓
+Handoff
+```
+
+### Journey C — Safe fallback
+
+```text
+Complaint
+   ↓
+Insufficient / unsafe condition
+   ↓
+Abstain
+   ↓
+Human handoff
 ```
 
 ---
 
-## 17. Definition of Done del MVP
+## Definition of Done
 
-- [x] use case y scope congelados;
-- [x] baseline y held-out artifacts congelados;
-- [x] deterministic case runtime;
-- [x] persistence/audit/idempotency/handoff local;
-- [x] runtime expuesto por API segura (fixtures locales; no IAM productivo);
-- [ ] real-dataset read-only tools;
-- [ ] trusted demo IAM adapter;
-- [ ] learned component evaluado contra baseline;
-- [ ] clarification behavior evaluado;
-- [ ] grounded handoff narrative evaluado;
-- [ ] adversarial/e2e safety suite;
-- [ ] latency/cost end-to-end;
-- [ ] UI integrada;
-- [ ] ES/PT demo y resultados separados;
-- [ ] deployment working link;
-- [ ] repo sanitizado/reproducible;
-- [ ] slides 4–6;
-- [ ] video ≤3 min.
+- customer UI integrada;
+- human UI integrada;
+- backend deployed;
+- frontend deployed;
+- three journeys reproducibles;
+- safe fallback;
+- smoke E2E verde;
+- README reproduce ejecución local.
 
 ---
 
-## 18. Próximo paso
+# 9. Phase 6 — Submission
 
-La siguiente tarea ya **no** es `04` ni `05`.
+## Objetivo
 
-La siguiente tarea recomendada es:
+Convertir la implementación en una historia clara y demostrable para el hackathon.
 
-> **Fase 2 — Dataset-backed Banking Tools: serving real read-only detrás de TransactionTools, preservando los guards de CaseService.**
+---
 
-La Fase 1 quedó cerrada para el alcance de fixtures. El siguiente workstream es:
+## 9.1 GitHub
 
-> **Implementar `Dataset-backed TransactionTools` contra el dataset real read-only con contract tests compartidos.**
+Repositorio público sanitizado.
+
+No incluir:
+
+- datasets restringidos;
+- PII;
+- credentials;
+- secrets;
+- private endpoints.
+
+README debe explicar:
+
+1. Problem.
+2. Data evidence.
+3. Architecture.
+4. Safety boundary.
+5. AI components.
+6. Evaluation.
+7. Demo.
+8. Limitations.
+9. Local setup.
+
+---
+
+## 9.2 Evidence Pack
+
+Incluir:
+
+- baseline results;
+- learned results;
+- system metrics;
+- safety metrics;
+- ES/PT breakdown;
+- latency;
+- cost;
+- error analysis;
+- architecture diagram.
+
+---
+
+## 9.3 Slides
+
+Objetivo:
+
+**4–6 slides.**
+
+### Slide 1 — Problem
+
+Transaction dispute investigation requiere conectar lenguaje ambiguo del cliente con evidencia transaccional confiable.
+
+### Slide 2 — Data Discovery
+
+Hallazgo crítico:
+
+> No existe complaint → transaction ground truth directamente disponible.
+
+Explicar cómo esto condicionó el diseño del MVP.
+
+### Slide 3 — Architecture
+
+Mostrar:
+
+```text
+Deterministic Runtime
+        +
+Trusted Data
+        +
+AI Assistance
+        +
+Human Authority
+```
+
+### Slide 4 — Evaluation
+
+Mostrar:
+
+```text
+Baseline
+   vs
+Learned AI
+```
+
+más safety/system metrics.
+
+### Slide 5 — Demo / Impact
+
+Mostrar journey y `HANDOFF_RECORDED`.
+
+### Slide 6 — Production Path
+
+Limitaciones y siguiente evolución.
+
+---
+
+## 9.4 Video
+
+Duración máxima:
+
+> ≤ 3 minutos
+
+Secuencia recomendada:
+
+```text
+Problem
+   ↓
+Architecture
+   ↓
+Live journey
+   ↓
+Metrics
+   ↓
+Human handoff
+```
+
+---
+
+# 10. Priorización desde el estado actual
+
+```text
+DONE
+────────────────────────────────────────
+P0  Foundation & Secure Runtime          ✅
+
+
+NOW
+────────────────────────────────────────
+P0  Trusted Demo Identity
+P0  Learned Structured Extraction
+P0  Baseline vs Learned
+
+
+NEXT
+────────────────────────────────────────
+P0  Controlled Clarification
+P0  EvidenceBundle
+P0  Grounded Handoff
+P0  Safety / E2E Evaluation
+
+
+DELIVERY
+────────────────────────────────────────
+P1  Observability polish
+P1  Demo UI
+P1  Deployment
+P1  Slides / README / Video
+
+
+OPTIONAL
+────────────────────────────────────────
+P2  Specialized decision models
+P2  Candidate ranking experiments
+P3  RAG
+P3  Vector search
+P3  Multi-agent architecture
+P3  New workflows
+```
+
+---
+
+# 11. Definition of Done del MVP
+
+El MVP está terminado cuando existe:
+
+### Foundation
+
+- [x] frozen MVP contract;
+- [x] frozen baseline;
+- [x] deterministic runtime;
+- [x] persistence;
+- [x] idempotency;
+- [x] audit;
+- [x] FastAPI adapter;
+- [x] Dataset-backed TransactionTools.
+
+### Identity & Intake
+
+- [ ] trusted demo IAM;
+- [ ] learned extractor;
+- [ ] structured schema validation;
+- [ ] baseline vs learned evaluation;
+- [ ] ES/PT metrics.
+
+### Investigation
+
+- [ ] controlled clarification;
+- [ ] explicit candidate confirmation;
+- [ ] EvidenceBundle;
+- [ ] grounded summary;
+- [ ] deterministic handoff fallback.
+
+### Evaluation
+
+- [ ] adversarial suite;
+- [ ] E2E evaluation;
+- [ ] safety metrics;
+- [ ] operational metrics;
+- [ ] latency/cost;
+- [ ] observability.
+
+### Product
+
+- [ ] integrated UI;
+- [ ] deployment;
+- [ ] three stable demo journeys.
+
+### Submission
+
+- [ ] sanitized repository;
+- [ ] README;
+- [ ] evidence pack;
+- [ ] 4–6 slides;
+- [ ] video ≤ 3 minutes.
+
+---
+
+# 12. Próximo paso
+
+El siguiente workstream es:
+
+> **Phase 2 — Identity & AI Intake**
+
+Orden recomendado:
+
+```text
+1. Trusted Demo Identity
+        ↓
+2. Learned Structured Extractor
+        ↓
+3. Baseline vs Learned Evaluation
+        ↓
+4. Error Analysis
+        ↓
+5. Freeze winning configuration
+```
+
+Una vez cerrada esta fase:
+
+```text
+Identity & AI Intake
+        ↓
+Investigation Intelligence
+```
+
+No añadir nuevos componentes de arquitectura hasta obtener primero una comparación reproducible del componente aprendido contra el baseline congelado.

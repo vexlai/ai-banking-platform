@@ -25,6 +25,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install -r requirements-dataset-tools.txt
         pip install ruff mypy
 
     - name: Run Ruff Linter
@@ -53,6 +54,12 @@ jobs:
         ruff format --check tests/test_dispute_api.py scripts/smoke_dispute_http.py scripts/verify_dispute_adapter_regressions.py
         pytest tests/test_dispute_api.py -q
         python scripts/smoke_dispute_http.py
+
+    - name: Check dataset tool contract (small synthetic serving, no organizer data)
+      run: |
+        ruff check tests/test_dataset_tools.py scripts/prepare_banking_serving.py scripts/validate_dataset_tools.py
+        ruff format --check tests/test_dataset_tools.py scripts/prepare_banking_serving.py scripts/validate_dataset_tools.py
+        pytest tests/test_dataset_tools.py -q
 
   analytics-integrity:
     runs-on: ubuntu-latest

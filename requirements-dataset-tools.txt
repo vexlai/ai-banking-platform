@@ -1,0 +1,2 @@
+# Read-only dataset serving; install alongside requirements.txt.
+duckdb==1.5.6
