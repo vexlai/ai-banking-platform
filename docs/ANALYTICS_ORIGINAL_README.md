@@ -97,9 +97,6 @@ de cobertura se documentan junto a las features.
 - `notebooks/04_mvp_use_case_definition.ipynb`: contrato formal congelado del MVP.
 - `notebooks/05_baseline_and_eval_dataset.ipynb`: parser regex, datasets versionados y evaluación offline.
 
-Los antiguos `04_use_case_definition.ipynb` y `05_baseline.ipynb` se conservan como
-referencias de compatibilidad a los notebooks canónicos, sin análisis duplicado.
-
 Para ejecutar únicamente 04/05, sin repetir profiling, EDA ni discovery:
 
 ```sh

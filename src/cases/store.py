@@ -37,7 +37,10 @@ class CaseStore:
         else:
             os.close(descriptor)
         with self.transaction() as db:
+            # executescript commits a pending transaction first. Start another inside
+            # the script so schema creation and the version check roll back together.
             db.executescript("""
+                BEGIN IMMEDIATE;
                 CREATE TABLE IF NOT EXISTS schema_version(version INTEGER NOT NULL);
                 INSERT INTO schema_version SELECT 1 WHERE NOT EXISTS(SELECT 1 FROM schema_version);
                 CREATE TABLE IF NOT EXISTS cases(

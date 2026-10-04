@@ -1,5 +1,7 @@
 # Entrega 1: flujo determinístico persistente
 
+Resultados de aceptación: [CASE_RUNTIME_DELIVERY.md](../reports/CASE_RUNTIME_DELIVERY.md).
+
 ## Alcance
 
 Implementado como núcleo de aplicación Python, separado del chat legado:

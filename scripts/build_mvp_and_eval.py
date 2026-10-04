@@ -117,15 +117,4 @@ display(Markdown(findings))"""),
 n05=notebook("Baseline and Evaluation Dataset",sections,common)
 for name,n in [("04_mvp_use_case_definition.ipynb",n04),("05_baseline_and_eval_dataset.ipynb",n05)]:
     nbf.write(n,ROOT/"notebooks"/name)
-for old,new in [("04_use_case_definition.ipynb","04_mvp_use_case_definition.ipynb"),
-                ("05_baseline.ipynb","05_baseline_and_eval_dataset.ipynb")]:
-    p=ROOT/"notebooks"/old
-    prior=nbf.read(p,as_version=4)
-    assert all(c.cell_type=="markdown" for c in prior.cells),"Preserve existing implemented legacy notebook"
-    alias=nbf.v4.new_notebook(cells=[nbf.v4.new_markdown_cell(
-        "# Compatibility reference\n\nCanonical notebook: ["+new+"]("+new+").\n\n"
-        "This previously unexecuted placeholder is retained only to preserve old references. "
-        "Execute the canonical notebook; no analysis is duplicated here.")])
-    alias.metadata["canonical_notebook"]=new
-    nbf.write(alias,p)
 print("Created canonical 04/05; retained safe legacy references.")

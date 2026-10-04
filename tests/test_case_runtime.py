@@ -1,5 +1,6 @@
 """Offline application acceptance tests; synthetic truth, fake IAM, no model calls."""
 
+import socket
 import sqlite3
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
@@ -23,6 +24,22 @@ from src.cases.store import CaseStore, Conflict, Rejected
 from src.cases.tools import FixtureTools
 
 NOW = datetime(2026, 6, 17, 12, tzinfo=timezone.utc)
+
+
+@pytest.fixture(autouse=True)
+def forbid_network(monkeypatch):
+    attempts = []
+
+    def blocked(*args, **kwargs):
+        attempts.append(True)
+        raise AssertionError("Case-core acceptance tests must not use the network")
+
+    monkeypatch.setattr(socket, "create_connection", blocked)
+    monkeypatch.setattr(socket.socket, "connect", blocked)
+    monkeypatch.setattr(socket.socket, "connect_ex", blocked)
+    yield
+    # Tool boundaries may catch exceptions; even a swallowed attempt fails the test.
+    assert not attempts, "A network call was attempted by the deterministic flow"
 
 
 def transaction(identifier="tx1", **updates):
@@ -480,3 +497,18 @@ def test_changed_record_cannot_be_confirmed_silently(rig):
     case = confirm(service, case)
     assert case.state == State.INSUFFICIENT_EVIDENCE
     assert case.selection is None and case.evidence is None
+
+
+def test_incompatible_schema_does_not_partially_initialize_tables(tmp_path):
+    path = tmp_path / "incompatible.sqlite3"
+    with sqlite3.connect(path) as db:
+        db.execute("CREATE TABLE schema_version(version INTEGER NOT NULL)")
+        db.execute("INSERT INTO schema_version VALUES(999)")
+    with pytest.raises(RuntimeError, match="Unsupported case store schema"):
+        CaseStore(path)
+    with sqlite3.connect(path) as db:
+        tables = db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall()
+        assert tables == [("schema_version",)]
+        assert db.execute("SELECT version FROM schema_version").fetchall() == [(999,)]

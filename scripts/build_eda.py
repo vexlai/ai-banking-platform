@@ -130,6 +130,6 @@ Consultar el informe anterior: claves discordantes, cobertura parcial, fechas de
 
 ### Hypotheses
 
-Las preguntas del informe se proponen para revisar en 03_customer_journey_discovery.ipynb. La ejecución termina aquí para revisión del EDA.""")
+Las preguntas del informe se proponen para revisar en 03_dispute_case_workflow_discovery.ipynb. La ejecución termina aquí para revisión del EDA.""")
 nb.cells=cells
 nbformat.write(nb,ROOT/"notebooks/02_eda.ipynb")
