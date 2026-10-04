@@ -7,14 +7,14 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.routes import context, trace
-from api.routes.chat import build_router
+from api.dispute_fixture import from_environment
+from api.routes import disputes
 from contracts import HealthResponse
-from src.orchestrator.engine import OrchestratorEngine
+from src.cases.service import CaseService
 from src.telemetry.logger import get_logger
 
 API_VERSION = "0.1.0"
-DEFAULT_CORS_ORIGINS = ("*",)
+DEFAULT_CORS_ORIGINS = ("http://localhost:8501",)
 
 logger = get_logger(__name__)
 
@@ -34,22 +34,38 @@ def _cors_origins() -> list[str]:
 
 USE_MOCKS = _env_flag("USE_MOCKS", default=True)
 
-app = FastAPI(title="AI Banking Platform", version=API_VERSION)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=_cors_origins(),
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-app.include_router(build_router(OrchestratorEngine(use_mocks=USE_MOCKS)))
-app.include_router(context.router)
-app.include_router(trace.router)
-logger.info(
-    "API gateway configured: version=%s mocks_enabled=%s", API_VERSION, USE_MOCKS
-)
+
+def create_app(case_service: CaseService | None = None, *, include_legacy: bool = True):
+    """Composition only. Dispute routes exclusively call the injected CaseService."""
+    application = FastAPI(title="AI Banking Platform", version=API_VERSION)
+    application.state.case_service = case_service
+    application.add_middleware(
+        CORSMiddleware,
+        allow_origins=_cors_origins(),
+        allow_credentials=False,
+        allow_methods=["GET", "POST"],
+        allow_headers=["Authorization", "Content-Type", "Idempotency-Key", "X-API-Key"],
+        expose_headers=["X-Request-ID"],
+    )
+    application.include_router(disputes.router)
+    if include_legacy:
+        from api.routes import context, trace
+        from api.routes.chat import build_router
+        from src.orchestrator.engine import OrchestratorEngine
+
+        application.include_router(
+            build_router(OrchestratorEngine(use_mocks=USE_MOCKS))
+        )
+        application.include_router(context.router)
+        application.include_router(trace.router)
+
+    @application.get("/health", response_model=HealthResponse, tags=["ops"])
+    def health() -> HealthResponse:
+        return HealthResponse(status="ok", version=API_VERSION, mocks_enabled=USE_MOCKS)
+
+    return application
 
 
-@app.get("/health", response_model=HealthResponse, tags=["ops"])
-def health() -> HealthResponse:
-    return HealthResponse(status="ok", version=API_VERSION, mocks_enabled=USE_MOCKS)
+app = create_app(
+    from_environment(), include_legacy=_env_flag("ENABLE_LEGACY_API", default=True)
+)

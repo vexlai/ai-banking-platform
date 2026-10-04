@@ -9,8 +9,10 @@ intake → pistas sugeridas por regex → búsqueda confirmada → confirmación
 → ownership → evidencia → política bloqueante → handoff local durable.
 
 No hay llamadas LLM, adjudicación, reembolso, cierre automático ni cambios de raw.
-No se agregan endpoints: la API/UI anterior NO usa todavía este núcleo y conserva
-sus limitaciones conocidas. No exponer el chat legado a datos bancarios reales.
+La entrega original no agregó endpoints. La Fase 1 posterior integra /v1/disputes
+directamente con este núcleo: [Secure Application Adapter](SECURE_APPLICATION_ADAPTER.md).
+El chat/UI legado sigue separado y conserva sus limitaciones conocidas.
+No exponer el chat legado a datos bancarios reales.
 
 El puerto de autenticación es obligatorio e inyectado. El host debe verificar
 firma/emisor, sesión y revocación antes de devolver Principal. El servicio comprueba

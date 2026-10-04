@@ -47,6 +47,12 @@ jobs:
         pytest tests/test_case_runtime.py -q
         python scripts/demo_dispute_cases.py
         python scripts/demo_dispute_cases.py
+    - name: Check secure application adapter (fixtures, no LLM)
+      run: |
+        ruff check tests/test_dispute_api.py scripts/smoke_dispute_http.py scripts/verify_dispute_adapter_regressions.py
+        ruff format --check tests/test_dispute_api.py scripts/smoke_dispute_http.py scripts/verify_dispute_adapter_regressions.py
+        pytest tests/test_dispute_api.py -q
+        python scripts/smoke_dispute_http.py
 
   analytics-integrity:
     runs-on: ubuntu-latest

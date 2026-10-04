@@ -12,8 +12,8 @@ El runtime descrito debajo es el scaffold anterior con mocks, no una implementac
 validada del contrato congelado. Sus afirmaciones de seguridad, volúmenes aproximados,
 fraud_score, journeys y búsqueda vectorial no sustituyen los hallazgos analíticos
 ni constituyen requisitos aprobados. Autorización por cliente, persistencia y guards
-de selección/ownership siguen pendientes. No conectar datos reales antes de ello.
-Esta integración no cambia API, UI, herramientas ni comportamiento del runtime.
+de selección/ownership de ese scaffold no deben confundirse con el núcleo descrito abajo.
+No conectar datos reales a las rutas legadas.
 
 ### Entrega 1: núcleo determinístico de casos
 
@@ -21,10 +21,31 @@ Ya existe un núcleo independiente con SQLite, versionado, idempotencia, confirm
 explícita, ownership/as_of, evidencia y handoff local durable, probado sin LLM.
 Consulte [contratos, estados y ejecución](docs/DETERMINISTIC_CASE_RUNTIME.md).
 La demo usa exclusivamente fixtures sintéticos y un verificador de identidad de prueba.
-La API/UI legado NO está conectada al núcleo nuevo; no confundir los dos flujos.
+La UI/chat legado NO usa este núcleo; la nueva API de disputas sí lo integra.
 
     .venv/bin/python -m pytest tests/test_case_runtime.py -q
     .venv/bin/python scripts/demo_dispute_cases.py
+
+### Fase 1: Secure Application Adapter
+
+La API /v1/disputes delega directamente en CaseService, sin LLM ni orchestrator legado.
+Incluye create/search/confirm/evidence/handoff y GET autorizado de caso/audit/handoff.
+Bearer de cliente, expected_version e Idempotency-Key preservan los guards del núcleo.
+Configuración explícita: fixtures sintéticos y credenciales locales, no IAM productivo.
+Sin configuración, disputas falla cerrado; X-API-Key no autentica clientes.
+
+Consulte [arranque, requests y seguridad](docs/SECURE_APPLICATION_ADAPTER.md) y
+[resultado de entrega](reports/APPLICATION_ADAPTER_DELIVERY.md).
+
+    USE_LLM=false .venv/bin/python -m pytest tests/test_dispute_api.py -q
+    USE_LLM=false .venv/bin/python scripts/smoke_dispute_http.py
+
+Para el nuevo MVP ejecutar con ENABLE_LEGACY_API=false; no usar la UI antigua como
+demostración del flujo nuevo. Serving read-only real sigue pendiente.
+
+## Legacy scaffold — referencia histórica
+
+Las secciones siguientes describen el scaffold anterior, no garantías del MVP actual.
 
 An enterprise-grade, evidence-grounded customer service orchestration engine designed to reconstruct customer context, analyze digital event histories, enforce safety policies, and deliver grounded AI responses or structured human agent handoffs.
 
@@ -179,7 +200,7 @@ Direct Answer with Source IDs    Structured Handoff with Verified Facts & Eviden
 
 ## 6. REST API & Authentication
 
-The gateway exposes four HTTP routes. Every `/v1/*` route is protected by an opt-in `X-API-Key` header guard (`api/security.py`); `/health` is always open.
+The legacy scaffold exposes the four routes below. Its legacy routes use an opt-in X-API-Key guard; this does NOT apply to the new dispute API, which requires a customer Bearer credential. Health remains open.
 
 | Method & Path | Auth | Description |
 | :--- | :--- | :--- |
