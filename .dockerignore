@@ -38,6 +38,7 @@ data/
 *.log
 
 # --- Not needed inside the runtime image ---
+docs/
 notebooks/
 tests/
 evals/
