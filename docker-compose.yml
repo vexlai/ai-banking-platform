@@ -1,5 +1,5 @@
 # Local multi-container deployment: FastAPI gateway (:8000) + Streamlit UI (:8501).
-# The UI reaches the gateway over the compose network via API_BASE_URL (Guardrail 4).
+# The UI reaches the gateway over the compose network via API_BASE_URL.
 
 services:
   api_gateway:
@@ -8,17 +8,16 @@ services:
     image: ai-banking-platform:local
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000
     environment:
-      USE_MOCKS: "true"
+      USE_MOCKS: "false"
       API_KEY_REQUIRED: "${API_KEY_REQUIRED:-false}"
       API_KEY: "${API_KEY:-}"
+      SERVING_DATA_DIR: "/app/data/serving"
+    volumes:
+      - ./data/serving:/app/data/serving:ro
     ports:
       - "8000:8000"
     healthcheck:
-      test:
-        - CMD
-        - python
-        - -c
-        - "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -33,10 +32,10 @@ services:
     environment:
       API_BASE_URL: http://api_gateway:8000
       API_KEY: "${API_KEY:-}"
+      USE_MOCKS: "false"
     ports:
       - "8501:8501"
     depends_on:
       api_gateway:
         condition: service_healthy
     restart: unless-stopped
-

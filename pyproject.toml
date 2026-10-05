@@ -1,0 +1,15 @@
+# Project configuration for `ai-banking-platform`.
+#
+# Currently holds tool configuration only; no build backend is defined.
+
+[tool.ruff]
+# `notebooks/` holds EDA reference artifacts and is excluded from both linting
+# and formatting.
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint.per-file-ignores]
+# Analytics/EDA modules. They stay visible to `ruff check`; only the rules they
+# do not follow are ignored for that tree.
+"src/data/eda/*.py" = ["C408", "DTZ005", "F401", "F403", "F405", "FURB167", "I001", "ISC004", "PLC0206"]
+"src/data/workflows/*.py" = ["C408", "DTZ005", "F401", "F403", "F405", "FURB167", "I001", "ISC004", "PLC0206"]
+"src/data/evaluation/*.py" = ["C408", "DTZ005", "F401", "F403", "F405", "FURB167", "I001", "ISC004", "PLC0206"]
