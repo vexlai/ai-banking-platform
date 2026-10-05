@@ -126,8 +126,7 @@ def test_llm_used_flag_true_when_model_answers() -> None:
     assert response.llm_used is True
     assert response.llm_model == "test-model"
     assert any(
-        "LLM reply used" in record["message"]
-        for record in get_trace(response.trace_id)
+        "LLM reply used" in record["message"] for record in get_trace(response.trace_id)
     )
 
 

@@ -72,6 +72,16 @@ def load_cases(path: Path = GOLDEN_CASES_PATH) -> list[GoldenCase]:
     ]
 
 
+def _cites_evidence(response: ChatResponse) -> bool:
+    """True when a reply cites an evidence id, a source tool, or the grounding marker."""
+    reply = response.reply
+    if RESPOND_GROUNDING_MARKER in reply:
+        return True
+    if any(item.source_id and item.source_id in reply for item in response.evidence):
+        return True
+    return any(item.source.value in reply for item in response.evidence)
+
+
 def _grounded(response: ChatResponse) -> bool:
     if response.decision is Decision.ESCALATE:
         return (
@@ -79,7 +89,7 @@ def _grounded(response: ChatResponse) -> bool:
             and response.handoff.handoff_id in response.reply
         )
     if response.decision is Decision.RESPOND:
-        return RESPOND_GROUNDING_MARKER in response.reply
+        return _cites_evidence(response)
     return bool(response.reply.strip())
 
 

@@ -80,7 +80,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(
-    build_router(OrchestratorEngine(use_mocks=USE_MOCKS, llm_client=LLM))
+    build_router(
+        OrchestratorEngine(
+            use_mocks=USE_MOCKS,
+            llm_client=LLM,
+            transcript_search=None if USE_MOCKS else vector_store.search,
+        )
+    )
 )
 app.include_router(context.router)
 app.include_router(trace.router)

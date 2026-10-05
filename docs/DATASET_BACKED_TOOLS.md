@@ -94,7 +94,7 @@ Paths are constants in `src/data/config.py` (`RAW_DATA_DIR`, `DUCKDB_PATH`,
 ## Validation
 
 ```bash
-pytest tests/                        # 41 tests, incl. test_context_tools / test_ingest / test_vector_store
+pytest tests/                        # 54 tests, incl. test_context_tools / test_ingest / test_vector_store
 ruff check . && ruff format --check .
 python evals/run_eval.py             # golden-set evaluation
 ```

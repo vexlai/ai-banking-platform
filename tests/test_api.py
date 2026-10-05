@@ -130,3 +130,21 @@ def test_auth_headers_forward_api_key(monkeypatch: pytest.MonkeyPatch) -> None:
     assert ui._auth_headers() == {"X-API-Key": "secret-key"}
     monkeypatch.delenv("API_KEY")
     assert ui._auth_headers() == {}
+
+
+@pytest.mark.parametrize(
+    ("error", "expected_status"),
+    [
+        (CustomerNotFoundError("customer_360_view", "no profile row"), 404),
+        (ServiceUnavailableError("duckdb", "serving database not found"), 503),
+    ],
+)
+def test_customer_context_maps_tool_errors(
+    monkeypatch: pytest.MonkeyPatch, error: Exception, expected_status: int
+) -> None:
+    def _raise(customer_id: str, *, strict: bool = True) -> None:
+        raise error
+
+    monkeypatch.setattr(context_tools, "get_context", _raise)
+    response = client.get("/v1/customers/CUST_001/context?use_mocks=false")
+    assert response.status_code == expected_status
