@@ -21,7 +21,7 @@ from src.orchestrator.state_machine import State, StateMachine
 from src.policy.handoff import build_evidence, build_handoff
 from src.policy.rules import RiskAssessment, assess_risk, contains_pii, redact_pii
 from src.telemetry.logger import LatencyTimer, get_logger, new_trace_id
-from src.tools import mocks
+from src.tools import context_tools, mocks
 
 
 def classify_intent(message: str) -> Intent:
@@ -56,7 +56,8 @@ class OrchestratorEngine:
     """Runs one turn through UNDERSTAND -> GATHER -> DECIDE -> RESPOND.
 
     The policy engine owns the decision; intent only shapes the reply. `use_mocks=False`
-    is reserved for the real DuckDB tools (Developer A, INT-01).
+    routes evidence assembly through the DuckDB context tools (INT-01), which degrade
+    to the deterministic fixtures when the serving database or views are unavailable.
     """
 
     def __init__(
@@ -113,11 +114,10 @@ class OrchestratorEngine:
     def _gather(
         self, request: ChatRequest, machine: StateMachine, trace_id: str
     ) -> EvidenceBundle:
-        if not self._use_mocks:
-            raise NotImplementedError(
-                "Real DuckDB context tools belong to Developer A (INT-01)."
-            )
-        bundle = mocks.get_context(request.customer_id)
+        if self._use_mocks:
+            bundle = mocks.get_context(request.customer_id)
+        else:
+            bundle = context_tools.get_context(request.customer_id)
         self._logger.info(
             "Evidence gathered for customer %s: %s transaction(s), %s interaction(s), %s case(s)",
             request.customer_id,
