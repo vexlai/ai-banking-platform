@@ -116,7 +116,7 @@ ai-banking-platform/
 │
 ├── notebooks/                  # EDA notebooks (00–05: inventory → baseline/eval)
 ├── docs/                       # Analytics docs & EDA runbook
-├── tests/                      # pytest suites (54 tests)
+├── tests/                      # pytest suites (55 tests)
 │   ├── test_policy.py          # PII redaction & risk decision rules
 │   ├── test_api.py             # /health, /v1/chat, context, trace & auth guard
 │   ├── test_orchestrator_engine.py  # state machine + LLM tool loop (stub client)
@@ -136,8 +136,11 @@ To keep the codebase modular and prevent it from devolving into a monolithic "sp
 
 ### Guardrail 1 — Strict HTTP Boundary for the Front-End
 
-- `apps/demo_ui/app.py` must never import modules from `src/` directly; it imports only the shared `contracts/` package.
-- It operates strictly as an HTTP client, calling the gateway over the network (`POST http://localhost:8000/v1/chat`) with mandatory request timeouts (`timeout=30`).
+- Every `apps/**` module imports only the shared `contracts/` package and reaches the backend over the network (`POST {API_BASE_URL}/v1/chat`) with mandatory request timeouts (`timeout=30`).
+- **Sanctioned dual-mode exception:** `apps/demo_ui/app.py` is the *only* file under `apps/` allowed to import from `src/`. It routes each turn dynamically:
+  - **Mode A (Docker Compose):** when `API_BASE_URL` is set, the UI is a pure HTTP client of the gateway.
+  - **Mode B (Streamlit Community Cloud):** when `API_BASE_URL` is empty, it falls back to the in-process `src.orchestrator.engine.OrchestratorEngine` (with `src.retrieval.vector_store.search`), downloading the serving artifacts on boot when needed.
+- No other `apps/**` file may import `src/`.
 
 ### Guardrail 2 — Contract-First Integration (`contracts/schemas.py`)
 
@@ -158,7 +161,7 @@ To keep the codebase modular and prevent it from devolving into a monolithic "sp
 - The API gateway and the Streamlit UI run in separate processes and separate Docker containers (port 8000 vs 8501).
 - UI containers reach the gateway dynamically via environment variables (`API_BASE_URL`).
 
-These boundaries are enforced automatically by `tests/test_guardrails.py`, which fails the build if `apps/**` imports `src/`, if `contracts/**` depends on anything beyond the standard library plus `pydantic`, or if the removed `src.tools.schemas` re-export shim reappears.
+These boundaries are enforced automatically by `tests/test_guardrails.py`: it fails the build if any `apps/**` file other than the allowlisted `apps/demo_ui/app.py` imports `src/`, if `src/**` or `api/**` imports `streamlit`, if `contracts/**` depends on anything beyond the standard library plus `pydantic`, or if the removed `src.tools.schemas` re-export shim reappears.
 
 ## 5. End-to-End Execution Flow
 
@@ -243,6 +246,11 @@ USE_MOCKS=false
 # SERVING_DATA_DIR=./data/serving              # override the default ./data/serving directory
 # SKIP_SERVING_CHECK=1                         # skip the fail-fast serving health check on boot
 
+# Streamlit Community Cloud Artifact Download (Mode B; see §8.1)
+SERVING_DUCKDB_URL=https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/bank_serving.duckdb
+SERVING_FAISS_URL=https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss
+SERVING_FAISS_META_URL=https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss.meta.json
+
 # Gateway CORS (comma-separated allow-list; empty = allow all origins)
 CORS_ALLOW_ORIGINS=http://localhost:8501
 
@@ -291,7 +299,7 @@ python evals/run_eval.py
 ### 7.5 Tests, Lint & Evaluations
 
 ```Bash
-# Unit + integration suite (54 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
+# Unit + integration suite (55 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
 pytest tests/
 
 # Static checks
@@ -322,6 +330,28 @@ Accessing Running Services
 - FastAPI Gateway & Docs: http://localhost:8000/docs
 
 - Streamlit Web UI: http://localhost:8501
+
+### 8.1 Streamlit Community Cloud (Mode B, Single Process)
+
+The UI also runs as a standalone Streamlit app with no FastAPI gateway, executing the orchestrator in-process. The repository ships the hooks this mode needs:
+
+- `.streamlit/config.toml` — headless server on port 8501 plus the shared theme.
+- `runtime.txt` (`python-3.13.0`) — satisfies the `>= 3.12` guard in `src/data/config.py`.
+- `packages.txt` (`libgomp1`) — OpenMP runtime required by `faiss-cpu`.
+- `src/data/download_serving.py` — on boot, `apps/demo_ui/app.py::get_engine` fetches any missing serving artifacts from the public release URLs.
+
+Deploy the Cloud app on `apps/demo_ui/app.py`, then set the following (environment variables or `st.secrets`):
+
+| Key | Value |
+| :--- | :--- |
+| `API_BASE_URL` | leave **empty** (Mode B); use `http://api_gateway:8000` for Compose |
+| `USE_MOCKS` | `false` for live data, `true` for deterministic fixtures |
+| `SERVING_DUCKDB_URL` | `https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/bank_serving.duckdb` |
+| `SERVING_FAISS_URL` | `https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss` |
+| `SERVING_FAISS_META_URL` | `https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss.meta.json` |
+| `OPENAI_API_KEY` | set (with `USE_LLM=true`) to enable live LLM tool-calling |
+
+The serving artifacts are uploaded manually to GitHub Releases; the public asset URLs above feed the boot downloader. When the artifacts are absent and no URLs are configured, the UI degrades to the `USE_MOCKS` fixtures instead of failing to boot.
 
 ## 9. Evaluation & Success Metrics
 
