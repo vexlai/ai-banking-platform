@@ -88,6 +88,16 @@ class OrchestratorEngine:
     def logger(self) -> logging.Logger:
         return self._logger
 
+    @property
+    def llm_client(self) -> llm.LLMClient | None:
+        """The resolved LLM client, reused by per-request engines."""
+        return self._llm
+
+    @property
+    def transcript_search(self) -> TranscriptSearch | None:
+        """The semantic transcript seam (INT-02) when wired; otherwise `None`."""
+        return self._transcript_search
+
     def process_turn(self, request: ChatRequest) -> ChatResponse:
         trace_id = new_trace_id()
         timer = LatencyTimer()

@@ -23,9 +23,14 @@ def _select_engine(
     if resolved == engine.use_mocks:
         return engine
     if resolved:
-        return OrchestratorEngine(use_mocks=True, logger=engine.logger)
+        return OrchestratorEngine(
+            use_mocks=True, llm_client=engine.llm_client, logger=engine.logger
+        )
     return OrchestratorEngine(
-        use_mocks=False, transcript_search=vector_store.search, logger=engine.logger
+        use_mocks=False,
+        llm_client=engine.llm_client,
+        transcript_search=engine.transcript_search or vector_store.search,
+        logger=engine.logger,
     )
 
 

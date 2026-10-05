@@ -116,7 +116,7 @@ ai-banking-platform/
 │
 ├── notebooks/                  # EDA notebooks (00–05: inventory → baseline/eval)
 ├── docs/                       # Analytics docs & EDA runbook
-├── tests/                      # pytest suites (50 tests)
+├── tests/                      # pytest suites (54 tests)
 │   ├── test_policy.py          # PII redaction & risk decision rules
 │   ├── test_api.py             # /health, /v1/chat, context, trace & auth guard
 │   ├── test_orchestrator_engine.py  # state machine + LLM tool loop (stub client)
@@ -227,7 +227,7 @@ Create a .env file in the root directory:
 # API Keys & LLM Config
 OPENAI_API_KEY=your_openai_api_key
 LLM_MODEL=gpt-4o-mini
-USE_LLM=true                                   # enable live tool-calling; unset = deterministic heuristics
+USE_LLM=false                                  # true enables live tool-calling; false/unset = deterministic heuristics
 OPENAI_BASE_URL=https://api.deepseek.com       # optional: DeepSeek or any OpenAI-compatible endpoint
 LLM_REASONING_EFFORT=none                      # required for reasoning models that must call tools (e.g. gpt-5.6-luna)
 
@@ -238,8 +238,10 @@ API_KEY=your_shared_api_key
 # Front-End
 API_BASE_URL=http://localhost:8000
 
-# Data Serving (true = deterministic fixtures; false = live DuckDB / FAISS)
+# Data Serving (false = live DuckDB / FAISS; true = deterministic fixtures)
 USE_MOCKS=false
+# SERVING_DATA_DIR=./data/serving              # override the default ./data/serving directory
+# SKIP_SERVING_CHECK=1                         # skip the fail-fast serving health check on boot
 
 # Gateway CORS (comma-separated allow-list; empty = allow all origins)
 CORS_ALLOW_ORIGINS=http://localhost:8501
@@ -250,7 +252,7 @@ AWS_SECRET_ACCESS_KEY=your_aws_secret_key
 AWS_DEFAULT_REGION=us-east-2
 ```
 
-> **Serving paths are derived, not configured.** The DuckDB serving database (`./data/serving/bank_serving.duckdb`), the FAISS index (`./data/serving/transcripts.faiss`), and the raw extracts (`./data/raw/`) are constants in `src/data/config.py`, not `.env` entries. Build them with the commands in §7.3.
+> **Serving paths come from `src/data/config.py`, not hard-coded `.env` entries.** The DuckDB serving database (`./data/serving/bank_serving.duckdb`), the FAISS index (`./data/serving/transcripts.faiss`), and the raw extracts (`./data/raw/`) are constants there; only the serving directory is overridable with `SERVING_DATA_DIR`. Build them with the commands in §7.3.
 
 ### 7.3 Ingest & Sync Data:
 
@@ -289,7 +291,7 @@ python evals/run_eval.py
 ### 7.5 Tests, Lint & Evaluations
 
 ```Bash
-# Unit + integration suite (50 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
+# Unit + integration suite (54 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
 pytest tests/
 
 # Static checks
