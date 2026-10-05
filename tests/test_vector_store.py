@@ -46,6 +46,33 @@ def test_build_index_without_faiss_raises(
         vector_store.build_index(source, tmp_path / "out.faiss")
 
 
+def test_build_and_search_round_trip_from_partitioned_directory(tmp_path: Path) -> None:
+    source = tmp_path / "transcripts"
+    day_one = source / "year=2024" / "month=01" / "day=01"
+    day_one.mkdir(parents=True)
+    (day_one / "transcripts_20240101.csv").write_text(
+        "transcript_id,summary,full_text\n"
+        "T1,Card decline,Customer reports the card was declined at the merchant\n",
+        encoding="utf-8",
+    )
+    day_two = source / "year=2024" / "month=01" / "day=02"
+    day_two.mkdir(parents=True)
+    (day_two / "transcripts_20240102.csv").write_text(
+        "transcript_id,summary,full_text\n"
+        "T2,Balance inquiry,Customer asks about the account balance\n",
+        encoding="utf-8",
+    )
+    destination = tmp_path / "transcripts.faiss"
+
+    assert vector_store.build_index(source, destination) == 2
+    assert vector_store.load_index(destination) is not None
+
+    matches = vector_store.search("card declined", k=1)
+
+    assert matches
+    assert matches[0].transcript_id == "T1"
+
+
 def test_build_and_search_round_trip(tmp_path: Path) -> None:
     source = tmp_path / "transcripts.csv"
     source.write_text(

@@ -160,16 +160,20 @@ def _customer_360(row: Mapping[str, Any]) -> Customer360:
     )
 
 
-def _transaction(row: Mapping[str, Any]) -> Transaction:
+def _transaction(row: dict[str, Any]) -> Transaction:
+    raw_score = float(row.get("fraud_score") or 0.0)
+    score = raw_score / 100.0 if raw_score > 1.0 else raw_score
+    score = max(0.0, min(1.0, score))
+
     return Transaction(
-        transaction_id=str(row["transaction_id"]),
-        customer_id=str(row["customer_id"]),
-        amount=float(row["amount"]),
-        currency=str(row["currency"]),
-        merchant=str(row.get("merchant") or ""),
-        status=str(row["status"]),
-        fraud_score=float(row.get("fraud_score") or 0.0),
+        transaction_id=str(row.get("transaction_id", "")),
+        customer_id=str(row.get("customer_id", "")),
+        amount=float(row.get("amount") or 0.0),
+        currency=str(row.get("currency") or "USD"),
+        merchant=str(row.get("merchant") or row.get("merchant_name") or ""),
+        status=str(row.get("status") or "posted"),
         occurred_at=_as_datetime(row["occurred_at"]),
+        fraud_score=score,
     )
 
 

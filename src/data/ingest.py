@@ -3,7 +3,8 @@
 Reads the raw extracts under ``RAW_DATA_DIR`` into the DuckDB serving database at
 ``DUCKDB_PATH`` as the six customer-context views queried by
 ``src.tools.context_tools``, then builds the FAISS transcript index at
-``FAISS_INDEX_PATH`` from ``RAW_DATA_DIR/call_transcripts.parquet``.
+``FAISS_INDEX_PATH`` from ``RAW_DATA_DIR/call_transcripts``. Raw extracts may be
+single files or Hive-partitioned folders of CSVs, matched with a recursive glob.
 
 Run it from the repository root::
 
@@ -28,6 +29,7 @@ from src.telemetry.logger import get_logger
 logger = get_logger(__name__)
 
 DEFAULT_TRANSCRIPTS_FILE = "call_transcripts.parquet"
+DEFAULT_TRANSCRIPTS_DIR = "call_transcripts"
 DEFAULT_WINDOW_DAYS = 30
 DEFAULT_SESSION_HOURS = 24
 
@@ -117,14 +119,28 @@ def _resolve_relation(raw_dir: Path, table: str) -> str | None:
     if single_csv.is_file():
         return f"read_csv_auto({_literal(single_csv.as_posix())})"
     directory = raw_dir / table
-    if directory.is_dir():
-        glob_parquet = directory.as_posix() + "/*.parquet"
-        if any(directory.glob("*.parquet")):
-            return f"read_parquet({_literal(glob_parquet)})"
-        glob_csv = directory.as_posix() + "/*.csv"
-        if any(directory.glob("*.csv")):
-            return f"read_csv_auto({_literal(glob_csv)})"
+    if not directory.is_dir():
+        return None
+    glob_parquet = directory.as_posix() + "/**/*.parquet"
+    if any(directory.rglob("*.parquet")):
+        return f"read_parquet({_literal(glob_parquet)}, hive_partitioning=true)"
+    glob_csv = directory.as_posix() + "/**/*.csv"
+    if any(directory.rglob("*.csv")):
+        return f"read_csv_auto({_literal(glob_csv)}, hive_partitioning=true)"
     return None
+
+
+def _resolve_transcripts_source(raw_dir: Path, explicit: Path | None) -> Path:
+    """Picks the FAISS transcript source: explicit, legacy file, then folder."""
+    if explicit is not None:
+        return explicit
+    legacy = raw_dir / DEFAULT_TRANSCRIPTS_FILE
+    if legacy.exists():
+        return legacy
+    partitioned = raw_dir / DEFAULT_TRANSCRIPTS_DIR
+    if partitioned.exists():
+        return partitioned
+    return legacy
 
 
 def _register_sources(con, raw_dir: Path) -> dict[str, str]:
@@ -217,16 +233,28 @@ FROM customers AS c{aggregate}
 def _recent_transactions_sql(cols: set[str], window_days: int) -> str:
     merchant = _pick(cols, "merchant_name", "merchant")
     status = _pick(cols, "transaction_status", "status", "transaction_type")
+    account = _pick(cols, "account_id", "account")
+
     merchant_expr = f"coalesce({merchant}, '')" if merchant else "''"
     status_expr = f"coalesce({status}, 'posted')" if status else "'posted'"
+    account_expr = f"coalesce({account}, 'N/A')" if account else "'N/A'"
+
     if "fraud_score" in cols:
-        fraud_expr = "coalesce(try_cast(fraud_score AS DOUBLE), 0.0)"
+        fraud_expr = """
+        CASE 
+            WHEN try_cast(fraud_score AS DOUBLE) > 1.0 
+                THEN least(1.0, greatest(0.0, try_cast(fraud_score AS DOUBLE) / 100.0))
+            ELSE least(1.0, greatest(0.0, coalesce(try_cast(fraud_score AS DOUBLE), 0.0)))
+        END
+        """.strip()
     else:
         fraud_expr = "0.0"
+
     return f"""
 CREATE OR REPLACE TABLE recent_transactions AS
 SELECT transaction_id AS transaction_id,
        customer_id AS customer_id,
+       {account_expr} AS account_id,
        try_cast(amount AS DOUBLE) AS amount,
        currency AS currency,
        {merchant_expr} AS merchant,
@@ -426,7 +454,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--transcripts",
         type=Path,
         default=None,
-        help="FAISS source (default: RAW_DATA_DIR/call_transcripts.parquet).",
+        help="FAISS source: file or partitioned folder (default: RAW_DATA_DIR/call_transcripts).",
     )
     parser.add_argument(
         "--cutoff", default=REFERENCE_DATE, help="Reproducible as-of date."
@@ -461,7 +489,7 @@ def _dry_run(args: argparse.Namespace, transcripts: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    transcripts = args.transcripts or (args.raw_dir / DEFAULT_TRANSCRIPTS_FILE)
+    transcripts = _resolve_transcripts_source(args.raw_dir, args.transcripts)
 
     if args.dry_run:
         return _dry_run(args, transcripts)
