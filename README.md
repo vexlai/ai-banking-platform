@@ -60,17 +60,23 @@ es exclusivamente un harness de validación, no una opción temporal del cliente
     pip install -r requirements.txt -r requirements-dataset-tools.txt
     USE_LLM=false pytest tests/test_dataset_tools.py -q
 
-Próxima fase: Trusted Demo Identity / IAM Adapter (no implementada aquí).
+La identidad de demo se implementó en la fase siguiente, descrita abajo.
 
-### Phase 2 actual: Identity & AI Intake (implementada, evaluación learned pendiente)
+### Phase 2 actual: Identity & AI Intake (implementada y evaluada offline)
+
+Para compartir las bases fuera de Git: [distribución privada verificable](docs/PRIVATE_DATA_DISTRIBUTION.md).
+Incluye paquetes DuckDB separados para serving y análisis; no requiere FAISS ni repetir EDA.
 
 El plan consolidó las entregas anteriores como Foundation & Secure Runtime.
 Ahora hay identidad JWT de demo, extractor estructurado consultivo y harness DEV→freeze→TEST.
 CaseService y sus guards no cambiaron. El baseline y sus 384 predicciones permanecen congelados.
 El modelo no tiene autoridad; la búsqueda todavía requiere confirmación explícita.
 
-La evaluación learned real está NOT_MEASURED: falta configurar proveedor/modelo, clave y presupuesto.
-Los mocks prueban integración/fallos, no calidad del LLM ni mejora sobre regex.
+TEST congelado (192 casos): GPT-5.6 Luna obtuvo 167/192 (86,98%) full-schema frente a
+144/192 (75%) del baseline; should_clarify 192/192 frente a 180/192.
+Dos campos inventados en la salida bruta fueron bloqueados; no se ocultan en las métricas.
+Costo estimado DEV + TEST + prueba: USD 0,064654, presupuesto USD 2.
+Los mocks prueban integración/fallos; la evaluación live mide extracción, no seguridad end-to-end.
 Consulte [configuración y ejecución](docs/IDENTITY_AI_INTAKE.md) y
 [reporte y Definition of Done](reports/IDENTITY_AI_INTAKE_DELIVERY.md).
 

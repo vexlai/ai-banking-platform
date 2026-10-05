@@ -113,7 +113,8 @@ python scripts/evaluate_intake.py test --run-id v1 --max-cost-usd BUDGET
 Baseline was already reproduced; files are create-only and refuse overwrites.
 Baseline reproduction without rewriting outputs uses the baseline-check command. Live
 outputs use reports/evaluation/intake/runs/v1/{development,test}. Those run-scoped
-metrics/comparison supersede root NOT_MEASURED placeholders without silently editing them.
+metrics/comparison are immutable run records. scripts/report_intake_results.py explicitly
+publishes derived root report views, superseding the initial NOT_MEASURED placeholders.
 Each split: 192 cases, 96 ES/96 PT; disjoint groups. All utterances are team-generated;
 PT is not observed banking text. No labels/split/principal enter the extractor.
 

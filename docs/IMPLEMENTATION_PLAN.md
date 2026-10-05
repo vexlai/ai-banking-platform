@@ -107,7 +107,7 @@ No se permite SQL arbitrario generado por modelos.
 
 ```text
 Phase 1 — Foundation & Secure Runtime      ✅ DONE
-Phase 2 — Identity & AI Intake             ← NEXT
+Phase 2 — Identity & AI Intake             ← DONE (offline evaluation)
 Phase 3 — Investigation Intelligence
 Phase 4 — Safety, Evaluation & Observability
 Phase 5 — Demo Productization
@@ -1005,15 +1005,14 @@ El MVP está terminado cuando existe:
 ### Identity & Intake
 
 - [x] trusted demo IAM (JWT local firmado; no IAM productivo);
-- [x] learned extractor (adapter implementado/probado con mocks; inferencia real pendiente);
+- [x] learned extractor (adapter probado y evaluación live congelada);
 - [x] structured schema validation;
-- [ ] baseline vs learned evaluation;
-- [ ] ES/PT metrics.
+- [x] baseline vs learned evaluation;
+- [x] ES/PT metrics.
 
-Estado parcial de Phase 2: baseline reproducido, identidad y boundary probados;
-sin credenciales/proveedor/modelo configurados, no hay resultados learned ni mejora
-demostrada. No avanzar a Phase 3 antes de evaluar DEV, congelar configuración y
-puntuar TEST. Véase reports/IDENTITY_AI_INTAKE_DELIVERY.md.
+Phase 2 cerrada para evaluación offline: 192 DEV y 192 TEST, configuración congelada,
+167/192 full-schema TEST frente a 144/192 baseline. Dos hallucinations brutas rechazadas.
+No equivale a certificación productiva. Véase reports/IDENTITY_AI_INTAKE_DELIVERY.md.
 
 ### Investigation
 
@@ -1050,7 +1049,8 @@ puntuar TEST. Véase reports/IDENTITY_AI_INTAKE_DELIVERY.md.
 
 # 12. Próximo paso
 
-El siguiente workstream es:
+El siguiente workstream es Phase 3 — Investigation Intelligence (no implementada en esta entrega).
+La secuencia de Phase 2 que sigue ya fue completada:
 
 > **Phase 2 — Identity & AI Intake**
 

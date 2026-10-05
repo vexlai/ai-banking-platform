@@ -1,31 +1,27 @@
-# Error analysis — baseline reproduced; learned NOT MEASURED
+# Intake error analysis
 
-Baseline version regex-intake-v1; unchanged 384 authored ES/PT utterances.
-Each split has 192 cases (96 ES, 96 PT). Counts below overlap by error category.
+Completed run: openai-luna-v1. TEST was scored once after configuration freeze; no post-test tuning.
 
-| Error | Development / 192 | Test / 192 |
-|---|---:|---:|
-| Amount extraction | 36 | 36 |
-| Currency extraction | 12 | 12 |
-| Intent extraction | 12 | 12 |
-| Clarification false positive | 12 | 12 |
-| Expected-null field populated | 0 | 0 |
+## Raw model errors (192 TEST cases; overlapping categories)
 
-Representative sanitized references from DEV (not raw customer text):
+- amount_extraction: 16
+- currency_extraction: 9
+- transaction_type_hint_extraction: 2
+- hallucination: 2
 
-- group-0009c22232890f00-es-01: amount differs from annotation.
-- group-0009c22232890f00-es-08: amount and currency differ.
-- group-0009c22232890f00-pt-13: intent differs and unnecessary clarification is signaled.
+Two unsupported transaction_type_hint values occurred in ES; both complete outputs were rejected. Raw hallucination: 2/1,056 unknown slots; delivered: 0/1,056. Delivered amount errors include the two rejected outputs (18 versus 16 raw).
 
-These are synthetic evaluation case identifiers, not selected banking customers.
-Full per-field counts/denominators and all unknown-slot rates are in baseline_metrics.json.
-No annotation was changed. The already-frozen baseline TEST is reproduced, not used to
-claim an independently optimized learned model. No live learned DEV or TEST call occurred.
+Baseline per split: 36 amount, 12 currency, 12 intent errors and 12 clarification false positives (overlapping). Learned clarification: 192/192 correct. ES full-schema 86/96; PT 81/96. PT is team-generated, not observed banking behavior.
 
-Learned error categories, hallucination, false-negative clarification and ES/PT language
-effects remain NOT MEASURED. Mocked provider tests prove validation/control behavior,
-not actual language-model robustness or accuracy. The live harness exports per-run
-errors.json with the same categories and sanitized references; rejected hallucinations
-remain counted using raw allowlisted fields before semantic gating.
+## Sanitized references
 
-No winning model, prompt, threshold or improvement claim is justified yet.
+- group-001d624f0208b967-es-01 (es): amount_extraction
+- group-001d624f0208b967-es-12 (es): amount_extraction
+- group-001d624f0208b967-pt-07 (pt): currency_extraction
+- group-001d624f0208b967-pt-12 (pt): amount_extraction
+- group-00220e2ed3b7e926-es-07 (es): currency_extraction
+- group-00220e2ed3b7e926-es-08 (es): currency_extraction, transaction_type_hint_extraction, hallucination
+- group-00220e2ed3b7e926-es-12 (es): amount_extraction
+- group-00220e2ed3b7e926-pt-07 (pt): currency_extraction
+
+These references point to synthetic fixtures, not customer transcripts. Conservative gates can reject legitimate paraphrases. This sample does not certify prompt-injection robustness or production performance.

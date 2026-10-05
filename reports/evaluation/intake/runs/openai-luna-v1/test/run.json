@@ -1,0 +1,38 @@
+{
+  "split": "test",
+  "config": {
+    "provider": "openai-compatible",
+    "model": "gpt-5.6-luna",
+    "model_version": "gpt-5.6-luna",
+    "api_key_env": "OPENAI_API_KEY",
+    "base_url": "https://api.openai.com/v1",
+    "temperature": 0.0,
+    "reasoning_effort": "none",
+    "timeout_seconds": 20.0,
+    "max_completion_tokens": 400,
+    "input_usd_per_million": 0.2,
+    "output_usd_per_million": 1.2,
+    "pricing_reference": "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+  },
+  "signatures": {
+    "src/intake/prompt_v1.txt": "83e58a686d4ba196109f9e814c7f0f36bc4aaf8c520c2f2fa8c055a54b82cd3f",
+    "artifacts/evaluation/intake_output.schema.json": "176fe909d5d55ab0764f3245d4b2a1724c54d96dc199947c7dbd62500c54b961",
+    "src/intake/schema.py": "ccb43b3466d3420f239ab3992c9c1705d9a3d55f19db809c54bfe2aa298705f2",
+    "src/intake/extractor.py": "75f98bea494166ede07191b69fa8806969e3d82d89ab7428a41a6ea7c3090c37",
+    "src/intake/evaluation.py": "86d3044d82bc71af71fb89fac6f7ed037b27c6731516ad3b9ed278ae603a916d",
+    "scripts/evaluate_intake.py": "ed90761623c991165dac1ee20769dd877bce5bdbddf1cf2306e6af904fbddba5",
+    "artifacts/evaluation/dispute_intake_eval.jsonl": "fac0cfa5117fc0b878e90375564bcb6bd65a7714a8c43ae2849e4057fb26ade2",
+    "src/evaluation/metrics.py": "e84a67c52ba4d7db158359d3d301329a407206eed1cef42d3fc06f2f788ae6ac",
+    "src/evaluation/baseline_intake_parser.py": "bb4378445725149e2c48e18f7db2e82bb7591188c36dda303f61ea9f09a1520f",
+    "runtime:python": "3.12.3",
+    "runtime:openai": "3.24.0",
+    "runtime:pydantic": "2.13.5"
+  },
+  "successful_cases": 190,
+  "attempted_cases": 192,
+  "fallback_cases": 0,
+  "returned_models": [
+    "gpt-5.6-luna"
+  ],
+  "conservative_allowance_usd": 0.3536685
+}

@@ -1,0 +1,842 @@
+{
+  "all": {
+    "full_schema_exact_match": {
+      "baseline": 0.75,
+      "learned": 0.8697916666666666
+    },
+    "should_clarify_accuracy": {
+      "baseline": 0.9375,
+      "learned": 1.0
+    },
+    "model_schema_valid_rate": {
+      "baseline": 1.0,
+      "learned": 1.0
+    },
+    "missing_required_clue_set_exact_match": {
+      "baseline": 0.8125,
+      "learned": 0.8697916666666666
+    },
+    "latency_cost": {
+      "baseline": {
+        "attempts": 192,
+        "p50_ms": 0.07100199945853092,
+        "p95_ms": 0.1416887498635333,
+        "known_cost_cases": 192,
+        "unknown_cost_cases": 0,
+        "estimated_total_usd": 0,
+        "estimated_cost_per_attempt_usd": 0.0
+      },
+      "learned": {
+        "attempts": 192,
+        "p50_ms": 1211.7903149992344,
+        "p95_ms": 1508.1599629535049,
+        "known_cost_cases": 192,
+        "unknown_cost_cases": 0,
+        "estimated_total_usd": 0.0322432,
+        "estimated_cost_per_attempt_usd": 0.00016793333333333334
+      }
+    },
+    "raw_model_extraction_before_semantic_gate": {
+      "baseline": {
+        "cases": 192,
+        "per_field": {
+          "intent": {
+            "cases": 192,
+            "exact_match": 0.9375,
+            "true_positive": 180,
+            "false_positive": 12,
+            "false_negative": 12,
+            "precision": 0.9375,
+            "recall": 0.9375,
+            "f1": 0.9375,
+            "null_slots": 0,
+            "null_correct": 0,
+            "null_correctness": null
+          },
+          "transaction_id": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 12,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 180,
+            "null_correct": 180,
+            "null_correctness": 1.0
+          },
+          "amount": {
+            "cases": 192,
+            "exact_match": 0.8125,
+            "true_positive": 60,
+            "false_positive": 0,
+            "false_negative": 36,
+            "precision": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693,
+            "null_slots": 96,
+            "null_correct": 96,
+            "null_correctness": 1.0
+          },
+          "currency": {
+            "cases": 192,
+            "exact_match": 0.9375,
+            "true_positive": 84,
+            "false_positive": 0,
+            "false_negative": 12,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "null_slots": 96,
+            "null_correct": 96,
+            "null_correctness": 1.0
+          },
+          "merchant": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 12,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 180,
+            "null_correct": 180,
+            "null_correctness": 1.0
+          },
+          "date_hint": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 48,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 144,
+            "null_correct": 144,
+            "null_correctness": 1.0
+          },
+          "transaction_type_hint": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 12,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 180,
+            "null_correct": 180,
+            "null_correctness": 1.0
+          },
+          "channel_hint": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 12,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 180,
+            "null_correct": 180,
+            "null_correctness": 1.0
+          }
+        },
+        "full_schema_exact_match": 0.75,
+        "schema_valid_rate": 1.0,
+        "hallucinated_fields": 0,
+        "expected_unknown_slots": 1056,
+        "predicted_nonnull_slots": 432,
+        "hallucinated_field_rate_unknown_slots": 0.0,
+        "hallucinated_field_rate_predicted_slots": 0.0,
+        "missing_field_set_exact_match": 0.8125,
+        "should_clarify_accuracy": 0.9375,
+        "should_handoff_accuracy": 1.0,
+        "limitations": "Exact annotation agreement on generated utterances, not observed dispute resolution accuracy"
+      },
+      "learned": {
+        "cases": 192,
+        "per_field": {
+          "intent": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 192,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 0,
+            "null_correct": 0,
+            "null_correctness": null
+          },
+          "transaction_id": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 12,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 180,
+            "null_correct": 180,
+            "null_correctness": 1.0
+          },
+          "amount": {
+            "cases": 192,
+            "exact_match": 0.9166666666666666,
+            "true_positive": 80,
+            "false_positive": 0,
+            "false_negative": 16,
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "f1": 0.9090909090909091,
+            "null_slots": 96,
+            "null_correct": 96,
+            "null_correctness": 1.0
+          },
+          "currency": {
+            "cases": 192,
+            "exact_match": 0.953125,
+            "true_positive": 87,
+            "false_positive": 0,
+            "false_negative": 9,
+            "precision": 1.0,
+            "recall": 0.90625,
+            "f1": 0.9508196721311475,
+            "null_slots": 96,
+            "null_correct": 96,
+            "null_correctness": 1.0
+          },
+          "merchant": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 12,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 180,
+            "null_correct": 180,
+            "null_correctness": 1.0
+          },
+          "date_hint": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 48,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 144,
+            "null_correct": 144,
+            "null_correctness": 1.0
+          },
+          "transaction_type_hint": {
+            "cases": 192,
+            "exact_match": 0.9895833333333334,
+            "true_positive": 12,
+            "false_positive": 2,
+            "false_negative": 0,
+            "precision": 0.8571428571428571,
+            "recall": 1.0,
+            "f1": 0.9230769230769231,
+            "null_slots": 180,
+            "null_correct": 178,
+            "null_correctness": 0.9888888888888889
+          },
+          "channel_hint": {
+            "cases": 192,
+            "exact_match": 1.0,
+            "true_positive": 12,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 180,
+            "null_correct": 180,
+            "null_correctness": 1.0
+          }
+        },
+        "full_schema_exact_match": 0.8697916666666666,
+        "schema_valid_rate": 1.0,
+        "hallucinated_fields": 2,
+        "expected_unknown_slots": 1056,
+        "predicted_nonnull_slots": 457,
+        "hallucinated_field_rate_unknown_slots": 0.001893939393939394,
+        "hallucinated_field_rate_predicted_slots": 0.00437636761487965,
+        "missing_field_set_exact_match": 0.8697916666666666,
+        "should_clarify_accuracy": 1.0,
+        "should_handoff_accuracy": 1.0,
+        "limitations": "Exact annotation agreement on generated utterances, not observed dispute resolution accuracy"
+      }
+    }
+  },
+  "es": {
+    "full_schema_exact_match": {
+      "baseline": 0.75,
+      "learned": 0.8958333333333334
+    },
+    "should_clarify_accuracy": {
+      "baseline": 0.9375,
+      "learned": 1.0
+    },
+    "model_schema_valid_rate": {
+      "baseline": 1.0,
+      "learned": 1.0
+    },
+    "missing_required_clue_set_exact_match": {
+      "baseline": 0.8125,
+      "learned": 0.8958333333333334
+    },
+    "latency_cost": {
+      "baseline": {
+        "attempts": 96,
+        "p50_ms": 0.07100199945853092,
+        "p95_ms": 0.1521479989605723,
+        "known_cost_cases": 96,
+        "unknown_cost_cases": 0,
+        "estimated_total_usd": 0,
+        "estimated_cost_per_attempt_usd": 0.0
+      },
+      "learned": {
+        "attempts": 96,
+        "p50_ms": 1277.4169804979465,
+        "p95_ms": 1532.8164734983147,
+        "known_cost_cases": 96,
+        "unknown_cost_cases": 0,
+        "estimated_total_usd": 0.0161354,
+        "estimated_cost_per_attempt_usd": 0.00016807708333333335
+      }
+    },
+    "raw_model_extraction_before_semantic_gate": {
+      "baseline": {
+        "cases": 96,
+        "per_field": {
+          "intent": {
+            "cases": 96,
+            "exact_match": 0.9375,
+            "true_positive": 90,
+            "false_positive": 6,
+            "false_negative": 6,
+            "precision": 0.9375,
+            "recall": 0.9375,
+            "f1": 0.9375,
+            "null_slots": 0,
+            "null_correct": 0,
+            "null_correctness": null
+          },
+          "transaction_id": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "amount": {
+            "cases": 96,
+            "exact_match": 0.8125,
+            "true_positive": 30,
+            "false_positive": 0,
+            "false_negative": 18,
+            "precision": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "currency": {
+            "cases": 96,
+            "exact_match": 0.9375,
+            "true_positive": 42,
+            "false_positive": 0,
+            "false_negative": 6,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "merchant": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "date_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 24,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 72,
+            "null_correct": 72,
+            "null_correctness": 1.0
+          },
+          "transaction_type_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "channel_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          }
+        },
+        "full_schema_exact_match": 0.75,
+        "schema_valid_rate": 1.0,
+        "hallucinated_fields": 0,
+        "expected_unknown_slots": 528,
+        "predicted_nonnull_slots": 216,
+        "hallucinated_field_rate_unknown_slots": 0.0,
+        "hallucinated_field_rate_predicted_slots": 0.0,
+        "missing_field_set_exact_match": 0.8125,
+        "should_clarify_accuracy": 0.9375,
+        "should_handoff_accuracy": 1.0,
+        "limitations": "Exact annotation agreement on generated utterances, not observed dispute resolution accuracy"
+      },
+      "learned": {
+        "cases": 96,
+        "per_field": {
+          "intent": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 96,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 0,
+            "null_correct": 0,
+            "null_correctness": null
+          },
+          "transaction_id": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "amount": {
+            "cases": 96,
+            "exact_match": 0.9270833333333334,
+            "true_positive": 41,
+            "false_positive": 0,
+            "false_negative": 7,
+            "precision": 1.0,
+            "recall": 0.8541666666666666,
+            "f1": 0.9213483146067416,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "currency": {
+            "cases": 96,
+            "exact_match": 0.96875,
+            "true_positive": 45,
+            "false_positive": 0,
+            "false_negative": 3,
+            "precision": 1.0,
+            "recall": 0.9375,
+            "f1": 0.967741935483871,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "merchant": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "date_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 24,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 72,
+            "null_correct": 72,
+            "null_correctness": 1.0
+          },
+          "transaction_type_hint": {
+            "cases": 96,
+            "exact_match": 0.9791666666666666,
+            "true_positive": 6,
+            "false_positive": 2,
+            "false_negative": 0,
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "null_slots": 90,
+            "null_correct": 88,
+            "null_correctness": 0.9777777777777777
+          },
+          "channel_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          }
+        },
+        "full_schema_exact_match": 0.8958333333333334,
+        "schema_valid_rate": 1.0,
+        "hallucinated_fields": 2,
+        "expected_unknown_slots": 528,
+        "predicted_nonnull_slots": 232,
+        "hallucinated_field_rate_unknown_slots": 0.003787878787878788,
+        "hallucinated_field_rate_predicted_slots": 0.008620689655172414,
+        "missing_field_set_exact_match": 0.8958333333333334,
+        "should_clarify_accuracy": 1.0,
+        "should_handoff_accuracy": 1.0,
+        "limitations": "Exact annotation agreement on generated utterances, not observed dispute resolution accuracy"
+      }
+    }
+  },
+  "pt": {
+    "full_schema_exact_match": {
+      "baseline": 0.75,
+      "learned": 0.84375
+    },
+    "should_clarify_accuracy": {
+      "baseline": 0.9375,
+      "learned": 1.0
+    },
+    "model_schema_valid_rate": {
+      "baseline": 1.0,
+      "learned": 1.0
+    },
+    "missing_required_clue_set_exact_match": {
+      "baseline": 0.8125,
+      "learned": 0.84375
+    },
+    "latency_cost": {
+      "baseline": {
+        "attempts": 96,
+        "p50_ms": 0.07144199844333343,
+        "p95_ms": 0.1034262513712747,
+        "known_cost_cases": 96,
+        "unknown_cost_cases": 0,
+        "estimated_total_usd": 0,
+        "estimated_cost_per_attempt_usd": 0.0
+      },
+      "learned": {
+        "attempts": 96,
+        "p50_ms": 1177.4679349982762,
+        "p95_ms": 1420.0493400003324,
+        "known_cost_cases": 96,
+        "unknown_cost_cases": 0,
+        "estimated_total_usd": 0.016107800000000002,
+        "estimated_cost_per_attempt_usd": 0.00016778958333333335
+      }
+    },
+    "raw_model_extraction_before_semantic_gate": {
+      "baseline": {
+        "cases": 96,
+        "per_field": {
+          "intent": {
+            "cases": 96,
+            "exact_match": 0.9375,
+            "true_positive": 90,
+            "false_positive": 6,
+            "false_negative": 6,
+            "precision": 0.9375,
+            "recall": 0.9375,
+            "f1": 0.9375,
+            "null_slots": 0,
+            "null_correct": 0,
+            "null_correctness": null
+          },
+          "transaction_id": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "amount": {
+            "cases": 96,
+            "exact_match": 0.8125,
+            "true_positive": 30,
+            "false_positive": 0,
+            "false_negative": 18,
+            "precision": 1.0,
+            "recall": 0.625,
+            "f1": 0.7692307692307693,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "currency": {
+            "cases": 96,
+            "exact_match": 0.9375,
+            "true_positive": 42,
+            "false_positive": 0,
+            "false_negative": 6,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "merchant": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "date_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 24,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 72,
+            "null_correct": 72,
+            "null_correctness": 1.0
+          },
+          "transaction_type_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "channel_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          }
+        },
+        "full_schema_exact_match": 0.75,
+        "schema_valid_rate": 1.0,
+        "hallucinated_fields": 0,
+        "expected_unknown_slots": 528,
+        "predicted_nonnull_slots": 216,
+        "hallucinated_field_rate_unknown_slots": 0.0,
+        "hallucinated_field_rate_predicted_slots": 0.0,
+        "missing_field_set_exact_match": 0.8125,
+        "should_clarify_accuracy": 0.9375,
+        "should_handoff_accuracy": 1.0,
+        "limitations": "Exact annotation agreement on generated utterances, not observed dispute resolution accuracy"
+      },
+      "learned": {
+        "cases": 96,
+        "per_field": {
+          "intent": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 96,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 0,
+            "null_correct": 0,
+            "null_correctness": null
+          },
+          "transaction_id": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "amount": {
+            "cases": 96,
+            "exact_match": 0.90625,
+            "true_positive": 39,
+            "false_positive": 0,
+            "false_negative": 9,
+            "precision": 1.0,
+            "recall": 0.8125,
+            "f1": 0.896551724137931,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "currency": {
+            "cases": 96,
+            "exact_match": 0.9375,
+            "true_positive": 42,
+            "false_positive": 0,
+            "false_negative": 6,
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "null_slots": 48,
+            "null_correct": 48,
+            "null_correctness": 1.0
+          },
+          "merchant": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "date_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 24,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 72,
+            "null_correct": 72,
+            "null_correctness": 1.0
+          },
+          "transaction_type_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          },
+          "channel_hint": {
+            "cases": 96,
+            "exact_match": 1.0,
+            "true_positive": 6,
+            "false_positive": 0,
+            "false_negative": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "null_slots": 90,
+            "null_correct": 90,
+            "null_correctness": 1.0
+          }
+        },
+        "full_schema_exact_match": 0.84375,
+        "schema_valid_rate": 1.0,
+        "hallucinated_fields": 0,
+        "expected_unknown_slots": 528,
+        "predicted_nonnull_slots": 225,
+        "hallucinated_field_rate_unknown_slots": 0.0,
+        "hallucinated_field_rate_predicted_slots": 0.0,
+        "missing_field_set_exact_match": 0.84375,
+        "should_clarify_accuracy": 1.0,
+        "should_handoff_accuracy": 1.0,
+        "limitations": "Exact annotation agreement on generated utterances, not observed dispute resolution accuracy"
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "categories": {
+    "amount_extraction": 16,
+    "currency_extraction": 9,
+    "transaction_type_hint_extraction": 2,
+    "hallucination": 2
+  },
+  "sanitized_references": [
+    {
+      "case_id": "group-001d624f0208b967-es-01",
+      "language": "es",
+      "categories": [
+        "amount_extraction"
+      ]
+    },
+    {
+      "case_id": "group-001d624f0208b967-es-12",
+      "language": "es",
+      "categories": [
+        "amount_extraction"
+      ]
+    },
+    {
+      "case_id": "group-001d624f0208b967-pt-07",
+      "language": "pt",
+      "categories": [
+        "currency_extraction"
+      ]
+    },
+    {
+      "case_id": "group-001d624f0208b967-pt-12",
+      "language": "pt",
+      "categories": [
+        "amount_extraction"
+      ]
+    },
+    {
+      "case_id": "group-00220e2ed3b7e926-es-07",
+      "language": "es",
+      "categories": [
+        "currency_extraction"
+      ]
+    },
+    {
+      "case_id": "group-00220e2ed3b7e926-es-08",
+      "language": "es",
+      "categories": [
+        "currency_extraction",
+        "transaction_type_hint_extraction",
+        "hallucination"
+      ]
+    },
+    {
+      "case_id": "group-00220e2ed3b7e926-es-12",
+      "language": "es",
+      "categories": [
+        "amount_extraction"
+      ]
+    },
+    {
+      "case_id": "group-00220e2ed3b7e926-pt-07",
+      "language": "pt",
+      "categories": [
+        "currency_extraction"
+      ]
+    }
+  ]
+}

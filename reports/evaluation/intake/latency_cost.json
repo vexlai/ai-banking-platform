@@ -1,60 +1,41 @@
 {
-  "development": {
-    "all": {
+  "status": "MEASURED",
+  "source_run": "runs/openai-luna-v1",
+  "supersedes": "Initial NOT_MEASURED report placeholders; immutable run outputs retained",
+  "limitations": "Offline authored workload; PT team-generated; not production quality or billing",
+  "baseline_test": {
+    "attempts": 192,
+    "p50_ms": 0.07100199945853092,
+    "p95_ms": 0.1416887498635333,
+    "known_cost_cases": 192,
+    "unknown_cost_cases": 0,
+    "estimated_total_usd": 0,
+    "estimated_cost_per_attempt_usd": 0.0
+  },
+  "learned": {
+    "development": {
       "attempts": 192,
-      "p50_ms": 0.08526149758836254,
-      "p95_ms": 0.2070352027658373,
+      "p50_ms": 1120.224425496417,
+      "p95_ms": 1467.130450451441,
       "known_cost_cases": 192,
       "unknown_cost_cases": 0,
-      "estimated_total_usd": 0,
-      "estimated_cost_per_attempt_usd": 0.0
+      "estimated_total_usd": 0.032236,
+      "estimated_cost_per_attempt_usd": 0.00016789583333333335
     },
-    "es": {
-      "attempts": 96,
-      "p50_ms": 0.08722450002096593,
-      "p95_ms": 0.2082467508444097,
-      "known_cost_cases": 96,
+    "test": {
+      "attempts": 192,
+      "p50_ms": 1211.7903149992344,
+      "p95_ms": 1508.1599629535049,
+      "known_cost_cases": 192,
       "unknown_cost_cases": 0,
-      "estimated_total_usd": 0,
-      "estimated_cost_per_attempt_usd": 0.0
-    },
-    "pt": {
-      "attempts": 96,
-      "p50_ms": 0.08433699986198917,
-      "p95_ms": 0.2024887489824323,
-      "known_cost_cases": 96,
-      "unknown_cost_cases": 0,
-      "estimated_total_usd": 0,
-      "estimated_cost_per_attempt_usd": 0.0
+      "estimated_total_usd": 0.0322432,
+      "estimated_cost_per_attempt_usd": 0.00016793333333333334
     }
   },
-  "test": {
-    "all": {
-      "attempts": 192,
-      "p50_ms": 0.07100199945853092,
-      "p95_ms": 0.1416887498635333,
-      "known_cost_cases": 192,
-      "unknown_cost_cases": 0,
-      "estimated_total_usd": 0,
-      "estimated_cost_per_attempt_usd": 0.0
-    },
-    "es": {
-      "attempts": 96,
-      "p50_ms": 0.07100199945853092,
-      "p95_ms": 0.1521479989605723,
-      "known_cost_cases": 96,
-      "unknown_cost_cases": 0,
-      "estimated_total_usd": 0,
-      "estimated_cost_per_attempt_usd": 0.0
-    },
-    "pt": {
-      "attempts": 96,
-      "p50_ms": 0.07144199844333343,
-      "p95_ms": 0.1034262513712747,
-      "known_cost_cases": 96,
-      "unknown_cost_cases": 0,
-      "estimated_total_usd": 0,
-      "estimated_cost_per_attempt_usd": 0.0
-    }
-  }
+  "probe_estimated_usd": 0.00017480000000000002,
+  "total_inference_calls": 385,
+  "total_estimated_usd": 0.064654,
+  "authorized_budget_usd": 2,
+  "unknown_cost_cases": 0,
+  "note": "Tariff estimate, not invoice; no new inference in report generation."
 }
