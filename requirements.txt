@@ -16,8 +16,8 @@ mypy>=1.10.0
 pytest>=8.0.0
 httpx>=0.27,<0.29
 
-# --- Data & Analytics (Developer A: src/data/, notebooks/) ---
-# Versions validated on the `analitica` branch (requirements-analytics.txt).
+# --- Data & Analytics (src/data/, notebooks/) ---
+# Pinned to the versions validated by the analytics/EDA pipeline.
 duckdb==1.5.6
 pandas==3.0.6
 matplotlib==3.11.2
