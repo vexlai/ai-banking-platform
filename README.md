@@ -7,10 +7,11 @@ An enterprise-grade, evidence-grounded customer service orchestration engine des
 | Scope | Status | Notes |
 | :--- | :--- | :--- |
 | `api/`, `src/orchestrator/`, `src/policy/`, `src/telemetry/` | **Completed** | Gateway, orchestrator state machine, policy engine, telemetry tracing. |
-| `src/data/` (`config`, `data_utils`, `eda/`, `workflows/`, `evaluation/`) | **Completed** | Analytics & EDA modules migrated from the `analitica` branch. |
+| `src/data/` (`config`, `data_utils`, `eda/`, `workflows/`, `evaluation/`) | **Completed** | Analytics & EDA modules. |
+| `src/data/ingest.py` | **Completed** | Offline build: DuckDB serving views + FAISS transcript index. |
+| `src/tools/context_tools.py` (INT-01) | **Completed** | DuckDB-backed context tools over the six serving views, with graceful fallback to `src/tools/mocks.py`. |
+| `src/retrieval/vector_store.py` (INT-02) | **Completed** | FAISS semantic transcript retrieval over the built index. |
 | `notebooks/`, `docs/` | **Completed** | 7 EDA notebooks plus the analytics docs and EDA runbook. |
-| `src/tools/context_tools.py` (INT-01) | **Projected** | DuckDB context tools replacing `src/tools/mocks.py`; currently stubs. |
-| `src/retrieval/vector_store.py` (INT-02) | **Projected** | FAISS retrieval over `call_transcripts.parquet`; currently stubs. |
 
 ---
 
@@ -40,7 +41,7 @@ The system interfaces with the LATAM Bank dataset (~19M records spanning June 17
 | **Customer Support** | `call_center_interactions`, `call_transcripts`, `service_agents` | **`interaction_history`** & **`similar_transcripts`**: Last 5–10 interactions + FAISS top-3 semantic transcript match. |
 | **Cases & Feedback** | `complaints`, `satisfaction_surveys` | **`open_cases`**: Active cases, SLA breach indicators, and repeat complaint flags. |
 
-> **Implementation note:** The serving views and FAISS index above are the target contract. `src/tools/context_tools.py` (INT-01) and `src/retrieval/vector_store.py` (INT-02) are **currently stubs** that raise `NotImplementedError`; until they are implemented, every tool is served from the deterministic fixtures in `src/tools/mocks.py`, and the orchestrator and HTTP layers stay agnostic to the data source.
+> **Implementation note:** The serving views and FAISS index above are the live contract: `src/tools/context_tools.py` (INT-01) queries the DuckDB serving database and `src/retrieval/vector_store.py` (INT-02) performs FAISS semantic search, both built offline by `python -m src.data.ingest`. Serving is mock-backed by default (`USE_MOCKS=true`) to keep tests and CI reproducible; set `USE_MOCKS=false` (or pass `?use_mocks=false` per request) to serve live data. Every tool degrades gracefully — when DuckDB, the database file, or a view is unavailable it falls back to the deterministic fixtures in `src/tools/mocks.py`, so the orchestrator and HTTP layers stay agnostic to the data source.
 
 ---
 
@@ -53,6 +54,7 @@ ai-banking-platform/
 │
 ├── api/                        # FastAPI Gateway & Middleware
 │   ├── main.py                 # App init, CORS, router wiring, /health probe
+│   ├── config.py               # USE_MOCKS resolution & env-flag helpers
 │   ├── security.py             # X-API-Key guard (require_api_key) for protected /v1 routes
 │   └── routes/                 # REST routes
 │       ├── chat.py             # POST /v1/chat — one orchestrator turn
@@ -64,7 +66,8 @@ ai-banking-platform/
 │
 ├── src/                        # Core Application Packages
 │   ├── data/                   # Data Access, EDA & Analytics engine
-│   │   ├── config.py           # Analytics paths & reference date
+│   │   ├── config.py           # Serving paths (raw/serving) & reference date
+│   │   ├── ingest.py           # Offline serving build (DuckDB views + FAISS index)
 │   │   ├── data_utils.py       # DuckDB connection & dataset discovery helpers
 │   │   ├── eda/                # Domain EDA & profiling
 │   │   │   ├── eda_core.py     # Shared EDA primitives (OUT, FIG, start, finish)
@@ -88,11 +91,11 @@ ai-banking-platform/
 │   │       └── run_baseline.py # Baseline runner & report
 │   │
 │   ├── tools/                  # Tool Implementations (contracts live in contracts/)
-│   │   ├── mocks.py            # Deterministic fixtures — active today
-│   │   └── context_tools.py    # DuckDB-backed context lookup tools    [INT-01, stub]
+│   │   ├── mocks.py            # Deterministic fixtures — default source & fallback
+│   │   └── context_tools.py    # DuckDB-backed context lookup tools (INT-01)
 │   │
 │   ├── retrieval/              # Vector Search & Unstructured Data
-│   │   └── vector_store.py     # FAISS index & semantic transcript retriever [INT-02, stub]
+│   │   └── vector_store.py     # FAISS index & semantic transcript retriever (INT-02)
 │   │
 │   ├── orchestrator/           # LLM Orchestration & State Machine
 │   │   ├── state_machine.py    # UNDERSTAND -> GATHER -> DECIDE -> RESPOND
@@ -113,10 +116,13 @@ ai-banking-platform/
 │
 ├── notebooks/                  # EDA notebooks (00–05: inventory → baseline/eval)
 ├── docs/                       # Analytics docs & EDA runbook
-├── tests/                      # pytest suites (19 tests)
+├── tests/                      # pytest suites (41 tests)
 │   ├── test_policy.py          # PII redaction & risk decision rules
 │   ├── test_api.py             # /health, /v1/chat, context, trace & auth guard
 │   ├── test_orchestrator_engine.py  # state machine + LLM tool loop (stub client)
+│   ├── test_context_tools.py   # DuckDB context tools & mock fallback
+│   ├── test_ingest.py          # serving-build script (dry run, views, FAISS)
+│   ├── test_vector_store.py    # FAISS index build & semantic search
 │   └── test_guardrails.py      # module-boundary checks (contract purity, HTTP boundary)
 ├── Dockerfile                  # Multi-stage image (python:3.13-slim)
 ├── docker-compose.yml          # api_gateway:8000 + streamlit_ui:8501
@@ -167,7 +173,7 @@ These boundaries are enforced automatically by `tests/test_guardrails.py`, which
                │
                ▼
  3. src/tools/ & retrieval/ ────► GATHER EVIDENCE: Context tools & FAISS search
-                                  (mock-backed until INT-01/INT-02 land)
+                                  (DuckDB + FAISS, mock fallback via USE_MOCKS)
                │
                ▼
  4. src/policy/         ────────► DECIDE: Sanitizes PII, checks fraud triggers & SLA breaches
@@ -199,6 +205,8 @@ The gateway exposes four HTTP routes. Every `/v1/*` route is protected by an opt
 - When `API_KEY_REQUIRED` is unset/false (default), the guard is a no-op.
 - `GET /health` is never guarded. The Streamlit UI forwards `API_KEY` automatically via `apps/demo_ui/app.py::_auth_headers()`.
 
+**`?use_mocks=` data-source override:** The two data-bearing routes accept an optional `use_mocks` query parameter. When omitted, serving follows the process default from `USE_MOCKS` (see §7.2); `?use_mocks=true` forces the deterministic fixtures and `?use_mocks=false` forces the DuckDB/FAISS-backed tools for that request only. `/health` and `GET /v1/trace/{request_id}` are unaffected.
+
 ---
 
 ## 7. Local Development Setup
@@ -229,15 +237,19 @@ API_KEY=your_shared_api_key
 # Front-End
 API_BASE_URL=http://localhost:8000
 
-# Data & Storage
-DUCKDB_PATH=./data/bank_serving.duckdb
-FAISS_INDEX_PATH=./data/transcripts.faiss
+# Data Serving (true = deterministic fixtures; false = live DuckDB / FAISS)
+USE_MOCKS=true
+
+# Gateway CORS (comma-separated allow-list; empty = allow all origins)
+CORS_ALLOW_ORIGINS=http://localhost:8501
 
 # AWS S3 Data Ingestion (Credentials stored locally, never committed)
 AWS_ACCESS_KEY_ID=your_aws_access_key
 AWS_SECRET_ACCESS_KEY=your_aws_secret_key
 AWS_DEFAULT_REGION=us-east-2
 ```
+
+> **Serving paths are derived, not configured.** The DuckDB serving database (`./data/serving/bank_serving.duckdb`), the FAISS index (`./data/serving/transcripts.faiss`), and the raw extracts (`./data/raw/`) are constants in `src/data/config.py`, not `.env` entries. Build them with the commands in §7.3.
 
 ### 7.3 Ingest & Sync Data:
 
@@ -246,13 +258,18 @@ AWS_DEFAULT_REGION=us-east-2
 aws s3 sync s3://factored-datathon-2026-s3-157725502942-us-east-2-an/data/ ./data/
 
 # Build the DuckDB serving views and the FAISS index (INT-01 / INT-02)
-python -m src.data.ingest             # pending — context_tools.py is a stub
-python -m src.retrieval.vector_store  # pending — vector_store.py is a stub
+python -m src.data.ingest               # full build: serving views + FAISS index
+python -m src.data.ingest --dry-run     # print the plan; write nothing
+python -m src.data.ingest --skip-faiss  # build the serving views only
+
+# Standalone FAISS rebuild (equivalent to the index step above)
+python -m src.retrieval.vector_store
 ```
 
-> **Pending:** `src/tools/context_tools.py` (INT-01) and `src/retrieval/vector_store.py`
-> (INT-02) are stubs, so the two pipeline commands above are non-functional until those
-> modules are implemented.
+> **Tip:** The build reads raw extracts from `./data/raw/` and writes the serving database
+> and index under `./data/serving/`. Extracts that are absent are registered as typed
+> zero-row stand-ins, so the six serving objects always exist and queries degrade to the
+> deterministic mocks. Start the gateway with `USE_MOCKS=false` to serve live data.
 
 ### 7.4 Running System Components
 Execute components in separate terminal sessions:
@@ -270,7 +287,7 @@ python evals/run_eval.py
 ### 7.5 Tests, Lint & Evaluations
 
 ```Bash
-# Unit + integration suite (19 tests: policy, engine, api, guardrails)
+# Unit + integration suite (41 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
 pytest tests/
 
 # Static checks

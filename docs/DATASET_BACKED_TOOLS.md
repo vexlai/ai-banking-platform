@@ -1,110 +1,114 @@
-# Dataset-backed Banking Tools — Fase 2
+# Dataset-Backed Banking Tools (INT-01 / INT-02)
 
-## Arquitectura y contrato
+This document describes the dataset-backed serving layer that replaces the deterministic
+fixtures: the DuckDB context tools (INT-01), the FAISS transcript retriever (INT-02), and
+the offline build script (`src/data/ingest.py`) that produces both.
 
-FastAPI → CaseService → TransactionTools → FixtureTools o DatasetTools.
-DatasetTools consulta DuckDB read-only; CaseStore conserva SQLite separado. No hay
-SQL en rutas, endpoints nuevos, selección automática, LLM ni modificaciones al runtime.
-Los métodos existentes son search, get, product_owner e history. Las respuestas son
-SearchResult, Transaction y HistoricalContext existentes; errores operacionales son ToolFailure.
+## Architecture
 
-## Preparación reproducible desde la raíz
+```
+API / orchestrator
+      |
+      v
+src/tools/context_tools.py    --> DuckDB (read-only) --> six serving views
+src/retrieval/vector_store.py --> FAISS index --------> top-k transcript matches
+      |
+      +-- on any failure --> src/tools/mocks.py (deterministic fixtures)
+```
 
-Python 3.12+. Instalar requirements.txt y requirements-dataset-tools.txt. Reutilizar la
-caché analysis.duckdb generada por el EDA: no reconstruir analytics ni leer CSV por request.
-Pasar su ubicación real mediante --source; no se autodetecta ni descarga.
+- `src/tools/context_tools.py` serves the six customer-context views over the read-only
+  DuckDB database at `src.data.config.DUCKDB_PATH`, with the same signatures as
+  `src.tools.mocks`.
+- `src/retrieval/vector_store.py` loads the FAISS index at
+  `src.data.config.FAISS_INDEX_PATH` and returns the nearest transcripts as
+  `contracts.TranscriptMatch` records.
+- When duckdb, the database file, the index, or a view is unavailable, each tool logs a
+  warning and returns the deterministic mock. Pass `strict=True` to raise
+  `ContextToolError` instead of falling back.
 
-~~~sh
-python scripts/prepare_banking_serving.py \
-  --source RUTA_RELATIVA_A_CACHE/analysis.duckdb \
-  --output .tmp/banking_serving/transactions-v1.duckdb \
-  --time-policy naive-as-utc-explicit-assumption
-~~~
+`USE_MOCKS` selects the default source for the process (`true` = fixtures, `false` = live
+DuckDB + FAISS). Any request may override it with the `?use_mocks=` query parameter.
 
-El comando sólo publica un archivo nuevo; rechaza sobrescritura. Valida firma de caché
-contra profiling, formato temporal/decimal/moneda y campos obligatorios, PK, ownership
-y orphans. No deduplica, imputa ni elimina outliers. Mantiene filas y merchant nulo.
-Una preparación fallida conserva su archivo .building para inspección.
-El admin configura el path de ATTACH READ_ONLY con escape SQL (DuckDB no parametriza
-ese DDL); todos los valores de consultas bancarias sí utilizan parámetros.
+## Serving views
 
-Sólo se proyectan tres dominios: transactions (campos del contrato y provenance),
-products (product_id/customer_id), customers (customer_id). PK e índice customer_id
-evitan depender del scan de la caché analítica de strings sin índices. La proyección
-local ocupa 900,214,784 bytes, no se versiona y no incluye PII textual de clientes.
+`python -m src.data.ingest` materializes six tables in the serving database:
 
-## Configuración y ejecución
+| View | Source table(s) | Shape |
+| --- | --- | --- |
+| `customer_360_view` | `customers`, `products` | One row per customer: full name, segment, country, products, credit limit, currency. |
+| `recent_transactions` | `transactions` | 30-day window (`--window-days`), max 20 rows per customer, newest first. |
+| `journey_summary` | `digital_events` | 24-hour session window (`--session-hours`): events, error count, abandoned forms. |
+| `interaction_history` | `call_center_interactions` | Last 10 interactions per customer. |
+| `similar_transcripts` | `call_transcripts` | Static per-customer projection; live similarity comes from FAISS at request time. |
+| `open_cases` | `complaints` | Active cases with severity, SLA-breach and repeat-complainer flags. |
 
-BANKING_TOOLS_BACKEND=fixture mantiene el arranque existente de Fase 1.
-Para dataset, configurar en el entorno del servidor:
+## Building the serving layer
 
-| Variable | Valor / responsabilidad |
-|---|---|
-| BANKING_TOOLS_BACKEND | dataset |
-| BANKING_SERVING_PATH | .tmp/banking_serving/transactions-v1.duckdb |
-| BANKING_TIME_POLICY | naive-as-utc-explicit-assumption |
-| ENABLE_LEGACY_API | false, obligatorio |
-| USE_LLM | false |
-| DISPUTE_DATASET_DEMO_MODE | true, reconocimiento explícito de demo local |
-| DISPUTE_DEMO_TOKEN_A / B | secretos distintos de al menos 32 caracteres |
-| DISPUTE_DEMO_CUSTOMER_A / B | IDs distintos configurados por operador, nunca por frontend |
-| DISPUTE_DB_PATH | .tmp/disputes/dataset-cases.sqlite3; distinto de serving |
+Requires Python 3.12+ and the pins in `requirements.txt` (DuckDB, pandas, FAISS, numpy).
+Run from the repository root:
 
-~~~sh
-uvicorn api.main:app --host 127.0.0.1 --port 8000
-~~~
+```bash
+# Full build: serving views + FAISS index
+python -m src.data.ingest
 
-No publicar este adapter de identidad local como IAM real. Las credenciales expiran
-una hora después de construir el verifier; usar tokens sólo del entorno privado.
-Se conservan requests, headers y ejemplos de docs/SECURE_APPLICATION_ADAPTER.md.
-Customer, principal y as_of_time no son inputs confiables del body. No hay fallback
-silencioso a fixtures ante configuración errónea. Startup comprueba archivo, tablas
-físicas, columnas/tipos, PK, índice y metadatos antes de atender requests.
+# Print the resolved sources and the plan without writing anything
+python -m src.data.ingest --dry-run
 
-## Semántica operacional
+# Serving views only, skip the FAISS index
+python -m src.data.ingest --skip-faiss
 
-- Todas las búsquedas/get restringen customer_id y event_time <= as_of.
-- Sin ID: ventana inclusiva [as_of-lookback_days, as_of], máximo 30 días.
-- ID exacto: sin lookback obligatorio; ownership y cutoff siempre aplican.
-- Clues permitidos son los del Search existente; igualdad reproducible, sin fuzzy.
-- Monto usa Decimal y moneda explícita; CaseService rechaza monto sin moneda.
-- Orden estable fecha/ID descendente; 50 candidatos y flag truncated mediante LIMIT 51.
-- History: [candidate_time-30d, candidate_time), mismo cliente, mediana sólo en la
-  moneda del candidato. Ventana incompleta se expresa con complete_window_observed=false.
-- product_owner es lookup interno del puerto existente, sin endpoint público;
-  CaseService lo utiliza después del acceso customer-scoped a la transacción.
-- Un candidato, incluso único, requiere confirmación explícita. Provenance incluye
-  hash de fuente, archivo relativo, ID y política temporal; el runtime agrega regla/as_of.
-- Fraude, complaints y sus enlaces inválidos no forman parte de este serving.
+# Standalone FAISS rebuild
+python -m src.retrieval.vector_store --source ./data/raw/call_transcripts --output ./data/serving/transcripts.faiss
+```
 
-## Límites temporales: no ocultarlos
+Flags: `--raw-dir` (default `./data/raw/`), `--duckdb` / `--faiss` (defaults under
+`./data/serving/`), `--transcripts` (file or partitioned folder), `--cutoff` (reproducible
+as-of date, default `config.REFERENCE_DATE`), `--window-days` (default 30) and
+`--session-hours` (default 24).
 
-Las fechas originales no tienen timezone. La opción explícita preserva wall-clock y
-lo representa como UTC para interoperar con el contrato aware: es una suposición de
-demo, NO evidencia de timezone bancario. No usar fuera de ese alcance sin validar TZ.
-No existe available_at certificado: queda null. El cutoff de evento no certifica
-disponibilidad de ingestión/revisión histórica. Products/customers son snapshots;
-ownership es consistente en los datos observados, no una reconstrucción histórica.
+Each source may be a single `.parquet`/`.csv` file or a Hive-partitioned folder, matched
+with a recursive glob. Missing extracts are registered as typed zero-row stand-ins, so the
+six serving objects always exist and queries degrade to the deterministic mocks rather
+than failing.
 
-Horizonte transaccional: 2023-06-17 06:01:30 a 2026-06-18 05:59:41 (wall-clock).
-Con reloj real en octubre de 2026, búsquedas de los últimos 30 días retornan cero;
-lookup por ID pasado sí funciona. No se desplazan datos ni se cambia el reloj runtime
-en configuración operacional. El harness usa una factory de test separada para replay
-histórico y credenciales controladas; nunca admite as_of proporcionado por HTTP.
+## Retrieval internals
 
-## Validación
+The index is a 256-dimensional, L2-normalized FAISS `IndexFlatIP` (inner product = cosine
+similarity). Text is embedded with a deterministic CRC32 feature hash of lowercased
+`[a-z0-9]+` tokens, so builds and tests need no external model or network call. A sidecar
+`<index>.meta.json` stores the dimension and the per-record `transcript_id`/`summary`
+payload and must travel with the `.faiss` file. Transcript text is read from the
+`transcript_text`, `full_text`, `text` or `transcript` column; the summary falls back to
+the first 200 characters.
 
-~~~sh
-USE_LLM=false USE_MOCKS=true pytest tests -q
-USE_LLM=false python scripts/smoke_dispute_http.py
-USE_LLM=false python scripts/validate_dataset_tools.py \
-  --serving .tmp/banking_serving/transactions-v1.duckdb
-python scripts/verify_dispute_adapter_regressions.py
-~~~
+## Configuration
 
-Los tests pequeños no necesitan datos del organizador. El harness real sí: prueba
-0/1/N, ownership, moneda/cutoff, HTTP completo, reinicio, auditoría e idempotencia;
-no selecciona clientes para demo ni crea complaint→transaction truth.
-El benchmark es single-thread, proceso caliente, 50 clientes ordenados lexicalmente
-con al menos dos operaciones en últimos 30 días observados; no es estimación productiva.
-Los JSON de reports son regenerables. No incluyen credenciales ni IDs de clientes.
+| Variable | Default | Responsibility |
+| --- | --- | --- |
+| `USE_MOCKS` | `true` | Process-wide serving source: fixtures vs. live DuckDB/FAISS. |
+| `CORS_ALLOW_ORIGINS` | `*` | Comma-separated gateway CORS allow-list. |
+
+Paths are constants in `src/data/config.py` (`RAW_DATA_DIR`, `DUCKDB_PATH`,
+`FAISS_INDEX_PATH`), not environment variables.
+
+## Validation
+
+```bash
+pytest tests/                        # 41 tests, incl. test_context_tools / test_ingest / test_vector_store
+ruff check . && ruff format --check .
+python evals/run_eval.py             # golden-set evaluation
+```
+
+`tests/test_ingest.py` builds the views and index from temporary fixtures,
+`tests/test_context_tools.py` covers both the DuckDB path and the mock fallback, and
+`tests/test_vector_store.py` round-trips a build and search. No organizer data is required
+for the suite.
+
+## Known limitations
+
+- `similar_transcripts.similarity` is `0.0` in the DuckDB view; real scores are produced by
+  FAISS at request time.
+- Raw timestamps carry no timezone and are projected as wall-clock `TIMESTAMP` values, an
+  explicit demo assumption rather than certified bank time.
+- `open_cases` derives severity from `priority`/`severity` and treats
+  `closed`/`resolved`/`cancelled`/`canceled` statuses as non-open.
