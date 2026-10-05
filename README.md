@@ -9,7 +9,7 @@ An enterprise-grade, evidence-grounded customer service orchestration engine des
 | `api/`, `src/orchestrator/`, `src/policy/`, `src/telemetry/` | **Completed** | Gateway, orchestrator state machine, policy engine, telemetry tracing. |
 | `src/data/` (`config`, `data_utils`, `eda/`, `workflows/`, `evaluation/`) | **Completed** | Analytics & EDA modules. |
 | `src/data/ingest.py` | **Completed** | Offline build: DuckDB serving views + FAISS transcript index. |
-| `src/tools/context_tools.py` (INT-01) | **Completed** | DuckDB-backed context tools over the six serving views, with graceful fallback to `src/tools/mocks.py`. |
+| `src/tools/context_tools.py` (INT-01) | **Completed** | DuckDB-backed context tools over the six serving views; strict by default (NOT_FOUND / SERVICE_ERROR), fixtures only when `strict=False`. |
 | `src/retrieval/vector_store.py` (INT-02) | **Completed** | FAISS semantic transcript retrieval over the built index. |
 | `notebooks/`, `docs/` | **Completed** | 7 EDA notebooks plus the analytics docs and EDA runbook. |
 
@@ -41,7 +41,7 @@ The system interfaces with the LATAM Bank dataset (~19M records spanning June 17
 | **Customer Support** | `call_center_interactions`, `call_transcripts`, `service_agents` | **`interaction_history`** & **`similar_transcripts`**: Last 5–10 interactions + FAISS top-3 semantic transcript match. |
 | **Cases & Feedback** | `complaints`, `satisfaction_surveys` | **`open_cases`**: Active cases, SLA breach indicators, and repeat complaint flags. |
 
-> **Implementation note:** The serving views and FAISS index above are the live contract: `src/tools/context_tools.py` (INT-01) queries the DuckDB serving database and `src/retrieval/vector_store.py` (INT-02) performs FAISS semantic search, both built offline by `python -m src.data.ingest`. Serving is mock-backed by default (`USE_MOCKS=true`) to keep tests and CI reproducible; set `USE_MOCKS=false` (or pass `?use_mocks=false` per request) to serve live data. Every tool degrades gracefully — when DuckDB, the database file, or a view is unavailable it falls back to the deterministic fixtures in `src/tools/mocks.py`, so the orchestrator and HTTP layers stay agnostic to the data source.
+> **Implementation note:** The serving views and FAISS index above are the live contract: `src/tools/context_tools.py` (INT-01) queries the DuckDB serving database and `src/retrieval/vector_store.py` (INT-02) performs FAISS semantic search, both built offline by `python -m src.data.ingest`. Serving is live by default (`USE_MOCKS=false`): the context tools run in strict mode, so an unavailable database or view raises `ServiceUnavailableError` (HTTP 503) and an unknown customer returns `status=not_found` (HTTP 200). There is no silent fallback to fixtures; pass `?use_mocks=true` (or set `USE_MOCKS=true`) for the deterministic fixtures used by tests and CI. On boot the gateway verifies both artifacts and refuses to start when they are missing (bypass with `SKIP_SERVING_CHECK=1`).
 
 ---
 
@@ -111,12 +111,12 @@ ai-banking-platform/
 │       └── logger.py           # JSON logging, latency timer & trace ring buffer (get_trace)
 │
 ├── evals/                      # Benchmarking & Golden Set Evaluation
-│   ├── golden_cases.jsonl      # Test scenarios covering standard & high-risk cases
+│   ├── golden_cases.jsonl      # 15 scenario cases (inquiries, missing entities, high-risk handoff, disputes)
 │   └── run_eval.py             # Evaluation runner (Accuracy, Precision, Latency)
 │
 ├── notebooks/                  # EDA notebooks (00–05: inventory → baseline/eval)
 ├── docs/                       # Analytics docs & EDA runbook
-├── tests/                      # pytest suites (41 tests)
+├── tests/                      # pytest suites (50 tests)
 │   ├── test_policy.py          # PII redaction & risk decision rules
 │   ├── test_api.py             # /health, /v1/chat, context, trace & auth guard
 │   ├── test_orchestrator_engine.py  # state machine + LLM tool loop (stub client)
@@ -229,6 +229,7 @@ OPENAI_API_KEY=your_openai_api_key
 LLM_MODEL=gpt-4o-mini
 USE_LLM=true                                   # enable live tool-calling; unset = deterministic heuristics
 OPENAI_BASE_URL=https://api.deepseek.com       # optional: DeepSeek or any OpenAI-compatible endpoint
+LLM_REASONING_EFFORT=none                      # required for reasoning models that must call tools (e.g. gpt-5.6-luna)
 
 # Gateway Auth (optional: guards /v1/* with X-API-Key; the UI forwards API_KEY)
 API_KEY_REQUIRED=false
@@ -238,7 +239,7 @@ API_KEY=your_shared_api_key
 API_BASE_URL=http://localhost:8000
 
 # Data Serving (true = deterministic fixtures; false = live DuckDB / FAISS)
-USE_MOCKS=true
+USE_MOCKS=false
 
 # Gateway CORS (comma-separated allow-list; empty = allow all origins)
 CORS_ALLOW_ORIGINS=http://localhost:8501
@@ -268,8 +269,9 @@ python -m src.retrieval.vector_store
 
 > **Tip:** The build reads raw extracts from `./data/raw/` and writes the serving database
 > and index under `./data/serving/`. Extracts that are absent are registered as typed
-> zero-row stand-ins, so the six serving objects always exist and queries degrade to the
-> deterministic mocks. Start the gateway with `USE_MOCKS=false` to serve live data.
+> zero-row stand-ins, so the six serving objects always exist. With the default
+> `USE_MOCKS=false`, an unknown customer returns `status=not_found`; `?use_mocks=true`
+> serves the deterministic fixtures.
 
 ### 7.4 Running System Components
 Execute components in separate terminal sessions:
@@ -287,7 +289,7 @@ python evals/run_eval.py
 ### 7.5 Tests, Lint & Evaluations
 
 ```Bash
-# Unit + integration suite (41 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
+# Unit + integration suite (50 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
 pytest tests/
 
 # Static checks
@@ -321,7 +323,7 @@ Accessing Running Services
 
 ## 9. Evaluation & Success Metrics
 
-System performance is continuously evaluated against `evals/golden_cases.jsonl` by `evals/run_eval.py`, which runs the orchestrator in-process on the deterministic mock fixtures and reports accuracy, intent accuracy, evidence precision, escalation recall, unsupported-claim rate, and p95 latency. The runner exits non-zero unless every golden case passes.
+System performance is continuously evaluated against `evals/golden_cases.jsonl` by `evals/run_eval.py`, which runs the orchestrator in-process on the deterministic mock fixtures and reports accuracy, intent accuracy, evidence precision, escalation recall, unsupported-claim rate, and p95 latency. The runner exits non-zero unless every golden case passes. The golden set spans 15 representative journeys: standard inquiries (balances, transaction status, digital login issues), missing/invalid entities (unknown customer → `not_found`, valid customer with no transactions → grounded empty answer), high-risk handoffs (fraud score ≥ 0.80, SLA breach, unresolved critical/repeat complaints) and disputes/boundary rules (charge disputes, unauthorized ATM withdrawals, credit-limit requests, PII redaction).
 - Intent Classification Accuracy: $\ge 85\%$ across labeled test scenarios.
 - Evidence Precision: $\ge 90\%$ of retrieved tool context directly supports the query.
 - Unsupported Claim Rate: $0\%$ (Strict zero tolerance for ungrounded financial statements).

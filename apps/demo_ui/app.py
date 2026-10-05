@@ -1,7 +1,7 @@
 """Streamlit dashboard: chat over the FastAPI gateway with a live evidence side-panel.
 
 The UI is a thin HTTP client of the B-05 gateway and never imports `src/`, so the
-gateway health probe and the `USE_MOCKS=false` 501 boundary stay observable here.
+gateway health probe and the `USE_MOCKS=false` 503 boundary stay observable here.
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ if str(_REPO_ROOT) not in sys.path:
 
 import requests
 import streamlit as st
+from dotenv import load_dotenv
 
 from contracts import (
     ChatRequest,
@@ -27,7 +28,10 @@ from contracts import (
     Evidence,
     Handoff,
     HealthResponse,
+    Status,
 )
+
+load_dotenv(_REPO_ROOT / ".env")
 
 DEFAULT_API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
 REQUEST_TIMEOUT_SECONDS = 30
@@ -77,11 +81,16 @@ def send_turn(base_url: str, request: ChatRequest) -> ChatResponse:
     response.raise_for_status()
     turn = ChatResponse.model_validate(response.json())
     logger.info(
-        "Chat turn received decision=%s intent=%s latency_ms=%s",
+        "Chat turn received decision=%s intent=%s llm_used=%s latency_ms=%s",
         turn.decision,
         turn.intent,
+        turn.llm_used,
         turn.latency_ms,
-        extra={"session_id": turn.session_id, "trace_id": turn.trace_id},
+        extra={
+            "session_id": turn.session_id,
+            "trace_id": turn.trace_id,
+            "llm_model": turn.llm_model,
+        },
     )
     return turn
 
@@ -114,13 +123,29 @@ def render_evidence_panel(response: ChatResponse | None) -> None:
         st.info("No turn yet. Send a message to populate the evidence panel.")
         return
 
-    if response.decision is Decision.ESCALATE:
+    if response.status is Status.NOT_FOUND:
+        st.error("Customer record not found. Please verify the Customer ID.")
+    elif response.status is Status.SERVICE_ERROR:
+        st.error("Banking data engine offline (503 Service Unavailable)")
+    elif response.decision is Decision.ESCALATE:
         st.error("Escalated to a human agent: the safety policy detected risk.")
     elif response.decision is Decision.CLARIFY:
         st.warning("Clarification required: not enough grounded context to answer.")
+    elif not response.evidence:
+        st.info("No recent transaction history found for this account.")
     else:
         st.success("Automated response grounded in retrieved evidence.")
 
+    source_label = "Verified" if response.evidence else "0 records"
+    st.caption(f"Data Source: Live DuckDB ({source_label})")
+    model_label = (
+        f"Active ({response.llm_model})"
+        if response.llm_used and response.llm_model
+        else "Active"
+        if response.llm_used
+        else "Fallback (deterministic)"
+    )
+    st.caption(f"Model Path: {model_label}")
     metrics = st.columns(3)
     metrics[0].metric("Intent", response.intent.value)
     metrics[1].metric("Latency", f"{response.latency_ms} ms")
@@ -180,7 +205,12 @@ def _submit_turn(base_url: str, customer_id: str, prompt: str) -> None:
             _render_failure(exc, f"Gateway at {base_url} is unreachable.")
             return
         except requests.HTTPError as exc:
-            _render_failure(exc, _http_error_detail(exc))
+            if exc.response is not None and exc.response.status_code == 503:
+                _render_failure(
+                    exc, "Banking data engine offline (503 Service Unavailable)"
+                )
+            else:
+                _render_failure(exc, _http_error_detail(exc))
             return
         except ValueError as exc:
             _render_failure(exc, f"Gateway returned an unexpected payload: {exc}")
@@ -205,7 +235,7 @@ def main() -> None:
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s %(message)s",
     )
-    st.set_page_config(page_title="AI Banking Platform", page_icon="🏦", layout="wide")
+    st.set_page_config(page_title="AI Banking Platform", page_icon="✨", layout="wide")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -229,8 +259,10 @@ def main() -> None:
                 "Start it with `uvicorn api.main:app --port 8000`."
             )
         else:
+            llm_status = health.llm_model if health.llm_enabled else "off"
             st.success(
-                f"Gateway OK — v{health.version}, mocks_enabled={health.mocks_enabled}"
+                f"Gateway OK — v{health.version}, "
+                f"mocks_enabled={health.mocks_enabled}, llm={llm_status}"
             )
         st.divider()
         st.header("Session")

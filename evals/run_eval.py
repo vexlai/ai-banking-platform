@@ -28,6 +28,7 @@ from contracts import (
     Intent,
     RiskLevel,
     SourceTool,
+    Status,
 )
 from src.orchestrator.engine import OrchestratorEngine
 from src.telemetry.logger import get_logger
@@ -48,6 +49,8 @@ class GoldenCase(Contract):
     expected_risk_level: RiskLevel
     expected_handoff: bool
     expected_sources: list[SourceTool] = Field(default_factory=list)
+    expected_status: Status | None = None
+    expected_redacted: bool | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -97,6 +100,10 @@ def _failures(case: GoldenCase, response: ChatResponse) -> tuple[str, ...]:
     }
     if response.handoff is not None:
         checks["risk_level"] = response.handoff.risk_level is case.expected_risk_level
+    if case.expected_status is not None:
+        checks["status"] = response.status is case.expected_status
+    if case.expected_redacted is not None:
+        checks["redacted"] = response.redacted is case.expected_redacted
 
     present = {item.source for item in response.evidence}
     missing = [
@@ -121,6 +128,8 @@ def _expected(case: GoldenCase, name: str) -> object:
         "intent": case.expected_intent,
         "handoff": case.expected_handoff,
         "risk_level": case.expected_risk_level,
+        "status": case.expected_status,
+        "redacted": case.expected_redacted,
         "grounding": True,
     }[name]
 
@@ -134,6 +143,10 @@ def _actual(response: ChatResponse, name: str) -> object:
         return response.handoff is not None
     if name == "risk_level":
         return response.handoff.risk_level if response.handoff else None
+    if name == "status":
+        return response.status
+    if name == "redacted":
+        return response.redacted
     return _grounded(response)
 
 

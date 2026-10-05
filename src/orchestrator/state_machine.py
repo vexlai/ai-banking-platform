@@ -10,6 +10,7 @@ class State(StrEnum):
     GATHER = "gather"
     DECIDE = "decide"
     RESPOND = "respond"
+    FAILED = "failed"
 
 
 TRANSITIONS: dict[State, frozenset[State]] = {
@@ -17,6 +18,7 @@ TRANSITIONS: dict[State, frozenset[State]] = {
     State.GATHER: frozenset({State.DECIDE}),
     State.DECIDE: frozenset({State.RESPOND}),
     State.RESPOND: frozenset(),
+    State.FAILED: frozenset(),
 }
 
 
@@ -44,4 +46,9 @@ class StateMachine:
         if not self.can_advance(target):
             raise InvalidTransition(self._state, target)
         self._state = target
+        return self._state
+
+    def fail(self) -> State:
+        """Terminates the flow in FAILED from any active state."""
+        self._state = State.FAILED
         return self._state

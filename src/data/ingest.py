@@ -43,7 +43,7 @@ SERVING_VIEWS = (
 )
 
 # Typed zero-row stand-ins registered when a raw extract is absent, so the six
-# serving objects always exist and queries then degrade to the deterministic mocks.
+# serving objects always exist; strict tools then report NOT_FOUND for an unknown customer.
 _SOURCE_STUBS: dict[str, dict[str, str]] = {
     "customers": {
         "customer_id": "VARCHAR",
