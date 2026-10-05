@@ -31,7 +31,8 @@ from contracts import (
 
 DEFAULT_API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
 REQUEST_TIMEOUT_SECONDS = 30
-CUSTOMER_FIXTURES = ("CUST_001", "CUST_002", "CUST_003")
+DEFAULT_CUSTOMER_ID = "CLI-EDFKD0MZS5W0"
+CUSTOMER_SAMPLES = ("CLI-EDFKD0MZS5W0", "CLI-MOJMZ6YAM8EO", "CLI-9U8NP5E4FAGO")
 DEFAULT_MESSAGE = "I do not recognize a charge on my card"
 
 logger = logging.getLogger(__name__)
@@ -196,7 +197,7 @@ def _reset_session() -> None:
     st.session_state.messages = []
     st.session_state.last_response = None
     st.session_state.session_id = new_session_id()
-    st.session_state.customer_id = CUSTOMER_FIXTURES[0]
+    st.session_state.customer_id = DEFAULT_CUSTOMER_ID
 
 
 def main() -> None:
@@ -212,6 +213,8 @@ def main() -> None:
         st.session_state.session_id = new_session_id()
     if "last_response" not in st.session_state:
         st.session_state.last_response = None
+    if "customer_id" not in st.session_state:
+        st.session_state.customer_id = DEFAULT_CUSTOMER_ID
 
     st.title("AI Banking Platform — Service Copilot")
     st.caption("Evidence-grounded answers with deterministic escalations.")
@@ -231,7 +234,12 @@ def main() -> None:
             )
         st.divider()
         st.header("Session")
-        st.selectbox("Customer", CUSTOMER_FIXTURES, key="customer_id")
+        st.text_input(
+            "Customer ID",
+            key="customer_id",
+            help="Enter any valid customer ID from bank_serving.duckdb",
+        )
+        st.caption("Sample IDs: " + ", ".join(f"`{cid}`" for cid in CUSTOMER_SAMPLES))
         st.text_input("Session id", key="session_id")
         st.button("New session", on_click=_reset_session)
 

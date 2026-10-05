@@ -29,7 +29,7 @@ logger = get_logger(__name__)
 
 DEFAULT_TOP_K = 3
 EMBEDDING_DIM = 256
-DEFAULT_SOURCE_PATH = RAW_DATA_DIR / "call_transcripts.parquet"
+DEFAULT_SOURCE_PATH = RAW_DATA_DIR / "call_transcripts"
 
 _METADATA_SUFFIX = ".meta.json"
 _TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
@@ -122,11 +122,30 @@ def search(query: str, *, k: int = DEFAULT_TOP_K) -> list[TranscriptMatch]:
     return matches
 
 
+def _read_directory(directory: Path):
+    """Concatenates every CSV (preferred) or parquet file under a directory tree."""
+    import pandas as pd
+
+    csv_files = sorted(directory.rglob("*.csv"))
+    if csv_files:
+        frames = [pd.read_csv(file, encoding="utf-8-sig") for file in csv_files]
+        return pd.concat(frames, ignore_index=True) if len(frames) > 1 else frames[0]
+    parquet_files = sorted(directory.rglob("*.parquet"))
+    if parquet_files:
+        frames = [pd.read_parquet(file) for file in parquet_files]
+        return pd.concat(frames, ignore_index=True) if len(frames) > 1 else frames[0]
+    raise FileNotFoundError(
+        f"No CSV or parquet transcript files found under directory: {directory}"
+    )
+
+
 def _load_transcripts(source: Path) -> list[dict[str, str]]:
     import pandas as pd
 
-    if source.suffix.lower() == ".csv":
-        frame = pd.read_csv(source)
+    if source.is_dir():
+        frame = _read_directory(source)
+    elif source.suffix.lower() == ".csv":
+        frame = pd.read_csv(source, encoding="utf-8-sig")
     else:
         frame = pd.read_parquet(source)
     records: list[dict[str, str]] = []
