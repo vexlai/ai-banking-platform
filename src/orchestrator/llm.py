@@ -16,7 +16,8 @@ from typing import Any, Protocol
 
 from contracts import SourceTool
 from src.telemetry.logger import get_logger
-from src.tools import mocks
+from src.tools import context_tools, mocks
+from src.tools.errors import ContextToolError
 
 try:
     from openai import OpenAI
@@ -29,7 +30,9 @@ USE_LLM_ENV = "USE_LLM"
 MODEL_ENV = "LLM_MODEL"
 BASE_URL_ENV = "OPENAI_BASE_URL"
 API_KEY_ENV = "OPENAI_API_KEY"
+REASONING_EFFORT_ENV = "LLM_REASONING_EFFORT"
 DEFAULT_MODEL = "gpt-4o-mini"
+DEFAULT_BASE_URL = "https://api.openai.com/v1"
 MAX_TOOL_ROUNDS = 4
 _TRUTHY = frozenset({"1", "true", "yes", "on"})
 
@@ -70,14 +73,17 @@ class LLMClient(Protocol):
     ) -> LLMTurn: ...
 
 
-TOOL_HANDLERS: dict[SourceTool, Callable[[str], Any]] = {
-    SourceTool.CUSTOMER_360: mocks.get_customer_360,
-    SourceTool.RECENT_TRANSACTIONS: mocks.get_recent_transactions,
-    SourceTool.JOURNEY_SUMMARY: mocks.get_journey_summary,
-    SourceTool.INTERACTION_HISTORY: mocks.get_interaction_history,
-    SourceTool.SIMILAR_TRANSCRIPTS: mocks.get_similar_transcripts,
-    SourceTool.OPEN_CASES: mocks.get_open_cases,
-}
+def _handlers(use_mocks: bool) -> dict[SourceTool, Callable[[str], Any]]:
+    """Resolves tool callables per data source, at call time so tests can monkeypatch."""
+    module = mocks if use_mocks else context_tools
+    return {
+        SourceTool.CUSTOMER_360: module.get_customer_360,
+        SourceTool.RECENT_TRANSACTIONS: module.get_recent_transactions,
+        SourceTool.JOURNEY_SUMMARY: module.get_journey_summary,
+        SourceTool.INTERACTION_HISTORY: module.get_interaction_history,
+        SourceTool.SIMILAR_TRANSCRIPTS: module.get_similar_transcripts,
+        SourceTool.OPEN_CASES: module.get_open_cases,
+    }
 
 
 def _jsonable(payload: Any) -> Any:
@@ -88,8 +94,10 @@ def _jsonable(payload: Any) -> Any:
     return payload
 
 
-def execute_tool(name: str, arguments: Mapping[str, Any]) -> str:
-    """Runs one mock tool and returns its JSON payload for a `role="tool"` message."""
+def execute_tool(
+    name: str, arguments: Mapping[str, Any], *, use_mocks: bool = True
+) -> str:
+    """Runs one context tool and returns its JSON payload for a `role="tool"` message."""
     try:
         tool = SourceTool(name)
     except ValueError as exc:
@@ -97,9 +105,11 @@ def execute_tool(name: str, arguments: Mapping[str, Any]) -> str:
     customer_id = str(arguments.get("customer_id") or "")
     if not customer_id:
         raise ToolExecutionError(name, "missing customer_id")
-    return json.dumps(
-        _jsonable(TOOL_HANDLERS[tool](customer_id)), ensure_ascii=False, default=str
-    )
+    try:
+        payload = _handlers(use_mocks)[tool](customer_id)
+    except ContextToolError as exc:
+        raise ToolExecutionError(name, exc.reason) from exc
+    return json.dumps(_jsonable(payload), ensure_ascii=False, default=str)
 
 
 def _parse_arguments(raw: Any) -> dict[str, Any]:
@@ -121,13 +131,15 @@ class OpenAIClient:
         model: str = DEFAULT_MODEL,
         api_key: str | None = None,
         base_url: str | None = None,
+        reasoning_effort: str | None = None,
     ) -> None:
         if OpenAI is None:
             raise RuntimeError(
                 "The openai package is required for live LLM calls; install requirements.txt."
             )
         self._model = model
-        self._client = OpenAI(api_key=api_key, base_url=base_url)
+        self._reasoning_effort = reasoning_effort
+        self._client = OpenAI(api_key=api_key, base_url=base_url or DEFAULT_BASE_URL)
 
     @property
     def model(self) -> str:
@@ -140,6 +152,8 @@ class OpenAIClient:
         tools: Sequence[Mapping[str, Any]],
     ) -> LLMTurn:
         request: dict[str, Any] = {"model": self._model, "messages": list(messages)}
+        if self._reasoning_effort:
+            request["reasoning_effort"] = self._reasoning_effort
         if tools:
             request["tools"] = [dict(tool) for tool in tools]
             request["tool_choice"] = "auto"
@@ -176,5 +190,8 @@ def from_env(environ: Mapping[str, str] | None = None) -> LLMClient | None:
     model = env.get(MODEL_ENV, DEFAULT_MODEL)
     logger.info("Live LLM enabled with model: %s", model)
     return OpenAIClient(
-        model=model, api_key=api_key, base_url=env.get(BASE_URL_ENV) or None
+        model=model,
+        api_key=api_key,
+        base_url=env.get(BASE_URL_ENV) or None,
+        reasoning_effort=env.get(REASONING_EFFORT_ENV) or None,
     )

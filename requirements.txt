@@ -5,6 +5,7 @@ pydantic>=2.7
 
 # --- LLM Provider Abstraction (OpenAI-compatible: OpenAI / DeepSeek / etc.) ---
 openai>=1.40
+python-dotenv>=1.0
 
 # --- Streamlit UI ---
 streamlit>=1.36

@@ -21,7 +21,10 @@ def test_redact_pii_masks_card_ssn_phone_in_order() -> None:
     ("customer_id", "expected_decision", "expected_risk_level"),
     [
         ("CUST_002", Decision.ESCALATE, RiskLevel.HIGH),
+        ("CUST_006", Decision.ESCALATE, RiskLevel.HIGH),
+        ("CUST_007", Decision.ESCALATE, RiskLevel.MEDIUM),
         ("CUST_001", Decision.RESPOND, RiskLevel.LOW),
+        ("CUST_004", Decision.RESPOND, RiskLevel.LOW),
     ],
 )
 def test_assess_risk_decisions(

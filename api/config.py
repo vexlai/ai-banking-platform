@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import os
 
+from src.data.config import USE_MOCKS_DEFAULT
+
 _TRUTHY = frozenset({"1", "true", "yes", "on"})
 
 
@@ -22,7 +24,7 @@ def env_flag(name: str, *, default: bool) -> bool:
 
 def use_mocks_default() -> bool:
     """Process default for mock serving, read dynamically so tests can patch it."""
-    return env_flag("USE_MOCKS", default=True)
+    return env_flag("USE_MOCKS", default=USE_MOCKS_DEFAULT)
 
 
 def resolve_use_mocks(value: bool | None) -> bool:

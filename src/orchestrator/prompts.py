@@ -157,3 +157,13 @@ CLARIFICATION_REPLY = (
     "I could not retrieve enough grounded context to answer safely. Please confirm your "
     "customer and session details so I can retry with verified evidence."
 )
+
+NOT_FOUND_REPLY = (
+    "No active account record was found for Customer ID '{customer_id}'. "
+    "Please verify your customer number."
+)
+
+EMPTY_TRANSACTIONS_REPLY = (
+    "I checked your account records and confirmed there are no posted transactions in the "
+    "last 30 days. This answer is grounded in {count} verified source(s) [{sources}]. {facts}"
+)

@@ -22,6 +22,7 @@ from contracts.schemas import (
     JourneySummary,
     RiskLevel,
     SourceTool,
+    Status,
     Transaction,
     TranscriptMatch,
 )
@@ -43,6 +44,7 @@ __all__ = [
     "JourneySummary",
     "RiskLevel",
     "SourceTool",
+    "Status",
     "Transaction",
     "TranscriptMatch",
 ]
