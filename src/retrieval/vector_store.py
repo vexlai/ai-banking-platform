@@ -132,14 +132,21 @@ def _load_transcripts(source: Path) -> list[dict[str, str]]:
     records: list[dict[str, str]] = []
     for position, row in frame.iterrows():
         text = str(
-            row.get("transcript_text") or row.get("text") or row.get("transcript") or ""
+            row.get("transcript_text")
+            or row.get("full_text")
+            or row.get("text")
+            or row.get("transcript")
+            or ""
         ).strip()
         if not text:
             continue
         records.append(
             {
                 "transcript_id": str(
-                    row.get("transcript_id") or row.get("call_id") or position
+                    row.get("transcript_id")
+                    or row.get("call_id")
+                    or row.get("interaction_id")
+                    or position
                 ),
                 "summary": str(row.get("summary") or text[:200]),
                 "text": text,

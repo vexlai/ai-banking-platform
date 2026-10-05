@@ -7,6 +7,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.config import use_mocks_default
 from api.routes import context, trace
 from api.routes.chat import build_router
 from contracts import HealthResponse
@@ -19,20 +20,13 @@ DEFAULT_CORS_ORIGINS = ("*",)
 logger = get_logger(__name__)
 
 
-def _env_flag(name: str, *, default: bool) -> bool:
-    raw = os.getenv(name)
-    if raw is None:
-        return default
-    return raw.strip().lower() in {"1", "true", "yes", "on"}
-
-
 def _cors_origins() -> list[str]:
     raw = os.getenv("CORS_ALLOW_ORIGINS", "")
     origins = [origin.strip() for origin in raw.split(",") if origin.strip()]
     return origins or list(DEFAULT_CORS_ORIGINS)
 
 
-USE_MOCKS = _env_flag("USE_MOCKS", default=True)
+USE_MOCKS = use_mocks_default()
 
 app = FastAPI(title="AI Banking Platform", version=API_VERSION)
 app.add_middleware(
