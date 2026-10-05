@@ -9,7 +9,7 @@ An enterprise-grade, evidence-grounded customer service orchestration engine des
 | `api/`, `src/orchestrator/`, `src/policy/`, `src/telemetry/` | **Completed** | Gateway, orchestrator state machine, policy engine, telemetry tracing. |
 | `src/data/` (`config`, `data_utils`, `eda/`, `workflows/`, `evaluation/`) | **Completed** | Analytics & EDA modules. |
 | `src/data/ingest.py` | **Completed** | Offline build: DuckDB serving views + FAISS transcript index. |
-| `src/tools/context_tools.py` (INT-01) | **Completed** | DuckDB-backed context tools over the six serving views, with graceful fallback to `src/tools/mocks.py`. |
+| `src/tools/context_tools.py` (INT-01) | **Completed** | DuckDB-backed context tools over the six serving views; strict by default (NOT_FOUND / SERVICE_ERROR), fixtures only when `strict=False`. |
 | `src/retrieval/vector_store.py` (INT-02) | **Completed** | FAISS semantic transcript retrieval over the built index. |
 | `notebooks/`, `docs/` | **Completed** | 7 EDA notebooks plus the analytics docs and EDA runbook. |
 
@@ -41,7 +41,7 @@ The system interfaces with the LATAM Bank dataset (~19M records spanning June 17
 | **Customer Support** | `call_center_interactions`, `call_transcripts`, `service_agents` | **`interaction_history`** & **`similar_transcripts`**: Last 5–10 interactions + FAISS top-3 semantic transcript match. |
 | **Cases & Feedback** | `complaints`, `satisfaction_surveys` | **`open_cases`**: Active cases, SLA breach indicators, and repeat complaint flags. |
 
-> **Implementation note:** The serving views and FAISS index above are the live contract: `src/tools/context_tools.py` (INT-01) queries the DuckDB serving database and `src/retrieval/vector_store.py` (INT-02) performs FAISS semantic search, both built offline by `python -m src.data.ingest`. Serving is mock-backed by default (`USE_MOCKS=true`) to keep tests and CI reproducible; set `USE_MOCKS=false` (or pass `?use_mocks=false` per request) to serve live data. Every tool degrades gracefully — when DuckDB, the database file, or a view is unavailable it falls back to the deterministic fixtures in `src/tools/mocks.py`, so the orchestrator and HTTP layers stay agnostic to the data source.
+> **Implementation note:** The serving views and FAISS index above are the live contract: `src/tools/context_tools.py` (INT-01) queries the DuckDB serving database and `src/retrieval/vector_store.py` (INT-02) performs FAISS semantic search, both built offline by `python -m src.data.ingest`. Serving is live by default (`USE_MOCKS=false`): the context tools run in strict mode, so an unavailable database or view raises `ServiceUnavailableError` (HTTP 503) and an unknown customer returns `status=not_found` (HTTP 200). There is no silent fallback to fixtures; pass `?use_mocks=true` (or set `USE_MOCKS=true`) for the deterministic fixtures used by tests and CI. On boot the gateway verifies both artifacts and refuses to start when they are missing (bypass with `SKIP_SERVING_CHECK=1`).
 
 ---
 
@@ -111,12 +111,12 @@ ai-banking-platform/
 │       └── logger.py           # JSON logging, latency timer & trace ring buffer (get_trace)
 │
 ├── evals/                      # Benchmarking & Golden Set Evaluation
-│   ├── golden_cases.jsonl      # Test scenarios covering standard & high-risk cases
+│   ├── golden_cases.jsonl      # 15 scenario cases (inquiries, missing entities, high-risk handoff, disputes)
 │   └── run_eval.py             # Evaluation runner (Accuracy, Precision, Latency)
 │
 ├── notebooks/                  # EDA notebooks (00–05: inventory → baseline/eval)
 ├── docs/                       # Analytics docs & EDA runbook
-├── tests/                      # pytest suites (41 tests)
+├── tests/                      # pytest suites (55 tests)
 │   ├── test_policy.py          # PII redaction & risk decision rules
 │   ├── test_api.py             # /health, /v1/chat, context, trace & auth guard
 │   ├── test_orchestrator_engine.py  # state machine + LLM tool loop (stub client)
@@ -136,8 +136,11 @@ To keep the codebase modular and prevent it from devolving into a monolithic "sp
 
 ### Guardrail 1 — Strict HTTP Boundary for the Front-End
 
-- `apps/demo_ui/app.py` must never import modules from `src/` directly; it imports only the shared `contracts/` package.
-- It operates strictly as an HTTP client, calling the gateway over the network (`POST http://localhost:8000/v1/chat`) with mandatory request timeouts (`timeout=30`).
+- Every `apps/**` module imports only the shared `contracts/` package and reaches the backend over the network (`POST {API_BASE_URL}/v1/chat`) with mandatory request timeouts (`timeout=30`).
+- **Sanctioned dual-mode exception:** `apps/demo_ui/app.py` is the *only* file under `apps/` allowed to import from `src/`. It routes each turn dynamically:
+  - **Mode A (Docker Compose):** when `API_BASE_URL` is set, the UI is a pure HTTP client of the gateway.
+  - **Mode B (Streamlit Community Cloud):** when `API_BASE_URL` is empty, it falls back to the in-process `src.orchestrator.engine.OrchestratorEngine` (with `src.retrieval.vector_store.search`), downloading the serving artifacts on boot when needed.
+- No other `apps/**` file may import `src/`.
 
 ### Guardrail 2 — Contract-First Integration (`contracts/schemas.py`)
 
@@ -158,7 +161,7 @@ To keep the codebase modular and prevent it from devolving into a monolithic "sp
 - The API gateway and the Streamlit UI run in separate processes and separate Docker containers (port 8000 vs 8501).
 - UI containers reach the gateway dynamically via environment variables (`API_BASE_URL`).
 
-These boundaries are enforced automatically by `tests/test_guardrails.py`, which fails the build if `apps/**` imports `src/`, if `contracts/**` depends on anything beyond the standard library plus `pydantic`, or if the removed `src.tools.schemas` re-export shim reappears.
+These boundaries are enforced automatically by `tests/test_guardrails.py`: it fails the build if any `apps/**` file other than the allowlisted `apps/demo_ui/app.py` imports `src/`, if `src/**` or `api/**` imports `streamlit`, if `contracts/**` depends on anything beyond the standard library plus `pydantic`, or if the removed `src.tools.schemas` re-export shim reappears.
 
 ## 5. End-to-End Execution Flow
 
@@ -227,8 +230,9 @@ Create a .env file in the root directory:
 # API Keys & LLM Config
 OPENAI_API_KEY=your_openai_api_key
 LLM_MODEL=gpt-4o-mini
-USE_LLM=true                                   # enable live tool-calling; unset = deterministic heuristics
+USE_LLM=false                                  # true enables live tool-calling; false/unset = deterministic heuristics
 OPENAI_BASE_URL=https://api.deepseek.com       # optional: DeepSeek or any OpenAI-compatible endpoint
+LLM_REASONING_EFFORT=none                      # required for reasoning models that must call tools (e.g. gpt-5.6-luna)
 
 # Gateway Auth (optional: guards /v1/* with X-API-Key; the UI forwards API_KEY)
 API_KEY_REQUIRED=false
@@ -237,8 +241,15 @@ API_KEY=your_shared_api_key
 # Front-End
 API_BASE_URL=http://localhost:8000
 
-# Data Serving (true = deterministic fixtures; false = live DuckDB / FAISS)
-USE_MOCKS=true
+# Data Serving (false = live DuckDB / FAISS; true = deterministic fixtures)
+USE_MOCKS=false
+# SERVING_DATA_DIR=./data/serving              # override the default ./data/serving directory
+# SKIP_SERVING_CHECK=1                         # skip the fail-fast serving health check on boot
+
+# Streamlit Community Cloud Artifact Download (Mode B; see §8.1)
+SERVING_DUCKDB_URL=https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/bank_serving.duckdb
+SERVING_FAISS_URL=https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss
+SERVING_FAISS_META_URL=https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss.meta.json
 
 # Gateway CORS (comma-separated allow-list; empty = allow all origins)
 CORS_ALLOW_ORIGINS=http://localhost:8501
@@ -249,7 +260,7 @@ AWS_SECRET_ACCESS_KEY=your_aws_secret_key
 AWS_DEFAULT_REGION=us-east-2
 ```
 
-> **Serving paths are derived, not configured.** The DuckDB serving database (`./data/serving/bank_serving.duckdb`), the FAISS index (`./data/serving/transcripts.faiss`), and the raw extracts (`./data/raw/`) are constants in `src/data/config.py`, not `.env` entries. Build them with the commands in §7.3.
+> **Serving paths come from `src/data/config.py`, not hard-coded `.env` entries.** The DuckDB serving database (`./data/serving/bank_serving.duckdb`), the FAISS index (`./data/serving/transcripts.faiss`), and the raw extracts (`./data/raw/`) are constants there; only the serving directory is overridable with `SERVING_DATA_DIR`. Build them with the commands in §7.3.
 
 ### 7.3 Ingest & Sync Data:
 
@@ -268,8 +279,9 @@ python -m src.retrieval.vector_store
 
 > **Tip:** The build reads raw extracts from `./data/raw/` and writes the serving database
 > and index under `./data/serving/`. Extracts that are absent are registered as typed
-> zero-row stand-ins, so the six serving objects always exist and queries degrade to the
-> deterministic mocks. Start the gateway with `USE_MOCKS=false` to serve live data.
+> zero-row stand-ins, so the six serving objects always exist. With the default
+> `USE_MOCKS=false`, an unknown customer returns `status=not_found`; `?use_mocks=true`
+> serves the deterministic fixtures.
 
 ### 7.4 Running System Components
 Execute components in separate terminal sessions:
@@ -287,7 +299,7 @@ python evals/run_eval.py
 ### 7.5 Tests, Lint & Evaluations
 
 ```Bash
-# Unit + integration suite (41 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
+# Unit + integration suite (55 tests: policy, engine, api, tools, ingest, retrieval, guardrails)
 pytest tests/
 
 # Static checks
@@ -319,9 +331,31 @@ Accessing Running Services
 
 - Streamlit Web UI: http://localhost:8501
 
+### 8.1 Streamlit Community Cloud (Mode B, Single Process)
+
+The UI also runs as a standalone Streamlit app with no FastAPI gateway, executing the orchestrator in-process. The repository ships the hooks this mode needs:
+
+- `.streamlit/config.toml` — headless server on port 8501 plus the shared theme.
+- `runtime.txt` (`python-3.13.0`) — satisfies the `>= 3.12` guard in `src/data/config.py`.
+- `packages.txt` (`libgomp1`) — OpenMP runtime required by `faiss-cpu`.
+- `src/data/download_serving.py` — on boot, `apps/demo_ui/app.py::get_engine` fetches any missing serving artifacts from the public release URLs.
+
+Deploy the Cloud app on `apps/demo_ui/app.py`, then set the following (environment variables or `st.secrets`):
+
+| Key | Value |
+| :--- | :--- |
+| `API_BASE_URL` | leave **empty** (Mode B); use `http://api_gateway:8000` for Compose |
+| `USE_MOCKS` | `false` for live data, `true` for deterministic fixtures |
+| `SERVING_DUCKDB_URL` | `https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/bank_serving.duckdb` |
+| `SERVING_FAISS_URL` | `https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss` |
+| `SERVING_FAISS_META_URL` | `https://github.com/vexlai/ai-banking-platform/releases/download/data-v1.0.0/transcripts.faiss.meta.json` |
+| `OPENAI_API_KEY` | set (with `USE_LLM=true`) to enable live LLM tool-calling |
+
+The serving artifacts are uploaded manually to GitHub Releases; the public asset URLs above feed the boot downloader. When the artifacts are absent and no URLs are configured, the UI degrades to the `USE_MOCKS` fixtures instead of failing to boot.
+
 ## 9. Evaluation & Success Metrics
 
-System performance is continuously evaluated against `evals/golden_cases.jsonl` by `evals/run_eval.py`, which runs the orchestrator in-process on the deterministic mock fixtures and reports accuracy, intent accuracy, evidence precision, escalation recall, unsupported-claim rate, and p95 latency. The runner exits non-zero unless every golden case passes.
+System performance is continuously evaluated against `evals/golden_cases.jsonl` by `evals/run_eval.py`, which runs the orchestrator in-process on the deterministic mock fixtures and reports accuracy, intent accuracy, evidence precision, escalation recall, unsupported-claim rate, and p95 latency. The runner exits non-zero unless every golden case passes. The golden set spans 15 representative journeys: standard inquiries (balances, transaction status, digital login issues), missing/invalid entities (unknown customer → `not_found`, valid customer with no transactions → grounded empty answer), high-risk handoffs (fraud score ≥ 0.80, SLA breach, unresolved critical/repeat complaints) and disputes/boundary rules (charge disputes, unauthorized ATM withdrawals, credit-limit requests, PII redaction).
 - Intent Classification Accuracy: $\ge 85\%$ across labeled test scenarios.
 - Evidence Precision: $\ge 90\%$ of retrieved tool context directly supports the query.
 - Unsupported Claim Rate: $0\%$ (Strict zero tolerance for ungrounded financial statements).

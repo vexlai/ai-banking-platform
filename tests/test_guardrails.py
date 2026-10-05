@@ -2,9 +2,11 @@
 
 These tests fail the build when a contributor re-introduces a layer violation:
 
-1. ``apps/**`` never imports from ``src/`` (Guardrail 1: strict HTTP boundary).
-2. ``contracts/**`` stays pure: stdlib plus ``pydantic`` only, never ``src/``.
-3. No module re-introduces the deleted ``src.tools.schemas`` re-export shim.
+1. ``apps/**`` never imports from ``src/`` (Guardrail 1), except the single
+   sanctioned dual-mode file ``apps/demo_ui/app.py``.
+2. ``src/**`` and ``api/**`` never import ``streamlit`` (forward guardrail).
+3. ``contracts/**`` stays pure: stdlib plus ``pydantic`` only, never ``src/``.
+4. No module re-introduces the deleted ``src.tools.schemas`` re-export shim.
 """
 
 from __future__ import annotations
@@ -15,9 +17,12 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 APPS_ROOT = REPO_ROOT / "apps"
+SRC_ROOT = REPO_ROOT / "src"
+API_ROOT = REPO_ROOT / "api"
 CONTRACTS_ROOT = REPO_ROOT / "contracts"
 LEGACY_SCHEMAS_MODULE = "src.tools.schemas"
 CONTRACTS_ALLOWED_THIRD_PARTY = frozenset({"pydantic"})
+APPS_SRC_IMPORT_ALLOWLIST = frozenset({"apps/demo_ui/app.py"})
 SKIP_DIRS = frozenset({".git", ".venv", "venv", "__pycache__", "node_modules"})
 
 
@@ -54,13 +59,25 @@ def _stdlib_roots() -> set[str]:
 
 
 def test_apps_never_import_src() -> None:
-    """Guardrail 1: the Streamlit UI talks HTTP, never Python imports."""
+    """Guardrail 1: apps/ talks HTTP, except the sanctioned dual-mode UI file."""
     offenders = [
         _relative(path)
         for path in _python_files(APPS_ROOT)
         if "src" in _import_roots(path)
+        and _relative(path) not in APPS_SRC_IMPORT_ALLOWLIST
     ]
     assert not offenders, f"apps/ must not import from src/: {offenders}"
+
+
+def test_backend_never_imports_streamlit() -> None:
+    """Forward guardrail: src/ and api/ stay free of the Streamlit UI."""
+    offenders = [
+        _relative(path)
+        for root in (SRC_ROOT, API_ROOT)
+        for path in _python_files(root)
+        if "streamlit" in _import_roots(path)
+    ]
+    assert not offenders, f"src/ and api/ must not import streamlit: {offenders}"
 
 
 def test_contracts_package_is_pure() -> None:

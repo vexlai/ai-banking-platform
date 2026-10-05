@@ -16,6 +16,7 @@ from contracts import (
     EvidenceBundle,
     Handoff,
     Intent,
+    Status,
     TranscriptMatch,
 )
 from src.orchestrator import llm, prompts
@@ -60,8 +61,9 @@ class OrchestratorEngine:
     """Runs one turn through UNDERSTAND -> GATHER -> DECIDE -> RESPOND.
 
     The policy engine owns the decision; intent only shapes the reply. `use_mocks=False`
-    routes evidence assembly through the DuckDB context tools (INT-01), which degrade
-    to the deterministic fixtures when the serving database or views are unavailable.
+    routes evidence assembly through the DuckDB context tools (INT-01); an unknown
+    customer yields an explicit NOT_FOUND response and an unavailable serving store
+    raises `ServiceUnavailableError`.
     """
 
     def __init__(
@@ -86,6 +88,16 @@ class OrchestratorEngine:
     def logger(self) -> logging.Logger:
         return self._logger
 
+    @property
+    def llm_client(self) -> llm.LLMClient | None:
+        """The resolved LLM client, reused by per-request engines."""
+        return self._llm
+
+    @property
+    def transcript_search(self) -> TranscriptSearch | None:
+        """The semantic transcript seam (INT-02) when wired; otherwise `None`."""
+        return self._transcript_search
+
     def process_turn(self, request: ChatRequest) -> ChatResponse:
         trace_id = new_trace_id()
         timer = LatencyTimer()
@@ -96,7 +108,12 @@ class OrchestratorEngine:
             extra={"trace_id": trace_id, "session_id": request.session_id},
         )
         intent = self._understand(request, machine, trace_id)
-        bundle = self._gather(request, machine, trace_id)
+        try:
+            bundle = self._gather(request, machine, trace_id)
+        except context_tools.CustomerNotFoundError:
+            return self._not_found_response(
+                request, intent, machine, trace_id, timer.elapsed_ms
+            )
         assessment = self._decide(bundle, machine, trace_id)
         response = self._respond(
             request, bundle, assessment, intent, trace_id, timer.elapsed_ms
@@ -108,6 +125,34 @@ class OrchestratorEngine:
             extra={"trace_id": trace_id, "intent": response.intent.value},
         )
         return response
+
+    def _not_found_response(
+        self,
+        request: ChatRequest,
+        intent: Intent,
+        machine: StateMachine,
+        trace_id: str,
+        latency_ms: float,
+    ) -> ChatResponse:
+        machine.fail()
+        self._logger.warning(
+            "Customer not found: %s",
+            request.customer_id,
+            extra={"trace_id": trace_id},
+        )
+        return ChatResponse(
+            session_id=request.session_id,
+            decision=Decision.CLARIFY,
+            intent=intent,
+            reply=prompts.NOT_FOUND_REPLY.format(customer_id=request.customer_id),
+            evidence=[],
+            handoff=None,
+            redacted=False,
+            status=Status.NOT_FOUND,
+            trace_id=trace_id,
+            latency_ms=latency_ms,
+            created_at=datetime.now(timezone.utc),
+        )
 
     def _understand(
         self, request: ChatRequest, machine: StateMachine, trace_id: str
@@ -195,6 +240,7 @@ class OrchestratorEngine:
         evidence = build_evidence(bundle)
         handoff = self._handoff_or_none(bundle, request, assessment)
         llm_reply = self._llm_reply(request, intent, assessment, trace_id)
+        llm_used = llm_reply is not None
         raw_reply = llm_reply or self._render_reply(
             intent, assessment, bundle, evidence, handoff
         )
@@ -209,8 +255,22 @@ class OrchestratorEngine:
             redacted=reply != raw_reply or contains_pii(request.message),
             trace_id=trace_id,
             latency_ms=latency_ms,
+            llm_used=llm_used,
+            llm_model=getattr(self._llm, "model", None) if llm_used else None,
             created_at=datetime.now(timezone.utc),
         )
+        if llm_used:
+            self._logger.info(
+                "LLM reply used: model=%s",
+                response.llm_model,
+                extra={"trace_id": trace_id},
+            )
+        else:
+            self._logger.info(
+                "Deterministic reply used: llm_enabled=%s",
+                self._llm is not None,
+                extra={"trace_id": trace_id},
+            )
         self._logger.info(
             "Response assembled redacted=%s handoff=%s",
             response.redacted,
@@ -260,7 +320,9 @@ class OrchestratorEngine:
 
     def _tool_message(self, call: llm.ToolCall, trace_id: str) -> dict[str, Any]:
         try:
-            content = llm.execute_tool(call.name, call.arguments)
+            content = llm.execute_tool(
+                call.name, call.arguments, use_mocks=self._use_mocks
+            )
         except llm.ToolExecutionError as exc:
             self._logger.warning(
                 "LLM requested an unavailable tool: %s",
@@ -310,6 +372,12 @@ class OrchestratorEngine:
             return prompts.ESCALATION_REPLY.format(handoff_id=handoff.handoff_id)
         if assessment.decision is Decision.CLARIFY:
             return prompts.CLARIFICATION_REPLY
+        if not bundle.recent_transactions:
+            return prompts.EMPTY_TRANSACTIONS_REPLY.format(
+                count=len(evidence),
+                sources=OrchestratorEngine._source_ids(evidence),
+                facts=OrchestratorEngine._grounded_facts(bundle),
+            )
         return prompts.RESPOND_TEMPLATE.format(
             opener=prompts.RESPOND_OPENERS[intent],
             name=bundle.customer_360.full_name,

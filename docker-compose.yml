@@ -8,10 +8,16 @@ services:
     image: ai-banking-platform:local
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000
     environment:
-      USE_MOCKS: "false"
+      USE_MOCKS: "${USE_MOCKS:-false}"
+      USE_LLM: "${USE_LLM:-false}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      LLM_MODEL: "${LLM_MODEL:-gpt-4o-mini}"
+      OPENAI_BASE_URL: "${OPENAI_BASE_URL:-}"
+      LLM_REASONING_EFFORT: "${LLM_REASONING_EFFORT:-}"
       API_KEY_REQUIRED: "${API_KEY_REQUIRED:-false}"
       API_KEY: "${API_KEY:-}"
       SERVING_DATA_DIR: "/app/data/serving"
+      CORS_ALLOW_ORIGINS: "${CORS_ALLOW_ORIGINS:-*}"
     volumes:
       - ./data/serving:/app/data/serving:ro
     ports:
@@ -32,7 +38,7 @@ services:
     environment:
       API_BASE_URL: http://api_gateway:8000
       API_KEY: "${API_KEY:-}"
-      USE_MOCKS: "false"
+      USE_MOCKS: "${USE_MOCKS:-false}"
     ports:
       - "8501:8501"
     depends_on:

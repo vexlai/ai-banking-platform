@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -11,6 +12,7 @@ REFERENCE_DATE = "2026-09-28"  # Fecha de corte reproducible, no fecha máxima e
 EXCLUDED_LAYERS = {"raw", "interim", "processed"}
 
 RAW_DATA_DIR = ROOT / "data" / "raw"
-SERVING_DIR = ROOT / "data" / "serving"
+SERVING_DIR = Path(os.getenv("SERVING_DATA_DIR") or ROOT / "data" / "serving")
 DUCKDB_PATH = SERVING_DIR / "bank_serving.duckdb"
 FAISS_INDEX_PATH = SERVING_DIR / "transcripts.faiss"
+USE_MOCKS_DEFAULT = False

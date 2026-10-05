@@ -7,6 +7,9 @@ on:
 jobs:
   test-and-lint:
     runs-on: ubuntu-latest
+    env:
+      # CI runs without the serving binaries, so skip the live-mode boot gate.
+      SKIP_SERVING_CHECK: "1"
 
     steps:
     - name: Check out repository

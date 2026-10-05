@@ -10,6 +10,7 @@ from contracts import ChatRequest, ChatResponse
 from src.orchestrator.engine import OrchestratorEngine
 from src.retrieval import vector_store
 from src.telemetry.logger import get_logger
+from src.tools.context_tools import ServiceUnavailableError
 
 logger = get_logger(__name__)
 
@@ -22,9 +23,14 @@ def _select_engine(
     if resolved == engine.use_mocks:
         return engine
     if resolved:
-        return OrchestratorEngine(use_mocks=True, logger=engine.logger)
+        return OrchestratorEngine(
+            use_mocks=True, llm_client=engine.llm_client, logger=engine.logger
+        )
     return OrchestratorEngine(
-        use_mocks=False, transcript_search=vector_store.search, logger=engine.logger
+        use_mocks=False,
+        llm_client=engine.llm_client,
+        transcript_search=engine.transcript_search or vector_store.search,
+        logger=engine.logger,
     )
 
 
@@ -47,18 +53,20 @@ def build_router(engine: OrchestratorEngine) -> APIRouter:
         )
         try:
             response = active.process_turn(request)
-        except NotImplementedError as exc:
+        except ServiceUnavailableError as exc:
             logger.error(
-                "Chat turn unavailable because real context tools are not wired: %s",
-                exc,
+                "Serving data unavailable: %s",
+                exc.reason,
                 extra={"session_id": request.session_id},
             )
             raise HTTPException(
-                status.HTTP_501_NOT_IMPLEMENTED, detail=str(exc)
+                status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Banking data engine unavailable",
             ) from exc
         logger.info(
-            "Chat turn completed decision=%s trace_id=%s",
+            "Chat turn completed decision=%s status=%s trace_id=%s",
             response.decision,
+            response.status,
             response.trace_id,
         )
         return response

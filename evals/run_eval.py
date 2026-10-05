@@ -28,6 +28,7 @@ from contracts import (
     Intent,
     RiskLevel,
     SourceTool,
+    Status,
 )
 from src.orchestrator.engine import OrchestratorEngine
 from src.telemetry.logger import get_logger
@@ -48,6 +49,8 @@ class GoldenCase(Contract):
     expected_risk_level: RiskLevel
     expected_handoff: bool
     expected_sources: list[SourceTool] = Field(default_factory=list)
+    expected_status: Status | None = None
+    expected_redacted: bool | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,6 +72,16 @@ def load_cases(path: Path = GOLDEN_CASES_PATH) -> list[GoldenCase]:
     ]
 
 
+def _cites_evidence(response: ChatResponse) -> bool:
+    """True when a reply cites an evidence id, a source tool, or the grounding marker."""
+    reply = response.reply
+    if RESPOND_GROUNDING_MARKER in reply:
+        return True
+    if any(item.source_id and item.source_id in reply for item in response.evidence):
+        return True
+    return any(item.source.value in reply for item in response.evidence)
+
+
 def _grounded(response: ChatResponse) -> bool:
     if response.decision is Decision.ESCALATE:
         return (
@@ -76,7 +89,7 @@ def _grounded(response: ChatResponse) -> bool:
             and response.handoff.handoff_id in response.reply
         )
     if response.decision is Decision.RESPOND:
-        return RESPOND_GROUNDING_MARKER in response.reply
+        return _cites_evidence(response)
     return bool(response.reply.strip())
 
 
@@ -97,6 +110,10 @@ def _failures(case: GoldenCase, response: ChatResponse) -> tuple[str, ...]:
     }
     if response.handoff is not None:
         checks["risk_level"] = response.handoff.risk_level is case.expected_risk_level
+    if case.expected_status is not None:
+        checks["status"] = response.status is case.expected_status
+    if case.expected_redacted is not None:
+        checks["redacted"] = response.redacted is case.expected_redacted
 
     present = {item.source for item in response.evidence}
     missing = [
@@ -121,6 +138,8 @@ def _expected(case: GoldenCase, name: str) -> object:
         "intent": case.expected_intent,
         "handoff": case.expected_handoff,
         "risk_level": case.expected_risk_level,
+        "status": case.expected_status,
+        "redacted": case.expected_redacted,
         "grounding": True,
     }[name]
 
@@ -134,6 +153,10 @@ def _actual(response: ChatResponse, name: str) -> object:
         return response.handoff is not None
     if name == "risk_level":
         return response.handoff.risk_level if response.handoff else None
+    if name == "status":
+        return response.status
+    if name == "redacted":
+        return response.redacted
     return _grounded(response)
 
 

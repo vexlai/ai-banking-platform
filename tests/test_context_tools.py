@@ -1,4 +1,4 @@
-"""Graceful-degradation tests for the DuckDB context tools."""
+"""Strict-mode behavior for the DuckDB context tools (no silent fallback)."""
 
 from __future__ import annotations
 
@@ -6,7 +6,6 @@ from pathlib import Path
 
 import pytest
 
-from contracts import EvidenceBundle
 from src.tools import context_tools, mocks
 
 
@@ -15,61 +14,8 @@ def missing_database(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     monkeypatch.setattr(context_tools, "DUCKDB_PATH", tmp_path / "missing.duckdb")
 
 
-def test_customer_360_falls_back_to_mocks(missing_database: None) -> None:
-    assert context_tools.get_customer_360("CUST_001") == mocks.get_customer_360(
-        "CUST_001"
-    )
-
-
-def test_recent_transactions_fall_back_to_mocks(missing_database: None) -> None:
-    assert context_tools.get_recent_transactions(
-        "CUST_001"
-    ) == mocks.get_recent_transactions("CUST_001")
-
-
-def test_journey_summary_falls_back_to_mocks(missing_database: None) -> None:
-    assert context_tools.get_journey_summary("CUST_002") == mocks.get_journey_summary(
-        "CUST_002"
-    )
-
-
-def test_interaction_history_falls_back_to_mocks(missing_database: None) -> None:
-    assert context_tools.get_interaction_history(
-        "CUST_002"
-    ) == mocks.get_interaction_history("CUST_002")
-
-
-def test_similar_transcripts_fall_back_to_mocks(missing_database: None) -> None:
-    assert context_tools.get_similar_transcripts(
-        "CUST_003"
-    ) == mocks.get_similar_transcripts("CUST_003")
-
-
-def test_open_cases_fall_back_to_mocks(missing_database: None) -> None:
-    assert context_tools.get_open_cases("CUST_002") == mocks.get_open_cases("CUST_002")
-
-
-def test_get_context_falls_back_to_mock_bundle(missing_database: None) -> None:
-    bundle = context_tools.get_context("CUST_002")
-    expected = mocks.get_context("CUST_002")
-
-    assert isinstance(bundle, EvidenceBundle)
-    assert bundle.customer_360 == expected.customer_360
-    assert bundle.recent_transactions == expected.recent_transactions
-    assert bundle.journey_summary == expected.journey_summary
-    assert bundle.open_cases == expected.open_cases
-    assert bundle.retrieved_at.tzinfo is not None
-
-
-def test_strict_mode_raises_structured_error(missing_database: None) -> None:
-    with pytest.raises(context_tools.ContextToolError) as error:
-        context_tools.get_customer_360("CUST_001", strict=True)
-
-    assert error.value.tool == "customer_360_view"
-    assert "not found" in error.value.reason
-
-
-def test_live_view_is_queried(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+@pytest.fixture
+def serving_database(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Path:
     duckdb = pytest.importorskip("duckdb")
     database = tmp_path / "serving.duckdb"
     con = duckdb.connect(str(database))
@@ -79,15 +25,76 @@ def test_live_view_is_queried(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -
         "currency VARCHAR, as_of TIMESTAMP)"
     )
     con.execute(
-        "INSERT INTO customer_360_view VALUES "
-        "('CUST_001', 'Maria Gonzalez', 'retail', 'MX', "
-        "['checking_account', 'credit_card'], 25000.0, 'MXN', "
-        "TIMESTAMP '2026-06-17 12:00:00')"
+        "INSERT INTO customer_360_view VALUES ('CUST_001', 'Maria Gonzalez', 'retail', "
+        "'MX', ['checking_account'], 25000.0, 'MXN', TIMESTAMP '2026-06-17 12:00:00')"
+    )
+    con.execute(
+        "CREATE TABLE recent_transactions(transaction_id VARCHAR, customer_id VARCHAR, "
+        "amount DOUBLE, currency VARCHAR, merchant VARCHAR, status VARCHAR, "
+        "fraud_score DOUBLE, occurred_at TIMESTAMP)"
+    )
+    con.execute(
+        "CREATE TABLE journey_summary(customer_id VARCHAR, session_id VARCHAR, "
+        "window_hours INTEGER, events VARCHAR[], error_count INTEGER, "
+        "abandoned_forms INTEGER, as_of TIMESTAMP)"
+    )
+    con.execute(
+        "CREATE TABLE interaction_history(interaction_id VARCHAR, customer_id VARCHAR, "
+        "channel VARCHAR, summary VARCHAR, occurred_at TIMESTAMP)"
+    )
+    con.execute(
+        "CREATE TABLE similar_transcripts(transcript_id VARCHAR, customer_id VARCHAR, "
+        "similarity DOUBLE, summary VARCHAR)"
+    )
+    con.execute(
+        "CREATE TABLE open_cases(case_id VARCHAR, customer_id VARCHAR, status VARCHAR, "
+        "severity VARCHAR, sla_breach BOOLEAN, repeat_complaint BOOLEAN, "
+        "opened_at TIMESTAMP)"
     )
     con.close()
     monkeypatch.setattr(context_tools, "DUCKDB_PATH", database)
+    return database
 
-    profile = context_tools.get_customer_360("CUST_001")
 
-    assert profile.full_name == "Maria Gonzalez"
-    assert profile.products == ["checking_account", "credit_card"]
+def test_missing_database_raises_service_unavailable(missing_database: None) -> None:
+    with pytest.raises(context_tools.ServiceUnavailableError) as error:
+        context_tools.get_customer_360("CUST_001")
+
+    assert error.value.tool == "duckdb"
+    assert "not found" in error.value.reason
+
+
+def test_strict_false_opts_into_mocks(missing_database: None) -> None:
+    assert context_tools.get_customer_360(
+        "CUST_001", strict=False
+    ) == mocks.get_customer_360("CUST_001")
+
+
+def test_unknown_customer_raises_not_found(serving_database: Path) -> None:
+    with pytest.raises(context_tools.CustomerNotFoundError):
+        context_tools.get_customer_360("NON_EXISTENT_ID")
+
+
+def test_known_customer_returns_profile(serving_database: Path) -> None:
+    assert context_tools.get_customer_360("CUST_001").full_name == "Maria Gonzalez"
+
+
+def test_valid_customer_empty_transactions_returns_empty_list(
+    serving_database: Path,
+) -> None:
+    assert context_tools.get_recent_transactions("CUST_001") == []
+
+
+def test_valid_customer_empty_journey_returns_summary(serving_database: Path) -> None:
+    journey = context_tools.get_journey_summary("CUST_001")
+
+    assert journey.session_id == ""
+    assert journey.error_count == 0
+
+
+def test_get_context_valid_empty(serving_database: Path) -> None:
+    bundle = context_tools.get_context("CUST_001")
+
+    assert bundle.customer_360.full_name == "Maria Gonzalez"
+    assert bundle.recent_transactions == []
+    assert bundle.retrieved_at.tzinfo is not None

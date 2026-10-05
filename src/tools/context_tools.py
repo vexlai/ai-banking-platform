@@ -1,10 +1,11 @@
 """DuckDB-backed context lookup tools (INT-01).
 
 Serves the six customer-context views over the read-only database at
-``src.data.config.DUCKDB_PATH`` with the same signatures as ``src.tools.mocks``.
-When duckdb, the database file, or a view is unavailable, each tool logs a
-warning and returns the deterministic mock; pass ``strict=True`` to raise
-``ContextToolError`` instead.
+``src.data.config.DUCKDB_PATH``. Tools run in strict mode by default: a missing
+database, view, or query failure raises ``ServiceUnavailableError`` and an
+unknown ``customer_id`` raises ``CustomerNotFoundError``; there is no silent
+fallback to ``src.tools.mocks``. Pass ``strict=False`` to opt into the
+deterministic fixtures used by the mock serving path, tests, and evals.
 """
 
 from __future__ import annotations
@@ -27,6 +28,11 @@ from contracts import (
 from src.data.config import DUCKDB_PATH
 from src.telemetry.logger import get_logger
 from src.tools import mocks
+from src.tools.errors import (
+    ContextToolError,
+    CustomerNotFoundError,
+    ServiceUnavailableError,
+)
 
 try:
     import duckdb
@@ -41,6 +47,8 @@ JOURNEY_SUMMARY_VIEW = "journey_summary"
 INTERACTION_HISTORY_VIEW = "interaction_history"
 SIMILAR_TRANSCRIPTS_VIEW = "similar_transcripts"
 OPEN_CASES_VIEW = "open_cases"
+
+_EMPTY_JOURNEY_WINDOW_HOURS = 24
 
 _SQL_CUSTOMER_360 = (
     "SELECT customer_id, full_name, segment, country, products, credit_limit, "
@@ -71,24 +79,17 @@ _SQL_OPEN_CASES = (
 ModelT = TypeVar("ModelT")
 
 
-class ContextToolError(RuntimeError):
-    """Structured failure raised in strict mode for an unusable serving view."""
-
-    def __init__(self, tool: str, reason: str) -> None:
-        super().__init__(f"Context tool {tool} failed: {reason}")
-        self.tool = tool
-        self.reason = reason
-
-
 def _connect() -> Any:
     if duckdb is None:
-        raise ContextToolError("duckdb", "duckdb is not installed")
+        raise ServiceUnavailableError("duckdb", "duckdb is not installed")
     if not DUCKDB_PATH.exists():
-        raise ContextToolError("duckdb", f"serving database not found at {DUCKDB_PATH}")
+        raise ServiceUnavailableError(
+            "duckdb", f"serving database not found at {DUCKDB_PATH}"
+        )
     try:
         return duckdb.connect(str(DUCKDB_PATH), read_only=True)
     except Exception as exc:
-        raise ContextToolError(
+        raise ServiceUnavailableError(
             "duckdb", f"failed to open serving database: {exc}"
         ) from exc
 
@@ -106,14 +107,14 @@ def _fetch(
 ) -> list[dict[str, Any]]:
     try:
         if not _view_exists(con, view):
-            raise ContextToolError(tool, f"serving view '{view}' not found")
+            raise ServiceUnavailableError(tool, f"serving view '{view}' not found")
         cursor = con.execute(sql, params)
         columns = [column[0] for column in cursor.description]
         return [dict(zip(columns, row, strict=True)) for row in cursor.fetchall()]
     except ContextToolError:
         raise
     except Exception as exc:
-        raise ContextToolError(tool, f"query failed: {exc}") from exc
+        raise ServiceUnavailableError(tool, f"query failed: {exc}") from exc
 
 
 def _rows(tool: str, view: str, sql: str, params: list[Any]) -> list[dict[str, Any]]:
@@ -125,11 +126,11 @@ def _rows(tool: str, view: str, sql: str, params: list[Any]) -> list[dict[str, A
 
 
 def _fallback(
-    tool: str, strict: bool, reason: str, produce: Callable[[], ModelT]
+    tool: str, strict: bool, error: ContextToolError, produce: Callable[[], ModelT]
 ) -> ModelT:
     if strict:
-        raise ContextToolError(tool, reason)
-    logger.warning("Context tool %s falling back to mocks: %s", tool, reason)
+        raise error
+    logger.warning("Context tool %s serving mock fixture: %s", tool, error.reason)
     return produce()
 
 
@@ -164,7 +165,6 @@ def _transaction(row: dict[str, Any]) -> Transaction:
     raw_score = float(row.get("fraud_score") or 0.0)
     score = raw_score / 100.0 if raw_score > 1.0 else raw_score
     score = max(0.0, min(1.0, score))
-
     return Transaction(
         transaction_id=str(row.get("transaction_id", "")),
         customer_id=str(row.get("customer_id", "")),
@@ -198,6 +198,18 @@ def _journey_summary(customer_id: str, row: Mapping[str, Any]) -> JourneySummary
     )
 
 
+def _empty_journey(customer_id: str) -> JourneySummary:
+    return JourneySummary(
+        customer_id=customer_id,
+        session_id="",
+        window_hours=_EMPTY_JOURNEY_WINDOW_HOURS,
+        events=[],
+        error_count=0,
+        abandoned_forms=0,
+        as_of=datetime.now(timezone.utc),
+    )
+
+
 def _interaction(row: Mapping[str, Any]) -> Interaction:
     return Interaction(
         interaction_id=str(row["interaction_id"]),
@@ -227,10 +239,11 @@ def _case_record(row: Mapping[str, Any]) -> CaseRecord:
     )
 
 
-def get_context(customer_id: str, *, strict: bool = False) -> EvidenceBundle:
+def get_context(customer_id: str, *, strict: bool = True) -> EvidenceBundle:
+    profile = get_customer_360(customer_id, strict=strict)
     return EvidenceBundle(
         customer_id=customer_id,
-        customer_360=get_customer_360(customer_id, strict=strict),
+        customer_360=profile,
         recent_transactions=get_recent_transactions(customer_id, strict=strict),
         journey_summary=get_journey_summary(customer_id, strict=strict),
         interaction_history=get_interaction_history(customer_id, strict=strict),
@@ -240,28 +253,28 @@ def get_context(customer_id: str, *, strict: bool = False) -> EvidenceBundle:
     )
 
 
-def get_customer_360(customer_id: str, *, strict: bool = False) -> Customer360:
+def get_customer_360(customer_id: str, *, strict: bool = True) -> Customer360:
     tool = CUSTOMER_360_VIEW
     try:
         rows = _rows(tool, tool, _SQL_CUSTOMER_360, [customer_id])
         if not rows:
-            raise ContextToolError(tool, f"no profile row for '{customer_id}'")
+            raise CustomerNotFoundError(tool, f"no profile row for '{customer_id}'")
         return _customer_360(rows[0])
+    except CustomerNotFoundError as exc:
+        return _fallback(tool, strict, exc, lambda: mocks.get_customer_360(customer_id))
     except ContextToolError as exc:
-        return _fallback(
-            tool, strict, exc.reason, lambda: mocks.get_customer_360(customer_id)
-        )
+        return _fallback(tool, strict, exc, lambda: mocks.get_customer_360(customer_id))
     except Exception as exc:  # noqa: BLE001
         return _fallback(
             tool,
             strict,
-            f"invalid serving row: {exc}",
+            ServiceUnavailableError(tool, f"invalid serving row: {exc}"),
             lambda: mocks.get_customer_360(customer_id),
         )
 
 
 def get_recent_transactions(
-    customer_id: str, *, strict: bool = False
+    customer_id: str, *, strict: bool = True
 ) -> list[Transaction]:
     tool = RECENT_TRANSACTIONS_VIEW
     try:
@@ -269,39 +282,41 @@ def get_recent_transactions(
         return [_transaction(row) for row in rows]
     except ContextToolError as exc:
         return _fallback(
-            tool, strict, exc.reason, lambda: mocks.get_recent_transactions(customer_id)
+            tool, strict, exc, lambda: mocks.get_recent_transactions(customer_id)
         )
     except Exception as exc:  # noqa: BLE001
         return _fallback(
             tool,
             strict,
-            f"invalid serving row: {exc}",
+            ServiceUnavailableError(tool, f"invalid serving row: {exc}"),
             lambda: mocks.get_recent_transactions(customer_id),
         )
 
 
-def get_journey_summary(customer_id: str, *, strict: bool = False) -> JourneySummary:
+def get_journey_summary(customer_id: str, *, strict: bool = True) -> JourneySummary:
     tool = JOURNEY_SUMMARY_VIEW
     try:
         rows = _rows(tool, tool, _SQL_JOURNEY_SUMMARY, [customer_id])
-        if not rows:
-            raise ContextToolError(tool, f"no journey row for '{customer_id}'")
-        return _journey_summary(customer_id, rows[0])
     except ContextToolError as exc:
         return _fallback(
-            tool, strict, exc.reason, lambda: mocks.get_journey_summary(customer_id)
+            tool, strict, exc, lambda: mocks.get_journey_summary(customer_id)
         )
     except Exception as exc:  # noqa: BLE001
         return _fallback(
             tool,
             strict,
-            f"invalid serving row: {exc}",
+            ServiceUnavailableError(tool, f"invalid serving row: {exc}"),
             lambda: mocks.get_journey_summary(customer_id),
         )
+    if not rows:
+        if strict:
+            return _empty_journey(customer_id)
+        return mocks.get_journey_summary(customer_id)
+    return _journey_summary(customer_id, rows[0])
 
 
 def get_interaction_history(
-    customer_id: str, *, strict: bool = False
+    customer_id: str, *, strict: bool = True
 ) -> list[Interaction]:
     tool = INTERACTION_HISTORY_VIEW
     try:
@@ -309,19 +324,19 @@ def get_interaction_history(
         return [_interaction(row) for row in rows]
     except ContextToolError as exc:
         return _fallback(
-            tool, strict, exc.reason, lambda: mocks.get_interaction_history(customer_id)
+            tool, strict, exc, lambda: mocks.get_interaction_history(customer_id)
         )
     except Exception as exc:  # noqa: BLE001
         return _fallback(
             tool,
             strict,
-            f"invalid serving row: {exc}",
+            ServiceUnavailableError(tool, f"invalid serving row: {exc}"),
             lambda: mocks.get_interaction_history(customer_id),
         )
 
 
 def get_similar_transcripts(
-    customer_id: str, *, strict: bool = False
+    customer_id: str, *, strict: bool = True
 ) -> list[TranscriptMatch]:
     tool = SIMILAR_TRANSCRIPTS_VIEW
     try:
@@ -329,33 +344,28 @@ def get_similar_transcripts(
         return [_transcript_match(row) for row in rows]
     except ContextToolError as exc:
         return _fallback(
-            tool,
-            strict,
-            exc.reason,
-            lambda: mocks.get_similar_transcripts(customer_id),
+            tool, strict, exc, lambda: mocks.get_similar_transcripts(customer_id)
         )
     except Exception as exc:  # noqa: BLE001
         return _fallback(
             tool,
             strict,
-            f"invalid serving row: {exc}",
+            ServiceUnavailableError(tool, f"invalid serving row: {exc}"),
             lambda: mocks.get_similar_transcripts(customer_id),
         )
 
 
-def get_open_cases(customer_id: str, *, strict: bool = False) -> list[CaseRecord]:
+def get_open_cases(customer_id: str, *, strict: bool = True) -> list[CaseRecord]:
     tool = OPEN_CASES_VIEW
     try:
         rows = _rows(tool, tool, _SQL_OPEN_CASES, [customer_id])
         return [_case_record(row) for row in rows]
     except ContextToolError as exc:
-        return _fallback(
-            tool, strict, exc.reason, lambda: mocks.get_open_cases(customer_id)
-        )
+        return _fallback(tool, strict, exc, lambda: mocks.get_open_cases(customer_id))
     except Exception as exc:  # noqa: BLE001
         return _fallback(
             tool,
             strict,
-            f"invalid serving row: {exc}",
+            ServiceUnavailableError(tool, f"invalid serving row: {exc}"),
             lambda: mocks.get_open_cases(customer_id),
         )

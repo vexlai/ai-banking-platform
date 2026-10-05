@@ -22,12 +22,12 @@ src/retrieval/vector_store.py --> FAISS index --------> top-k transcript matches
 - `src/retrieval/vector_store.py` loads the FAISS index at
   `src.data.config.FAISS_INDEX_PATH` and returns the nearest transcripts as
   `contracts.TranscriptMatch` records.
-- When duckdb, the database file, the index, or a view is unavailable, each tool logs a
-  warning and returns the deterministic mock. Pass `strict=True` to raise
-  `ContextToolError` instead of falling back.
+- Tools run in strict mode by default: a missing database, view, or query error raises
+  `ServiceUnavailableError`, and an unknown `customer_id` raises `CustomerNotFoundError`.
+  Pass `strict=False` to serve the deterministic fixtures instead of raising.
 
-`USE_MOCKS` selects the default source for the process (`true` = fixtures, `false` = live
-DuckDB + FAISS). Any request may override it with the `?use_mocks=` query parameter.
+`USE_MOCKS` selects the default source for the process (`false` = live DuckDB + FAISS, the
+default; `true` = fixtures). Any request may override it with the `?use_mocks=` parameter.
 
 ## Serving views
 
@@ -68,8 +68,8 @@ as-of date, default `config.REFERENCE_DATE`), `--window-days` (default 30) and
 
 Each source may be a single `.parquet`/`.csv` file or a Hive-partitioned folder, matched
 with a recursive glob. Missing extracts are registered as typed zero-row stand-ins, so the
-six serving objects always exist and queries degrade to the deterministic mocks rather
-than failing.
+six serving objects always exist; strict tools then report NOT_FOUND for an unknown
+customer instead of failing.
 
 ## Retrieval internals
 
@@ -85,7 +85,7 @@ the first 200 characters.
 
 | Variable | Default | Responsibility |
 | --- | --- | --- |
-| `USE_MOCKS` | `true` | Process-wide serving source: fixtures vs. live DuckDB/FAISS. |
+| `USE_MOCKS` | `false` | Process-wide serving source: live DuckDB/FAISS vs. fixtures. |
 | `CORS_ALLOW_ORIGINS` | `*` | Comma-separated gateway CORS allow-list. |
 
 Paths are constants in `src/data/config.py` (`RAW_DATA_DIR`, `DUCKDB_PATH`,
@@ -94,7 +94,7 @@ Paths are constants in `src/data/config.py` (`RAW_DATA_DIR`, `DUCKDB_PATH`,
 ## Validation
 
 ```bash
-pytest tests/                        # 41 tests, incl. test_context_tools / test_ingest / test_vector_store
+pytest tests/                        # 54 tests, incl. test_context_tools / test_ingest / test_vector_store
 ruff check . && ruff format --check .
 python evals/run_eval.py             # golden-set evaluation
 ```

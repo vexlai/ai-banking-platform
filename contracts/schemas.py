@@ -29,6 +29,12 @@ class RiskLevel(StrEnum):
     HIGH = "high"
 
 
+class Status(StrEnum):
+    SUCCESS = "success"
+    NOT_FOUND = "not_found"
+    SERVICE_ERROR = "service_error"
+
+
 class SourceTool(StrEnum):
     CUSTOMER_360 = "customer_360_view"
     RECENT_TRANSACTIONS = "recent_transactions"
@@ -146,8 +152,11 @@ class ChatResponse(Contract):
     evidence: list[Evidence] = Field(default_factory=list)
     handoff: Handoff | None = None
     redacted: bool = False
+    status: Status = Status.SUCCESS
     trace_id: str
     latency_ms: float
+    llm_used: bool = False
+    llm_model: str | None = None
     created_at: datetime
 
 
@@ -155,3 +164,5 @@ class HealthResponse(Contract):
     status: str
     version: str
     mocks_enabled: bool
+    llm_enabled: bool = False
+    llm_model: str | None = None
