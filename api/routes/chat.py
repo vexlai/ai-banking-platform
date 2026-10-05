@@ -2,14 +2,30 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 
+from api.config import resolve_use_mocks
 from api.security import require_api_key
 from contracts import ChatRequest, ChatResponse
 from src.orchestrator.engine import OrchestratorEngine
+from src.retrieval import vector_store
 from src.telemetry.logger import get_logger
 
 logger = get_logger(__name__)
+
+
+def _select_engine(
+    engine: OrchestratorEngine, use_mocks: bool | None
+) -> OrchestratorEngine:
+    """Reuses the injected engine unless the request overrides the serving mode."""
+    resolved = resolve_use_mocks(use_mocks)
+    if resolved == engine.use_mocks:
+        return engine
+    if resolved:
+        return OrchestratorEngine(use_mocks=True, logger=engine.logger)
+    return OrchestratorEngine(
+        use_mocks=False, transcript_search=vector_store.search, logger=engine.logger
+    )
 
 
 def build_router(engine: OrchestratorEngine) -> APIRouter:
@@ -20,14 +36,17 @@ def build_router(engine: OrchestratorEngine) -> APIRouter:
     )
 
     @router.post("/chat", response_model=ChatResponse)
-    def chat(request: ChatRequest) -> ChatResponse:
+    def chat(
+        request: ChatRequest, use_mocks: bool | None = Query(default=None)
+    ) -> ChatResponse:
+        active = _select_engine(engine, use_mocks)
         logger.info(
             "Chat turn received for customer: %s",
             request.customer_id,
-            extra={"session_id": request.session_id},
+            extra={"session_id": request.session_id, "use_mocks": active.use_mocks},
         )
         try:
-            response = engine.process_turn(request)
+            response = active.process_turn(request)
         except NotImplementedError as exc:
             logger.error(
                 "Chat turn unavailable because real context tools are not wired: %s",

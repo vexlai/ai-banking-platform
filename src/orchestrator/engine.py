@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+from collections.abc import Callable
 from datetime import datetime, timezone
 from typing import Any
 
@@ -15,6 +16,7 @@ from contracts import (
     EvidenceBundle,
     Handoff,
     Intent,
+    TranscriptMatch,
 )
 from src.orchestrator import llm, prompts
 from src.orchestrator.state_machine import State, StateMachine
@@ -22,6 +24,8 @@ from src.policy.handoff import build_evidence, build_handoff
 from src.policy.rules import RiskAssessment, assess_risk, contains_pii, redact_pii
 from src.telemetry.logger import LatencyTimer, get_logger, new_trace_id
 from src.tools import context_tools, mocks
+
+TranscriptSearch = Callable[[str], list[TranscriptMatch]]
 
 
 def classify_intent(message: str) -> Intent:
@@ -66,10 +70,21 @@ class OrchestratorEngine:
         use_mocks: bool = True,
         logger: logging.Logger | None = None,
         llm_client: llm.LLMClient | None = None,
+        transcript_search: TranscriptSearch | None = None,
     ) -> None:
         self._use_mocks = use_mocks
         self._logger = logger or get_logger()
         self._llm = llm_client if llm_client is not None else llm.from_env()
+        self._transcript_search = transcript_search
+
+    @property
+    def use_mocks(self) -> bool:
+        """Whether evidence is served from the deterministic fixtures."""
+        return self._use_mocks
+
+    @property
+    def logger(self) -> logging.Logger:
+        return self._logger
 
     def process_turn(self, request: ChatRequest) -> ChatResponse:
         trace_id = new_trace_id()
@@ -118,6 +133,7 @@ class OrchestratorEngine:
             bundle = mocks.get_context(request.customer_id)
         else:
             bundle = context_tools.get_context(request.customer_id)
+            bundle = self._with_semantic_transcripts(bundle, request, trace_id)
         self._logger.info(
             "Evidence gathered for customer %s: %s transaction(s), %s interaction(s), %s case(s)",
             request.customer_id,
@@ -128,6 +144,30 @@ class OrchestratorEngine:
         )
         machine.advance(State.DECIDE)
         return bundle
+
+    def _with_semantic_transcripts(
+        self, bundle: EvidenceBundle, request: ChatRequest, trace_id: str
+    ) -> EvidenceBundle:
+        """Overrides similar transcripts with FAISS matches; retrieval never fails a turn."""
+        if self._transcript_search is None:
+            return bundle
+        try:
+            matches = self._transcript_search(request.message)
+        except Exception as exc:  # noqa: BLE001 - retrieval must degrade, not fail
+            self._logger.warning(
+                "Semantic transcript search failed: %s",
+                exc,
+                extra={"trace_id": trace_id},
+            )
+            return bundle
+        if not matches:
+            return bundle
+        self._logger.info(
+            "Semantic transcript search returned %s match(es)",
+            len(matches),
+            extra={"trace_id": trace_id},
+        )
+        return bundle.model_copy(update={"similar_transcripts": matches})
 
     def _decide(
         self, bundle: EvidenceBundle, machine: StateMachine, trace_id: str
