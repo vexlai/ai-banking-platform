@@ -1,0 +1,5 @@
+time_window,candidate_transactions,fully_observed_window_transactions,transactions_with_digital_context,transaction_coverage_pct,transaction_event_pairs,distinct_identified_events,pairs_with_recorded_product_id,product_id_pct_pairs
+before_30m,35583,35582,11,0.0309136385352556,70,70,3,4.285714285714286
+before_2h,35583,35578,36,0.10117190793356379,275,275,27,9.818181818181818
+before_24h,35583,35570,338,0.9498918022651266,2665,2630,240,9.00562851782364
+after_24h,35583,35562,304,0.8543405558834275,2494,2431,226,9.061748195669606

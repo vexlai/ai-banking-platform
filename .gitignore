@@ -33,12 +33,14 @@ htmlcov/
 # --- OS ---
 .DS_Store
 
-# --- Data & generated artifacts (synced from S3, never committed) ---
-/data/
+# --- Data: raw extracts & serving binaries (never committed) ---
+data/raw/
+data/serving/
+data/interim/
+data/processed/
 *.duckdb
 *.duckdb.wal
 *.faiss
-*.parquet
 
 # --- Logs ---
 *.log

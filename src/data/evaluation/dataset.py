@@ -6,11 +6,11 @@ import json
 from datetime import datetime, timedelta
 from pathlib import Path
 import duckdb
-from src.data.config import ROOT
+from src.data.config import ARTIFACTS_DIR
 from src.data.data_utils import literal
 from src.data.eda.dispute_eda import digest
 
-OUT = ROOT / "artifacts/evaluation"
+OUT = ARTIFACTS_DIR / "evaluation"
 VERSION = "dispute-intake-eval-v1"
 FIELDS = (
     "intent",
@@ -49,7 +49,7 @@ def jsonl(records):
 
 def anchors():
     """Twelve known transaction records, never their inferred complaint links."""
-    path = ROOT / "artifacts/dispute_case_workflow/case_evidence_bundles.parquet"
+    path = ARTIFACTS_DIR / "dispute_case_workflow/case_evidence_bundles.parquet"
     with duckdb.connect() as con:
         result = con.execute(f"""WITH distinct_tx AS (
           SELECT DISTINCT customer_id,candidate_transaction_id,candidate_transaction_date,

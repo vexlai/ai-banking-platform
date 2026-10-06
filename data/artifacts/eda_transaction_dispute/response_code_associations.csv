@@ -1,0 +1,7 @@
+response_code,code_records,observed_status_count,dominant_status,dominant_status_records,dominant_status_pct,exclusive_in_this_extract
+00,3867312,1,Approved,3867312,100.0,True
+,221033,4,Approved,203369,92.00843312989463,False
+14,84472,3,Declined,52711,62.40055876503457,False
+51,84179,3,Declined,52788,62.70922676677081,False
+05,84141,3,Declined,52246,62.09339085582534,False
+54,83871,3,Declined,52527,62.62832206602997,False

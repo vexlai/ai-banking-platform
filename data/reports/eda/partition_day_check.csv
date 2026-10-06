@@ -1,0 +1,8 @@
+dataset,files,parseable_filenames,distinct_file_days,files_matching_process_day,files_with_single_event_day,events_outside_filename_day
+transactions,1097,1097,1097,1097,0,1106307
+digital_events,1097,1097,1097,1097,0,3930816
+call_center_interactions,1097,1097,1097,1097,0,228318
+call_transcripts,1097,1097,1097,1097,1097,0
+complaints,1097,1097,1097,1097,0,22585
+satisfaction_surveys,1097,1097,1097,1097,0,169092
+campaign_sends,1083,1083,1083,1083,0,436429

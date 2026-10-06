@@ -109,7 +109,7 @@ def customer360(con, ctx):
             )
         )
     save("feature_temporal_audit.csv", audit)
-    log("Customer 360 y asociaciones completadas")
+    log("Customer 360 and associations completed")
     return checks
 
 
@@ -125,10 +125,10 @@ def figures():
     fig, axes = plt.subplots(4, 2, figsize=(13, 13), constrained_layout=True)
     for ax, (domain, g) in zip(axes.flat, df.groupby("dataset")):
         ax.plot(pd.to_datetime(g.month), g.records, marker=".", linewidth=1)
-        ax.set(title=domain, ylabel="Registros/mes")
+        ax.set(title=domain, ylabel="Records/month")
         ax.tick_params(axis="x", rotation=35)
     axes.flat[-1].axis("off")
-    fig.suptitle("Cobertura mensual — meses extremos pueden ser parciales")
+    fig.suptitle("Monthly coverage — extreme months may be partial")
     fig.savefig(FIG / "monthly_coverage.png", dpi=140)
     plt.close(fig)
     df = pd.read_csv(OUT / "amount_usd_histogram.csv")
@@ -137,10 +137,10 @@ def figures():
         ax.plot(g.log10_bin, g.records, label=sign)
     special = df[df.sign.isin(["zero", "missing"])].records.sum()
     ax.set(
-        xlabel="log10(|amount_usd|), bins de 0.1",
-        ylabel="Transacciones",
+        xlabel="log10(|amount_usd|), bins of 0.1",
+        ylabel="Transactions",
         yscale="log",
-        title=f"Montos USD: cola completa; cero/nulos fuera del eje log: {special:,}",
+        title=f"USD amounts: full tail; zero/nulls outside the log axis: {special:,}",
     )
     ax.legend()
     fig.savefig(FIG / "amount_usd_distribution.png", dpi=140)
@@ -156,9 +156,9 @@ def figures():
             width=120 if variable == "duration_seconds" else 30,
         )
         ax.set(
-            title=f"{variable}; sin valor: {missing:,}",
-            xlabel="Segundos",
-            ylabel="Interacciones observadas",
+            title=f"{variable}; missing: {missing:,}",
+            xlabel="Seconds",
+            ylabel="Observed interactions",
             yscale="log",
         )
     fig.savefig(FIG / "service_duration_wait.png", dpi=140)
@@ -168,8 +168,8 @@ def figures():
         df = pd.read_csv(OUT / (prefix + "_selection_monthly.csv"))
         ax.plot(pd.to_datetime(df.month), df.coverage_pct)
         ax.set(
-            title=f"Cobertura de {prefix} por mes de interacción",
-            ylabel="% interacciones",
+            title=f"{prefix} coverage by interaction month",
+            ylabel="% interactions",
         )
     fig.savefig(FIG / "selection_coverage.png", dpi=140)
     plt.close(fig)
@@ -211,9 +211,9 @@ def findings(ctx):
         "",
         "## Confirmed findings",
         "",
-        f"Ejecutado: {ctx['execution_timestamp']}. Corte de features: {ctx['feature_cutoff_inclusive']} inclusive; edad referida a ese día.",
+        f"Executed: {ctx['execution_timestamp']}. Feature cutoff: {ctx['feature_cutoff_inclusive']} inclusive; age is as of that date.",
         "",
-        "### Coherencia semántica",
+        "### Semantic consistency",
         "",
         _table(
             sem,
@@ -228,11 +228,11 @@ def findings(ctx):
             ],
         ),
         "",
-        "Los IDs coincidentes no prueban coherencia de propietario/agente; las discrepancias anteriores se conservan y los ejemplos están seudonimizados en semantic_validation_examples.csv.",
+        "Matching IDs do not prove owner/agent consistency; the discrepancies above are preserved and the examples are pseudonymized in semantic_validation_examples.csv.",
         "",
-        "La relación affected_product_id de reclamos describe una referencia declarada; con propietario discordante no permite atribuir ese producto al cliente del reclamo.",
+        "The complaint affected_product_id relationship describes a declared reference; with a mismatching owner it does not attribute that product to the complaining customer.",
         "",
-        "### Horizonte observado",
+        "### Observed horizon",
         "",
         _table(
             coverage,
@@ -246,9 +246,9 @@ def findings(ctx):
             ],
         ),
         "",
-        "Fechas posteriores de resolución/cierre/conversión se reportan en lifecycle_windows.csv. Las fechas nominales de proceso se comparan por día; sus horas calculadas contra medianoche no prueban latencia real.",
+        "Later resolution/closure/conversion dates are reported in lifecycle_windows.csv. Nominal process dates are compared by day; their computed hours against midnight do not prove real latency.",
         "",
-        "### Clientes y transacciones",
+        "### Customers and transactions",
         "",
         _table(
             _read("customer_numeric.csv"), ["variable", "valid", "median", "p90", "p99"]
@@ -271,11 +271,11 @@ def findings(ctx):
             ],
         ),
         "",
-        "Los resúmenes de amount_usd describen exclusivamente valores observados. Las transacciones USD tienen amount_usd nulo en este extracto; amount se mantiene separado por moneda y no se rellena automáticamente amount_usd. Las features incluyen conteo y porcentaje monetario observado por cliente.",
+        "The amount_usd summaries describe observed values only. USD transactions have a null amount_usd in this extract; amount stays separate per currency and amount_usd is not auto-filled. Features include per-customer count and observed monetary percentage.",
         "",
         _table(transaction_top, ["variable", "category", "records", "pct"]),
         "",
-        "Ingreso se presenta por país sin asumir moneda ni equivalencia internacional. Balances y límites se segmentan por moneda. Las categorías y altas por mes se encuentran en los CSV de cada dominio.",
+        "Income is shown by country without assuming currency or international equivalence. Balances and limits are segmented by currency. Per-month categories and sign-ups are in each domain's CSV.",
         "",
         "### Digital",
         "",
@@ -302,9 +302,9 @@ def findings(ctx):
             ],
         ),
         "",
-        "La duración de sesión es el intervalo entre el primer y último evento observado; un evento único implica intervalo cero, no duración real cero.",
+        "Session duration is the interval between the first and last observed event; a single event implies a zero interval, not a real zero duration.",
         "",
-        "### Transcripts y surveys",
+        "### Transcripts and surveys",
         "",
         _table(
             _read("transcript_coverage.csv"),
@@ -335,9 +335,9 @@ def findings(ctx):
             ["survey_type", "valid", "minimum", "median", "maximum"],
         ),
         "",
-        "Las tablas *_selection_numeric/categories/monthly.csv comparan ambos grupos. Diferencias descriptivas sugieren selección; semejanza en estas variables no demuestra ausencia de sesgo. CSAT, CES y NPS se mantienen separados; las features de satisfacción usan solo CSAT.",
+        "The *_selection_numeric/categories/monthly.csv tables compare both groups. Descriptive differences suggest selection; similarity in these variables does not prove absence of bias. CSAT, CES and NPS are kept separate; satisfaction features use only CSAT.",
         "",
-        "### Reclamos",
+        "### Complaints",
         "",
         _table(
             _read("complaint_conditional_nulls.csv"),
@@ -350,9 +350,9 @@ def findings(ctx):
             ],
         ),
         "",
-        "Los nulos se evalúan por estado. Los agregados temporales de resolución usan únicamente fechas <= corte; open_complaint_count queda NULL porque un estado snapshot no reconstruye el estado histórico. Se proporciona no_observed_resolution_by_cutoff_count como observación distinta, no como equivalencia a abierto.",
+        "Nulls are evaluated by status. Resolution time aggregates use only dates <= cutoff; open_complaint_count stays NULL because a snapshot status does not reconstruct historical state. no_observed_resolution_by_cutoff_count is provided as a distinct observation, not as an equivalence to open.",
         "",
-        "### Campañas",
+        "### Campaigns",
         "",
         _table(
             _read("campaign_funnel.csv"),
@@ -369,9 +369,9 @@ def findings(ctx):
             ],
         ),
         "",
-        "Los flags marginales y el funnel estricto se muestran por separado. NULL de fecha sin conversión no se clasifica como defecto. Moneda de conversion_value/send_cost no documentada: sumas en unidades originales, sin equipararlas a USD.",
+        "Marginal flags and the strict funnel are shown separately. A null date without conversion is not classified as a defect. conversion_value/send_cost currency is undocumented: sums are in original units, not equated to USD.",
         "",
-        "### Tipos de cambio",
+        "### Exchange rates",
         "",
         _table(
             _read("exchange_rate_validation.csv"),
@@ -386,39 +386,39 @@ def findings(ctx):
             ],
         ),
         "",
-        "Se contrastan ambas direcciones y fórmulas usando día calendario exacto, tolerancia max(0.02 USD, 1% de amount_usd). El ajuste empírico es evidencia de compatibilidad, no confirmación contractual de las unidades. No se corrigen montos ni se usan tasas de otro día.",
+        "Both directions and formulas are checked using the exact calendar day, tolerance max(0.02 USD, 1% of amount_usd). The empirical fit is evidence of compatibility, not contractual confirmation of the units. Amounts are not corrected and no other day's rates are used.",
         "",
-        "### Asociaciones preliminares",
+        "### Preliminary associations",
         "",
         _table(
             _read("cross_domain_associations.csv"),
             ["x", "y", "paired_customers", "pearson_raw", "spearman"],
         ),
         "",
-        "Solo clientes con ambas observaciones; ausencia de dominio permanece NULL. Estas asociaciones no son causales y pueden reflejar exposición, selección o claves incoherentes.",
+        "Only customers with both observations; a missing domain stays NULL. These associations are not causal and may reflect exposure, selection or incoherent keys.",
         "",
         "## Data limitations",
         "",
-        "- registration_branch_id y assigned_branch_id: relaciones no confiables según profiling; excluidas de joins geográficos.",
-        "- Reclamos sin origin_interaction_id; no existe enlace observado al contacto que los originó.",
-        "- Digital anónimo y product_id escaso; sesiones multi-cliente, si aparecen, requieren revisión antes de enlazar secuencias.",
-        "- Transcripts y encuestas tienen cobertura parcial; interacciones incluyen llamadas, chat, email y video.",
-        "- last_updated ambiguo; atributos de snapshot (saldo, segmento, income, score y estado) no entran en customer_360.",
-        "- No hay timestamps de disponibilidad/revisiones: features son agregados EDA a corte, no certificación de point-in-time para modelos.",
-        "- Meses/días extremos pueden ser parciales; cambios x2 o /2 son alertas de volumen, no errores automáticos.",
-        "- No se exporta texto personal; lengths/word counts son aproximaciones por caracteres/tokens de espacio.",
+        "- registration_branch_id and assigned_branch_id: unreliable relationships per profiling; excluded from geographic joins.",
+        "- Complaints without origin_interaction_id; no observed link to the originating contact exists.",
+        "- Anonymous digital events and sparse product_id; multi-customer sessions, if any, require review before linking sequences.",
+        "- Transcripts and surveys have partial coverage; interactions include calls, chat, email and video.",
+        "- last_updated is ambiguous; snapshot attributes (balance, segment, income, score and status) are not part of customer_360.",
+        "- No availability/revision timestamps: features are EDA aggregates at cutoff, not point-in-time certification for models.",
+        "- Extreme months/days may be partial; x2 or /2 changes are volume alerts, not automatic errors.",
+        "- No personal text is exported; lengths/word counts are approximations by characters/space tokens.",
         "",
         "## Hypotheses",
         "",
-        "- Explicar la discordancia reclamo-producto antes de interpretar propiedad y recorridos entre esos dominios.",
-        "- Investigar continuidad entre eventos anónimos e identificados dentro de sesiones mixtas, sin atribuirlos automáticamente en esta etapa.",
-        "- Investigar el calendario de proceso frente a eventos que cruzan medianoche; confirmar zona horaria y fecha operativa.",
-        "- Evaluar actividad digital y frecuencia de atención controlando exposición y selección.",
-        "- Examinar espera y CSAT dentro de canales/motivos comparables y con enlaces semánticamente válidos.",
-        "- Confirmar dirección/unidades FX y semántica de sesión con responsables de los datos.",
-        "- Determinar cómo representar reclamos sin interacción de origen, manteniendo enlaces hipotéticos separados.",
+        "- Explain the complaint-product mismatch before interpreting ownership and journeys between those domains.",
+        "- Investigate continuity between anonymous and identified events within mixed sessions, without automatically attributing them at this stage.",
+        "- Investigate the process calendar against events that cross midnight; confirm time zone and operational date.",
+        "- Evaluate digital activity and service frequency while controlling for exposure and selection.",
+        "- Examine wait and CSAT within comparable channels/reasons and with semantically valid links.",
+        "- Confirm FX direction/units and session semantics with the data owners.",
+        "- Determine how to represent complaints without an origin interaction, keeping hypothetical links separate.",
         "",
-        "Se detiene la etapa 02. No se ejecutan journeys, modelado, embeddings ni LLMs.",
+        "Stage 02 stops here. No journeys, modeling, embeddings or LLMs are run.",
     ]
     (OUT / "EDA_FINDINGS.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     key = []

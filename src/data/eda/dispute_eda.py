@@ -8,12 +8,12 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 import duckdb
-from src.data.config import ROOT
+from src.data.config import ARTIFACTS_DIR, REPORTS, REPORTS_DIR, ROOT
 from src.data.data_utils import connect, discover, ident, literal, load
 from src.data.eda.eda_core import CACHE, rows
 
-ART = ROOT / "artifacts/eda_transaction_dispute"
-REPORT = ROOT / "reports/EDA_TRANSACTION_DISPUTE_ADDENDUM.md"
+ART = ARTIFACTS_DIR / "eda_transaction_dispute"
+REPORT = REPORTS_DIR / "EDA_TRANSACTION_DISPUTE_ADDENDUM.md"
 USED = ("transactions", "complaints", "call_center_interactions")
 EVIDENCE_FIELDS = [
     "transaction_id",
@@ -40,12 +40,12 @@ EVIDENCE_FIELDS = [
 ]
 REFERENCE_FILES = [
     "notebooks/02_eda.ipynb",
-    "reports/eda/EDA_FINDINGS.md",
-    "reports/eda/analysis_context.json",
-    "reports/eda/semantic_validation.csv",
-    "reports/eda/transcript_coverage.csv",
-    "reports/eda/survey_coverage.csv",
-    "reports/profiling/source_manifest.json",
+    "data/reports/eda/EDA_FINDINGS.md",
+    "data/reports/eda/analysis_context.json",
+    "data/reports/eda/semantic_validation.csv",
+    "data/reports/eda/transcript_coverage.csv",
+    "data/reports/eda/survey_coverage.csv",
+    "data/reports/profiling/source_manifest.json",
 ]
 
 
@@ -100,7 +100,7 @@ def log(text):
 def sources():
     """Reuse verified EDA projections; fallback reads only the three required domains."""
     ART.mkdir(parents=True, exist_ok=True)
-    baseline = json.loads((ROOT / "reports/profiling/source_manifest.json").read_text())
+    baseline = json.loads((REPORTS / "source_manifest.json").read_text())
     groups = discover()
     assert {str(p.relative_to(ROOT)) for paths in groups.values() for p in paths} == {
         r["path"] for r in baseline
@@ -108,15 +108,13 @@ def sources():
     all_stats = {r["path"]: (ROOT / r["path"]).stat() for r in baseline}
     protected = {p: digest(ROOT / p) for p in REFERENCE_FILES}
     selected = [r for r in baseline if r["dataset"] in USED]
-    log(
-        f"Verificando SHA-256 de {len(selected)} fuentes de los tres dominios utilizados"
-    )
+    log(f"Verifying SHA-256 of {len(selected)} sources across the three used domains")
     for r in selected:
         assert digest(ROOT / r["path"]) == r["sha256"], r["path"]
     signature = hashlib.sha256(
         json.dumps(baseline, sort_keys=True).encode()
     ).hexdigest()
-    prior = json.loads((ROOT / "reports/eda/analysis_context.json").read_text())
+    prior = json.loads((REPORTS_DIR / "eda" / "analysis_context.json").read_text())
     context = {
         "execution_started": datetime.now(ZoneInfo("America/Guayaquil")).isoformat(),
         "feature_cutoff_inclusive": prior["feature_cutoff_inclusive"],
@@ -149,13 +147,13 @@ def sources():
             resource = connect()
             con = resource.__enter__()
             for ds in USED:
-                log("Fallback de ingesta estricta, solo dominio requerido: " + ds)
+                log("Strict ingestion fallback, required domain only: " + ds)
                 load(con, groups[ds])
                 con.execute(f"ALTER TABLE current_data RENAME TO {ident(ds)}")
         con.execute("SET memory_limit='1500MB'")
         con.execute("SET threads=2")
         con.execute("SET preserve_insertion_order=false")
-        with (ROOT / "reports/profiling/datasets.csv").open() as f:
+        with (REPORTS / "datasets.csv").open() as f:
             inventory = {r["dataset"]: int(r["rows"]) for r in csv.DictReader(f)}
         for ds in USED:
             assert (
@@ -165,7 +163,7 @@ def sources():
         complaint_cols = {r[0] for r in con.execute("DESCRIBE complaints").fetchall()}
         if "resolution" not in complaint_cols:
             log(
-                "Recuperando únicamente complaint_id/resolution: columna excluida de la caché del EDA general"
+                "Reading only complaint_id/resolution: column excluded from the general EDA cache"
             )
             cols = next(r["columns"] for r in selected if r["dataset"] == "complaints")
             schema = "{" + ",".join(literal(c) + ":'VARCHAR'" for c in cols) + "}"
@@ -219,7 +217,7 @@ def sources():
           count_if(interaction_date::DATE>DATE {literal(prior["feature_cutoff_inclusive"])}) FROM call_center_interactions""",
         )
         yield con, context
-        log("Verificación final de fuentes utilizadas y artefactos del EDA general")
+        log("Final verification of used sources and general EDA artifacts")
         for r in selected:
             assert digest(ROOT / r["path"]) == r["sha256"], r["path"]
         for p, old in all_stats.items():
@@ -290,7 +288,7 @@ def fraud_label(con, context):
           count_if(fraud_label=true)::DOUBLE/nullif(count(fraud_label),0) AS fraud_rate
           FROM tx GROUP BY 1 ORDER BY records DESC,{ident(dim)} NULLS LAST""",
         )
-    log("1. Label de fraude y segmentaciones completadas")
+    log("1. Fraud label and segmentations completed")
 
 
 def fraud_scores(con):
@@ -350,7 +348,7 @@ def fraud_scores(con):
             for b in labels
         ],
     )
-    log("2. Score por label, dimensión y buckets fijos completado")
+    log("2. Score by label, dimension and fixed buckets completed")
 
 
 def taxonomy(con):
@@ -441,7 +439,7 @@ def taxonomy(con):
             ]
         ],
     )
-    log("3. Taxonomía real y anotaciones exploratorias completadas")
+    log("3. Actual taxonomy and exploratory annotations completed")
 
 
 def validity(field):
@@ -568,7 +566,7 @@ def claimed_amount(con):
       GROUP BY 1,2,3 ORDER BY 1,2,3 NULLS LAST""",
     )
     log(
-        "4. Claimed amount: cobertura condicional y distribuciones por moneda completadas"
+        "4. Claimed amount: conditional coverage and per-currency distributions completed"
     )
 
 
@@ -587,7 +585,7 @@ def transaction_evidence(con):
       SELECT count(*) AS records,count(transaction_id) AS nonnull_ids,
       count(DISTINCT transaction_id) AS distinct_ids FROM tx""",
     )
-    log("5. Evidencia recuperable y unicidad de transaction_id verificadas")
+    log("5. Retrievable evidence and transaction_id uniqueness verified")
 
 
 def geography(con):
@@ -631,7 +629,7 @@ def geography(con):
             )
         output += result
     save("transaction_geography_coverage.csv", output)
-    log("6. Geografía: cobertura y rangos físicos completados, sin geocoding")
+    log("6. Geography: coverage and physical ranges completed, without geocoding")
 
 
 def status_evidence(con):
@@ -660,7 +658,7 @@ def status_evidence(con):
         response_code IS NOT NULL AND observed_status_count=1 AS exclusive_in_this_extract
         FROM ranked WHERE rank=1 ORDER BY code_records DESC,response_code NULLS LAST""",
     )
-    log("7. Estados y códigos como evidencia observable, sin atribuir causas")
+    log("7. Statuses and codes as observable evidence, without attributing causes")
 
 
 def outcomes(con, context):
@@ -729,7 +727,7 @@ def outcomes(con, context):
           FROM co GROUP BY 2,3 ORDER BY 2,3""",
         )
     save("complaint_outcome_cutoff_audit.csv", audit)
-    log("8. Outcomes observables y límites temporales documentados")
+    log("8. Observable outcomes and temporal limits documented")
 
 
 def label_distributions(con):
@@ -768,4 +766,4 @@ def label_distributions(con):
         )
     save("potential_label_coverage.csv", summary)
     save("potential_label_distributions.csv", distributions)
-    log("9. Candidatos de labels caracterizados; ninguno aprobado para modelado")
+    log("9. Label candidates characterized; none approved for modeling")

@@ -1,0 +1,8 @@
+dataset,field,min_timestamp,max_timestamp,observed
+complaints,assignment_date,2023-06-17 22:26:12,2026-06-19 03:56:52,43967
+complaints,first_response_date,2023-06-18 03:37:40,2026-06-20 22:42:19,40853
+complaints,resolution_date,2023-06-20 07:10:42,2026-07-18 06:07:57,15349
+complaints,closing_date,2023-06-26 11:38:44,2026-07-18 22:15:16,2481
+campaign_sends,open_date,2023-07-01 07:44:22,2026-06-25 03:30:02,487309
+campaign_sends,click_date,2023-07-01 21:57:26,2026-06-24 23:51:59,97793
+campaign_sends,conversion_date,2023-07-03 12:56:27,2026-06-26 08:26:49,9799

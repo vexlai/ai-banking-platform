@@ -1,0 +1,76 @@
+{
+  "annotation_review": "Human ES/PT linguistic review pending",
+  "baseline_lock_sha256": "06e8a00277f15e2a73250968f49ee51020a72bea7e3def1386e8e8c9795a210a",
+  "code_reference": {
+    "src/evaluation/baseline_intake_parser.py": "bb4378445725149e2c48e18f7db2e82bb7591188c36dda303f61ea9f09a1520f",
+    "src/evaluation/metrics.py": "e84a67c52ba4d7db158359d3d301329a407206eed1cef42d3fc06f2f788ae6ac"
+  },
+  "dataset_version": "dispute-intake-eval-v1",
+  "frozen_file_signatures": {
+    "anchor_manifest.jsonl": "0e11c383f2486c6fd6b45a281cc58354f16b77e7729be2a23a5f1f69bc300c7d",
+    "dispute_intake_eval.jsonl": "fac0cfa5117fc0b878e90375564bcb6bd65a7714a8c43ae2849e4057fb26ade2",
+    "dispute_intake_eval_es.jsonl": "7c33d66f5583d4ff5e78d03e78ec8258c1a47357b574e2e9c04badd84fc41976",
+    "dispute_intake_eval_pt.jsonl": "e0af4f82750ac9f2ab3050467ef3209cd9b3abd41d6226d1725d5f4be0f294bc",
+    "retrieval_fixtures.jsonl": "744ed9952ae2d67a302033c12d305c9d974d42667b274860f2613bc159a360ee",
+    "safety_fixtures.jsonl": "e686adcc150e252adfabf0e2230da5d071a6e23c05df60a6c5a53510d3dbff1a"
+  },
+  "generation_timestamp": "2026-10-03T06:05:26.700291+00:00",
+  "git_commit": "2c67f299f8519d7a4ca46501ea919ffe0dffa1e0",
+  "gold_provenance": "Expected values authored from scenario specification, never parser predictions or complaint links",
+  "groups_per_split": {
+    "development": 6,
+    "test": 6
+  },
+  "language_counts": {
+    "es": 192,
+    "pt": 192
+  },
+  "number_of_cases": 384,
+  "python": "3.12.3",
+  "source_artifact_signatures": {
+    "artifacts/dispute_case_workflow/amount_currency_candidate_matching.csv": "60c3d72a3a7cbafd915746ccaefc9a77c30cbdcc78d20874082f4e289ef972c4",
+    "artifacts/dispute_case_workflow/behavioral_feature_feasibility.csv": "649bc544faddfa8990702f410a6bd0678c291052a26dc55f0adc10bd822039e9",
+    "artifacts/dispute_case_workflow/candidate_cohort_definitions.csv": "9b8384c1902963d0f07affd8bc8e95eb1d7163b3b3f7e82e9bb479d32996cc2f",
+    "artifacts/dispute_case_workflow/candidate_cohort_distributions.csv": "b5dbee85aa3c4dc330b8b1d19f1c0ba1fe755203d6adffd6e199ae65798f27b8",
+    "artifacts/dispute_case_workflow/candidate_currency_support.csv": "a0b17f3d0fc8e5413abcf51c423ee912d2575849316c02e8deb6c60038e54a0d",
+    "artifacts/dispute_case_workflow/candidate_dispute_cohorts.csv": "80ef075f83b1304d6d4d8ddedc3608ac5d5903bfa3ba5d72877268c75a160b6e",
+    "artifacts/dispute_case_workflow/candidate_rule_comparison.csv": "eebb395fc4e82f3970d5d55253569bccb07402384a3cbab63bc2893fe8d84e59",
+    "artifacts/dispute_case_workflow/candidate_rules_common_eligibility.csv": "0cbdb9c4afc0a8f0ee3c29edaf4b5e1ccfab804e674f80024a65349a9fec5377",
+    "artifacts/dispute_case_workflow/candidate_transaction_characteristics.csv": "42ed0b31edd97278e977ba60bd025654d1ba095270bf6403b4501743cd63c29e",
+    "artifacts/dispute_case_workflow/case_archetypes.csv": "5d1412a818fed71d0f23a345c96a6085112827aa09ee59eb451b01d570d5d2e7",
+    "artifacts/dispute_case_workflow/case_evidence_bundles.parquet": "823a5f0ada91c151183db9d3836951d6388ebe4c38ed0c8f459ceba851cc2bbe",
+    "artifacts/dispute_case_workflow/cohort_overlap.csv": "44c2a5b412f767b004139c833284dc2ec7a973cc59adcbc854b2563e7d66fecd",
+    "artifacts/dispute_case_workflow/complaint_transaction_window_summary.csv": "30323cf90c52009f8860c66309194f56672277521adc9b65e4ed1f55ed79a935",
+    "artifacts/dispute_case_workflow/digital_context_distributions.csv": "66785ccd63202f3abffa7c957f55e940fbd6bd761f34d1fecdc9dbcf19d0a212",
+    "artifacts/dispute_case_workflow/digital_context_feasibility.csv": "f408ea1273d9b18b887e011256cdc9add0f53a2a384ead749c0d1bc18dcca4a7",
+    "artifacts/dispute_case_workflow/digital_event_value_availability.csv": "47cb9a455848a6a62604f0df3ebea23e56cd9a8399827daa113abdabb91326c4",
+    "artifacts/dispute_case_workflow/evidence_bundle_summary.csv": "2aa2ae5612a28b4538173e0d36993433653bfe2571fd618f2d1a7be8e6ede4d4",
+    "artifacts/dispute_case_workflow/fraud_amount_without_score_by_currency.csv": "fb294edb531133753347217a3a29123b5eb5ea8e0d91a9576d5962bba283aebf",
+    "artifacts/dispute_case_workflow/fraud_prior_behavior_without_score.csv": "c78b3b541f6b556caa208a25975d33df4b4e21111b825e933e4484291157ae4c",
+    "artifacts/dispute_case_workflow/fraud_signal_without_score.csv": "208151562076a9eb6b2d47b46dcb59d57f63d96fddd81c70e9884a3c1c51b93e",
+    "artifacts/dispute_case_workflow/mvp_scope_assessment.csv": "1ddd973b2f1a9f51f471240639c27fe47ff4e2fac52a425e5cd16772fbe6e70f",
+    "artifacts/dispute_case_workflow/non_score_fraud_rate_ranges.csv": "681bd2964ca9f81efa435c5023fc6ddb984ec0d2633f6082fa2126235adf2c26",
+    "artifacts/dispute_case_workflow/population_cutoff_audit.csv": "0f020a92086b2cac86e7adfe187bcd67262b6343dad2a627e41c57a5888ab51c",
+    "artifacts/dispute_case_workflow/proposed_case_state_machine.csv": "8c52ddbec2d9ba334eb1204c1b77d549a5a9928a041067715100cdd926a674bb",
+    "artifacts/dispute_case_workflow/retrieval_population.csv": "da4783eeef9f002e4d304c6b1756875e6a6e01cf854a1afb6128caeb4d2385ad",
+    "artifacts/dispute_case_workflow/service_interaction_proximity.csv": "7b9db291a1811b6e10e75764d026ebed068808d3ff25f2d16613dbdf87769c1b",
+    "artifacts/dispute_case_workflow/service_proximity_distributions.csv": "b8b1fb9a7532379f02c8fbbb372abdf367497d391548d25aa9c391ce71146bbb",
+    "artifacts/dispute_case_workflow/temporal_candidate_distribution.csv": "53c191c35fa787a4123dfdb57ff2cffcd45f14a8f05ddb6da1de118f7807c3d5",
+    "artifacts/dispute_case_workflow/transcript_feasibility.csv": "d29cb06ca8a663fea17ab2f4f98438bce621787a39b46cf4d611236146a11044",
+    "artifacts/dispute_case_workflow/transcript_metadata_feasibility.csv": "bac745e863523bb94daf5e26d1c16d8659b262269935c023acd16678c93f316a",
+    "artifacts/dispute_case_workflow/transcript_selection_comparison.csv": "d3fa6531c720d1054af062a9d22ef2be93c05c92aeebfa27508566eedb1318b3",
+    "artifacts/dispute_case_workflow/workflow_responsibility_matrix.csv": "7f9a7a212c4545952279a90b311f804a66d95ee329f12ebea4f180c1ea3715aa",
+    "artifacts/mvp_definition/frozen_mvp_contract.json": "603751890965da79c08315cabf0e338e0b8853a808632e9a4cdca522cb94c7db"
+  },
+  "source_type_counts": {
+    "observed-derived": 0,
+    "synthetic/team-generated": 384
+  },
+  "split_counts": {
+    "development": 192,
+    "test": 192
+  },
+  "split_strategy": "Disjoint customer groups and source transaction fingerprints; deterministic hash ordering, 6 groups per split; NOT a temporal holdout",
+  "template_limitation": "Shared authored scenario families; generated benchmark, not independent real-language generalization",
+  "test_frozen_before_scoring": true
+}

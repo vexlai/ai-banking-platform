@@ -2,12 +2,12 @@
 
 import csv
 import json
-from src.data.config import ROOT
+from src.data.config import ARTIFACTS_DIR, REPORTS_DIR
 from src.data.eda.dispute_eda import digest
 from src.data.workflows.dispute_reporting import table
 
-OUT = ROOT / "artifacts/mvp_definition"
-DISCOVERY = ROOT / "artifacts/dispute_case_workflow"
+OUT = ARTIFACTS_DIR / "mvp_definition"
+DISCOVERY = ARTIFACTS_DIR / "dispute_case_workflow"
 
 
 def read(name):
@@ -504,12 +504,12 @@ Changing scope, schema, annotation or test cases requires a new version and docu
     (OUT / "data_contracts.json").write_text(
         json.dumps(contract_rows, ensure_ascii=False, indent=2) + "\n"
     )
-    (ROOT / "reports/MVP_USE_CASE_DEFINITION.md").write_text(
+    (REPORTS_DIR / "MVP_USE_CASE_DEFINITION.md").write_text(
         "# MVP Use Case Definition\n\n"
         + "\n\n".join("## " + k + "\n\n" + v for k, v in sections.items())
         + "\n"
     )
-    (ROOT / "reports/FROZEN_MVP_CONTRACT.md").write_text(
+    (REPORTS_DIR / "FROZEN_MVP_CONTRACT.md").write_text(
         "# Frozen MVP Contract\n\n" + sections["Frozen MVP Contract"] + "\n"
     )
     (OUT / "source_language_coverage.json").write_text(

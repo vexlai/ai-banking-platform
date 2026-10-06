@@ -1,0 +1,3 @@
+population,total_transactions,valid_is_fraud,null_is_fraud,invalid_is_fraud,fraud_transactions,nonfraud_transactions,fraud_rate
+full_extract,4425008,4425008,0,0,4316,4420692,0.0009753654682658201
+row_date_at_cutoff,4423656,4423656,0,0,4315,4419341,0.0009754375114158967

@@ -1,0 +1,2 @@
+customers,median_products,p90,p95,p99,maximum
+150000,2.0,5.0,6.0,7.0,12

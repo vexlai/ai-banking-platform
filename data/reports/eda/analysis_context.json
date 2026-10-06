@@ -1,0 +1,10 @@
+{
+  "execution_timestamp": "2026-10-01T00:43:28.375308-05:00",
+  "feature_cutoff_inclusive": "2026-06-17",
+  "age_reference_date": "2026-06-17",
+  "source_manifest_sha256": "edaa6b4db2c0053ead935ffc30d0d2928d0d4769bfa8e7b9d880e57043827074",
+  "source_files": 7671,
+  "method": "Exact DuckDB; no sampling, imputation or outlier removal",
+  "satisfaction_policy": "avg_satisfaction/latest_satisfaction are CSAT only",
+  "feature_policy": "Events and dated outcomes <= cutoff; ambiguous snapshot attributes excluded"
+}

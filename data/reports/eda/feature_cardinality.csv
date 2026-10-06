@@ -1,0 +1,9 @@
+table,rows,distinct_customers,null_ids
+products_customer_features,139578,139578,0
+transactions_customer_features,134515,134515,0
+digital_customer_features,149997,149997,0
+call_customer_features,148439,148439,0
+complaint_customer_features,54127,54127,0
+survey_customer_features,113609,113609,0
+campaign_customer_features,150000,150000,0
+customer_360_eda,150000,150000,0

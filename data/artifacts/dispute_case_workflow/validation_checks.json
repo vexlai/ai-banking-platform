@@ -1,0 +1,3106 @@
+{
+  "passed": 775,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "B_subset_A",
+      "passed": true
+    },
+    {
+      "check": "no_foreign_customer_candidates",
+      "passed": true
+    },
+    {
+      "check": "bounded_30_day_pairs",
+      "passed": true
+    },
+    {
+      "check": "no_cross_currency_amount_comparison",
+      "passed": true
+    },
+    {
+      "check": "strict_prior_features",
+      "passed": true
+    },
+    {
+      "check": "features_one_per_candidate",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_A_1",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_A_3",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_A_7",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_A_14",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_A_30",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_B_1",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_B_3",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_B_7",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_B_14",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_B_30",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_C_1",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_C_3",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_C_7",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_C_14",
+      "passed": true
+    },
+    {
+      "check": "window_count_partition_C_30",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_0",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_1",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_2",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_3",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_4",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_5",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_6",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_7",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_8",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_9",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_10",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_11",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_12",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_13",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_14",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_15",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_16",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_17",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_18",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_19",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_20",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_21",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_22",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_23",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_24",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_25",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_26",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_27",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_28",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_29",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_30",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_31",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_32",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_33",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_34",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_35",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_36",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_37",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_38",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_39",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_40",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_41",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_42",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_43",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_44",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_45",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_46",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_47",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_48",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_49",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_50",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_51",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_52",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_53",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_54",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_55",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_56",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_57",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_58",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_59",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_60",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_61",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_62",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_63",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_64",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_65",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_66",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_67",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_68",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_69",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_70",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_71",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_72",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_73",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_74",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_75",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_76",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_77",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_78",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_79",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_80",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_81",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_82",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_83",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_84",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_85",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_86",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_87",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_88",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_89",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_90",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_91",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_92",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_93",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_94",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_95",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_96",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_97",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_98",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_99",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_100",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_101",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_102",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_103",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_104",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_105",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_106",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_107",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_108",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_109",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_110",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_111",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_112",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_113",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_114",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_115",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_116",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_117",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_118",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_119",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_120",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_121",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_122",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_123",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_124",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_125",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_126",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_127",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_128",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_129",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_130",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_131",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_132",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_133",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_134",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_135",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_136",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_137",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_138",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_139",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_140",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_141",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_142",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_143",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_144",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_145",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_146",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_147",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_148",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_149",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_150",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_151",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_152",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_153",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_154",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_155",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_156",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_157",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_158",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_159",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_160",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_161",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_162",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_163",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_164",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_165",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_166",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_167",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_168",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_169",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_170",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_171",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_172",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_173",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_174",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_175",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_176",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_177",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_178",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_179",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_180",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_181",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_182",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_183",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_184",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_185",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_186",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_187",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_188",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_189",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_190",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_191",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_192",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_193",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_194",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_195",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_196",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_197",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_198",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_199",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_200",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_201",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_202",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_203",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_204",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_205",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_206",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_207",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_208",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_209",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_210",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_211",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_212",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_213",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_214",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_215",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_216",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_217",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_218",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_219",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_220",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_221",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_222",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_223",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_224",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_225",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_226",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_227",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_228",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_229",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_230",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_231",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_232",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_233",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_234",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_235",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_236",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_237",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_238",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_239",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_240",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_241",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_242",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_243",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_244",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_245",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_246",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_247",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_248",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_249",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_250",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_251",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_252",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_253",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_254",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_255",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_256",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_257",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_258",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_259",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_260",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_261",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_262",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_263",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_264",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_265",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_266",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_267",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_268",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_269",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_270",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_271",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_272",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_273",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_274",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_275",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_276",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_277",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_278",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_279",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_280",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_281",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_282",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_283",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_284",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_285",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_286",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_287",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_288",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_289",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_290",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_291",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_292",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_293",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_294",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_295",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_296",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_297",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_298",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_299",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_300",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_301",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_302",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_303",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_304",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_305",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_306",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_307",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_308",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_309",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_310",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_311",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_312",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_313",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_314",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_315",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_316",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_317",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_318",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_319",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_320",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_321",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_322",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_323",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_324",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_325",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_326",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_327",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_328",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_329",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_330",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_331",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_332",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_333",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_334",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_335",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_336",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_337",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_338",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_339",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_340",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_341",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_342",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_343",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_344",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_345",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_346",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_347",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_348",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_349",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_350",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_351",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_352",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_353",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_354",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_355",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_356",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_357",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_358",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_359",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_360",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_361",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_362",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_363",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_364",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_365",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_366",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_367",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_368",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_369",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_370",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_371",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_372",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_373",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_374",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_375",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_376",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_377",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_378",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_379",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_380",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_381",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_382",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_383",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_384",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_385",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_386",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_387",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_388",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_389",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_390",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_391",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_392",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_393",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_394",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_395",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_396",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_397",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_398",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_399",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_400",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_401",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_402",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_403",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_404",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_405",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_406",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_407",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_408",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_409",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_410",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_411",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_412",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_413",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_414",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_415",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_416",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_417",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_418",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_419",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_420",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_421",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_422",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_423",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_424",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_425",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_426",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_427",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_428",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_429",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_430",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_431",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_432",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_433",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_434",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_435",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_436",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_437",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_438",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_439",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_440",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_441",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_442",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_443",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_444",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_445",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_446",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_447",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_448",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_449",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_450",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_451",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_452",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_453",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_454",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_455",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_456",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_457",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_458",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_459",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_460",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_461",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_462",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_463",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_464",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_465",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_466",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_467",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_468",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_469",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_470",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_471",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_472",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_473",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_474",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_475",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_476",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_477",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_478",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_479",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_480",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_481",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_482",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_483",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_484",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_485",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_486",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_487",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_488",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_489",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_490",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_491",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_492",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_493",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_494",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_495",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_496",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_497",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_498",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_499",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_500",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_501",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_502",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_503",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_504",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_505",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_506",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_507",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_508",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_509",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_510",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_511",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_512",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_513",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_514",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_515",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_516",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_517",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_518",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_519",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_520",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_521",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_522",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_523",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_524",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_525",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_526",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_527",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_528",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_529",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_530",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_531",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_532",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_533",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_534",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_535",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_536",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_537",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_538",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_539",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_540",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_541",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_542",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_543",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_544",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_545",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_546",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_547",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_548",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_549",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_550",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_551",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_552",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_553",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_554",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_555",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_556",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_557",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_558",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_559",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_560",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_561",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_562",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_563",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_564",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_565",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_566",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_567",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_568",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_569",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_570",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_571",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_572",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_573",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_574",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_575",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_576",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_577",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_578",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_579",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_580",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_581",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_582",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_583",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_584",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_585",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_586",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_587",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_588",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_589",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_590",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_591",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_592",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_593",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_594",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_595",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_596",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_597",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_598",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_599",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_600",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_601",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_602",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_603",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_604",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_605",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_606",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_607",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_608",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_609",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_610",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_611",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_612",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_613",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_614",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_615",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_616",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_617",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_618",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_619",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_620",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_621",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_622",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_623",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_624",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_625",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_626",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_627",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_628",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_629",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_630",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_631",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_632",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_633",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_634",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_635",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_636",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_637",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_638",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_639",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_640",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_641",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_642",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_643",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_644",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_645",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_646",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_647",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_648",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_649",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_650",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_651",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_652",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_653",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_654",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_655",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_656",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_657",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_658",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_659",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_660",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_661",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_662",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_663",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_664",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_665",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_666",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_667",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_668",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_669",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_670",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_671",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_672",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_673",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_674",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_675",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_676",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_677",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_678",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_679",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_680",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_681",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_682",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_683",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_684",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_685",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_686",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_687",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_688",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_689",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_690",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_691",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_692",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_693",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_694",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_695",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_696",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_697",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_698",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_699",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_700",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_701",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_702",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_703",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_704",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_705",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_706",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_707",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_708",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_709",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_710",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_711",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_712",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_713",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_714",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_715",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_716",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_717",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_718",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_719",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_720",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_721",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_722",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_723",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_724",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_725",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_726",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_727",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_728",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_729",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_730",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_731",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_732",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_733",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_734",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_735",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_736",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_737",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_738",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_739",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_740",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_741",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_742",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_743",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_744",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_745",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_746",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_747",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_748",
+      "passed": true
+    },
+    {
+      "check": "rule_partition_749",
+      "passed": true
+    },
+    {
+      "check": "rule_monotonicity",
+      "passed": true
+    },
+    {
+      "check": "no_future_service_in_intake_view",
+      "passed": true
+    },
+    {
+      "check": "no_ground_truth_field",
+      "passed": true
+    },
+    {
+      "check": "full_case_register",
+      "passed": true
+    }
+  ]
+}

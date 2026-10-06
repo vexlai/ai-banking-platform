@@ -52,7 +52,7 @@ def characteristics(con):
           {stats("amount")} FROM {table} WHERE currency IS NOT NULL GROUP BY 2,3 ORDER BY 2,3""",
         )
     save("fraud_amount_without_score_by_currency.csv", money)
-    log("5,7. Distribuciones comparables y señal descriptiva sin usar fraud_score")
+    log("5,7. Comparable distributions and descriptive signal without fraud_score")
 
 
 def behavior(con):
@@ -180,7 +180,7 @@ def behavior(con):
     export(
         con, "candidate_behavioral_context.parquet", "SELECT * FROM behavior_features"
     )
-    log("6–7. Contexto estrictamente anterior; censura de 7/30/90 días explícita")
+    log("6-7. Strictly prior context; explicit 7/30/90-day censoring")
 
 
 def service(con):
@@ -228,7 +228,7 @@ def service(con):
             )
     save("service_interaction_proximity.csv", summaries)
     save("service_proximity_distributions.csv", distributions)
-    log("8. Contactos posteriores: solo asociación temporal del mismo cliente")
+    log("8. Later contacts: same-customer temporal association only")
 
 
 def transcripts(con):
@@ -274,9 +274,7 @@ def transcripts(con):
           GROUP BY 2,3 ORDER BY 2,3 NULLS LAST""",
         )
     save("transcript_selection_comparison.csv", bias)
-    log(
-        "9. Cobertura de transcripts y metadatos; no lectura/exposición de texto personal"
-    )
+    log("9. Transcript coverage and metadata; no reading/exposing personal text")
 
 
 def digital(con, context):
@@ -333,7 +331,7 @@ def digital(con, context):
       FROM scoped_digital SEMI JOIN digital_pairs USING(event_id)""",
     )
     log(
-        "10. Contexto digital identificado, ventanas anidadas no aditivas, sin identity stitching"
+        "10. Identified digital context, nested non-additive windows, no identity stitching"
     )
 
 
@@ -419,7 +417,7 @@ def bundles(con):
       count_if(identified_digital_context_observed_by_intake) AS pairs_with_identified_digital_observed_by_intake
       FROM evidence_bundles""",
     )
-    log("11. Bundles analíticos trazables y registro separado de casos sin candidato")
+    log("11. Traceable analytical bundles and separate record of no-candidate cases")
 
 
 def archetypes(con):
@@ -518,6 +516,4 @@ def archetypes(con):
                 )
                 result.append(r)
     save("case_archetypes.csv", result)
-    log(
-        "13. Arquetipos existentes, poblaciones agregadas; ningún cliente seleccionado para demo"
-    )
+    log("13. Existing archetypes, aggregate populations; no customer selected for demo")

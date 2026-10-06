@@ -7,12 +7,12 @@ from contextlib import contextmanager
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from src.data.config import ROOT
+from src.data.config import ARTIFACTS_DIR, REPORTS, REPORTS_DIR, ROOT
 from src.data.data_utils import connect, discover, ident, literal
 from src.data.eda.dispute_eda import digest, boolean, present, stats
 from src.data.eda.eda_core import CACHE, EXCLUDE, rows
 
-ART = ROOT / "artifacts/dispute_case_workflow"
+ART = ARTIFACTS_DIR / "dispute_case_workflow"
 DOMAINS = (
     "transactions",
     "complaints",
@@ -66,7 +66,7 @@ def raw_relation(manifest, groups, domain):
 @contextmanager
 def sources():
     ART.mkdir(parents=True, exist_ok=True)
-    manifest = json.loads((ROOT / "reports/profiling/source_manifest.json").read_text())
+    manifest = json.loads((REPORTS / "source_manifest.json").read_text())
     groups = discover()
     assert {str(p.relative_to(ROOT)) for ps in groups.values() for p in ps} == {
         r["path"] for r in manifest
@@ -85,12 +85,13 @@ def sources():
             "notebooks/01_ingestion_profiling.ipynb",
             "notebooks/02_eda.ipynb",
             "notebooks/02b_transaction_dispute_eda_addendum.ipynb",
-            "reports/eda/EDA_FINDINGS.md",
-            "reports/EDA_TRANSACTION_DISPUTE_ADDENDUM.md",
-            "reports/profiling/source_manifest.json",
         ]
+    ] + [
+        REPORTS_DIR / "eda" / "EDA_FINDINGS.md",
+        REPORTS_DIR / "EDA_TRANSACTION_DISPUTE_ADDENDUM.md",
+        REPORTS / "source_manifest.json",
     ]
-    protected_paths += list((ROOT / "artifacts/eda_transaction_dispute").glob("*.csv"))
+    protected_paths += list((ARTIFACTS_DIR / "eda_transaction_dispute").glob("*.csv"))
     protected = {str(p.relative_to(ROOT)): digest(p) for p in protected_paths}
     signature = hashlib.sha256(
         json.dumps(manifest, sort_keys=True).encode()
@@ -102,11 +103,11 @@ def sources():
         r for r in manifest if r["dataset"] in ("complaints", "call_transcripts")
     ]
     log(
-        f"Validando {len(supplements)} fuentes suplementarias y caché curada de solo lectura"
+        f"Validating {len(supplements)} supplemental sources and read-only curated cache"
     )
     for r in supplements:
         assert digest(ROOT / r["path"]) == r["sha256"], r["path"]
-    prior = json.loads((ROOT / "reports/eda/analysis_context.json").read_text())
+    prior = json.loads((REPORTS_DIR / "eda" / "analysis_context.json").read_text())
     context = {
         "execution_timestamp": datetime.now(ZoneInfo("America/Guayaquil")).isoformat(),
         "feature_cutoff_inclusive": prior["feature_cutoff_inclusive"],
@@ -233,7 +234,7 @@ def sources():
         ]
         (ART / "analysis_context.json").write_text(json.dumps(context, indent=2) + "\n")
         yield con, context
-        log("Verificando fuentes originales y resultados anteriores sin cambios")
+        log("Verifying source files and prior results are unchanged")
         assert before == {
             r["path"]: (
                 (ROOT / r["path"]).stat().st_size,
@@ -384,9 +385,7 @@ def cohorts(con, context):
       (SELECT count(*) FROM candidates) AS unique_candidate_transactions,
       (SELECT count(*) FROM historical_population) AS same_customer_history_transactions""",
     )
-    log(
-        "1. Cohortes y candidatos ±30 días construidos; ninguna relación declarada verdadera"
-    )
+    log("1. Cohorts and +/-30-day candidates built; no relationship declared true")
 
 
 def retrieval(con, context):
@@ -476,7 +475,7 @@ def retrieval(con, context):
     # Save per-complaint counts for reproducibility without displaying personal identifiers.
     export(con, "complaint_candidate_counts.parquet", "SELECT * FROM complaint_counts")
     log(
-        "2–3,12. Ambigüedad, elegibilidad y reglas monetarias por moneda; sin pesos ni ranking entrenado"
+        "2-3,12. Ambiguity, eligibility and per-currency monetary rules; no weights or trained ranking"
     )
 
 
@@ -503,5 +502,5 @@ def temporal_direction(con):
       FROM directions JOIN membership USING(complaint_id) GROUP BY 1,2,3 ORDER BY 1,2,3""",
     )
     log(
-        "4. Dirección temporal por día calendario y tiempo transcurrido; asociación no causal"
+        "4. Temporal direction by calendar day and elapsed time; non-causal association"
     )

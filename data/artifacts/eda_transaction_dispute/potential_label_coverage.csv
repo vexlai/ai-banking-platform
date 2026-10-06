@@ -1,0 +1,7 @@
+label,records,valid_count,null_count,invalid_nonnull_count,coverage_pct
+transactions.is_fraud,4425008,4425008,0,0,100.0
+complaints.status,67095,67095,0,0,100.0
+complaints.compensation_granted,67095,4641,62454,0,6.917057902973396
+complaints.resolution_satisfaction,67095,2484,64611,0,3.7022132796780682
+call_center_interactions.was_resolved,686296,686296,0,0,100.0
+call_center_interactions.was_escalated,686296,686296,0,0,100.0

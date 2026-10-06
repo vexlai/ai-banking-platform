@@ -109,7 +109,7 @@ def semantic(con):
         count_if(b.branch_id IS NOT NULL),count_if(t.branch_id IS NOT NULL AND b.branch_id IS NULL)
       FROM transactions t LEFT JOIN branches b USING(branch_id)""",
     )
-    log("Readiness semántica completada")
+    log("Semantic readiness completed")
     return result
 
 
@@ -225,7 +225,7 @@ def temporal(con):
                 )
             )
     save("lifecycle_windows.csv", lifecycle)
-    log("Readiness temporal completada")
+    log("Temporal readiness completed")
     dimensions = []
     for ds, col in {
         "customers": "registration_date",
@@ -260,7 +260,7 @@ def exchange(con):
     assert con.execute(
         "SELECT count(*)=count(DISTINCT (date,source_currency,target_currency)) FROM daily_exchange_rates"
     ).fetchone()[0]
-    # Comparar ambas direcciones y fórmulas, sin presuponer unidades. Solo fecha exacta.
+    # Compare both directions and formulas without assuming units. Exact date only.
     con.execute("""CREATE OR REPLACE TEMP VIEW fx_candidates AS
       SELECT t.transaction_id,t.currency,t.amount::DOUBLE amount,t.amount_usd::DOUBLE amount_usd,
         CASE WHEN r.source_currency=t.currency THEN 'currency_to_USD' ELSE 'USD_to_currency' END pair_direction,

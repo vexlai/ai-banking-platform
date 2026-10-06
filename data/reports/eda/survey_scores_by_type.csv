@@ -1,0 +1,4 @@
+dataset,variable,survey_type,rows,valid,invalid_numeric,minimum,maximum,mean,median,p90,p95,p99
+satisfaction_surveys,main_score,CSAT,127856,127856,0,1.0,4.0,2.765243711675635,3.0,4.0,4.0,4.0
+satisfaction_surveys,main_score,NPS,63668,63668,0,2.0,7.0,5.3068888609662626,6.0,7.0,7.0,7.0
+satisfaction_surveys,main_score,CES,21235,21235,0,1.0,4.0,2.7685895926536377,3.0,4.0,4.0,4.0

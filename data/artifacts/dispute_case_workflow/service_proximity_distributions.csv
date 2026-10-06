@@ -1,0 +1,92 @@
+time_window,field,value,transaction_interaction_pairs,distinct_interactions,pct_pairs
+0_24h,reason_category,Comercial,11,11,6.626506024096385
+0_24h,reason_category,Producto,22,22,13.25301204819277
+0_24h,reason_category,Queja,26,26,15.662650602409638
+0_24h,reason_category,Retención,6,6,3.6144578313253013
+0_24h,reason_category,Transaccional,73,71,43.975903614457835
+0_24h,reason_category,Técnico,28,27,16.867469879518072
+0_24h,contact_reason,Comercial,11,11,6.626506024096385
+0_24h,contact_reason,Producto,22,22,13.25301204819277
+0_24h,contact_reason,Queja,26,26,15.662650602409638
+0_24h,contact_reason,Retención,6,6,3.6144578313253013
+0_24h,contact_reason,Transaccional,73,71,43.975903614457835
+0_24h,contact_reason,Técnico,28,27,16.867469879518072
+0_24h,interaction_type,Chat,18,18,10.843373493975903
+0_24h,interaction_type,Email,8,8,4.819277108433735
+0_24h,interaction_type,Inbound Call,115,113,69.27710843373494
+0_24h,interaction_type,Outbound Call,24,23,14.457831325301205
+0_24h,interaction_type,Video,1,1,0.6024096385542169
+0_24h,channel,App,3,3,1.8072289156626506
+0_24h,channel,Email,8,8,4.819277108433735
+0_24h,channel,Phone,139,136,83.73493975903614
+0_24h,channel,Web,1,1,0.6024096385542169
+0_24h,channel,Web Chat,9,9,5.421686746987952
+0_24h,channel,WhatsApp,6,6,3.6144578313253013
+1_3d,reason_category,Comercial,26,25,8.30670926517572
+1_3d,reason_category,Producto,63,60,20.12779552715655
+1_3d,reason_category,Queja,61,60,19.488817891373802
+1_3d,reason_category,Retención,12,11,3.8338658146964857
+1_3d,reason_category,Transaccional,100,97,31.94888178913738
+1_3d,reason_category,Técnico,51,48,16.293929712460063
+1_3d,contact_reason,Comercial,26,25,8.30670926517572
+1_3d,contact_reason,Producto,63,60,20.12779552715655
+1_3d,contact_reason,Queja,61,60,19.488817891373802
+1_3d,contact_reason,Retención,12,11,3.8338658146964857
+1_3d,contact_reason,Transaccional,100,97,31.94888178913738
+1_3d,contact_reason,Técnico,51,48,16.293929712460063
+1_3d,interaction_type,Chat,33,30,10.543130990415335
+1_3d,interaction_type,Email,12,12,3.8338658146964857
+1_3d,interaction_type,Inbound Call,215,209,68.69009584664536
+1_3d,interaction_type,Outbound Call,51,48,16.293929712460063
+1_3d,interaction_type,Video,2,2,0.6389776357827476
+1_3d,channel,App,12,11,3.8338658146964857
+1_3d,channel,Email,12,12,3.8338658146964857
+1_3d,channel,Phone,266,257,84.98402555910543
+1_3d,channel,Web Chat,14,13,4.472843450479234
+1_3d,channel,WhatsApp,9,8,2.8753993610223643
+3_7d,reason_category,Comercial,39,36,6.701030927835052
+3_7d,reason_category,Producto,134,120,23.02405498281787
+3_7d,reason_category,Queja,94,88,16.151202749140893
+3_7d,reason_category,Retención,23,23,3.9518900343642613
+3_7d,reason_category,Transaccional,199,183,34.192439862542955
+3_7d,reason_category,Técnico,93,90,15.97938144329897
+3_7d,contact_reason,Comercial,39,36,6.701030927835052
+3_7d,contact_reason,Producto,134,120,23.02405498281787
+3_7d,contact_reason,Queja,94,88,16.151202749140893
+3_7d,contact_reason,Retención,23,23,3.9518900343642613
+3_7d,contact_reason,Transaccional,199,183,34.192439862542955
+3_7d,contact_reason,Técnico,93,90,15.97938144329897
+3_7d,interaction_type,Chat,45,41,7.731958762886598
+3_7d,interaction_type,Email,25,24,4.29553264604811
+3_7d,interaction_type,Inbound Call,417,388,71.64948453608247
+3_7d,interaction_type,Outbound Call,88,81,15.120274914089347
+3_7d,interaction_type,Video,7,6,1.2027491408934707
+3_7d,channel,App,22,20,3.7800687285223367
+3_7d,channel,Email,25,24,4.29553264604811
+3_7d,channel,Phone,505,469,86.76975945017182
+3_7d,channel,Web,2,2,0.3436426116838488
+3_7d,channel,Web Chat,15,12,2.577319587628866
+3_7d,channel,WhatsApp,13,13,2.2336769759450172
+7_14d,reason_category,Comercial,84,78,8.259587020648967
+7_14d,reason_category,Producto,225,193,22.123893805309734
+7_14d,reason_category,Queja,182,159,17.895771878072765
+7_14d,reason_category,Retención,34,28,3.343166175024582
+7_14d,reason_category,Transaccional,328,282,32.25172074729597
+7_14d,reason_category,Técnico,164,139,16.125860373647985
+7_14d,contact_reason,Comercial,84,78,8.259587020648967
+7_14d,contact_reason,Producto,225,193,22.123893805309734
+7_14d,contact_reason,Queja,182,159,17.895771878072765
+7_14d,contact_reason,Retención,34,28,3.343166175024582
+7_14d,contact_reason,Transaccional,328,282,32.25172074729597
+7_14d,contact_reason,Técnico,164,139,16.125860373647985
+7_14d,interaction_type,Chat,103,89,10.127826941986234
+7_14d,interaction_type,Email,38,34,3.736479842674533
+7_14d,interaction_type,Inbound Call,708,615,69.6165191740413
+7_14d,interaction_type,Outbound Call,159,133,15.634218289085545
+7_14d,interaction_type,Video,9,8,0.8849557522123894
+7_14d,channel,App,37,31,3.6381514257620453
+7_14d,channel,Email,38,34,3.736479842674533
+7_14d,channel,Phone,867,748,85.25073746312684
+7_14d,channel,Web,3,3,0.2949852507374631
+7_14d,channel,Web Chat,32,27,3.146509341199607
+7_14d,channel,WhatsApp,40,36,3.933136676499508

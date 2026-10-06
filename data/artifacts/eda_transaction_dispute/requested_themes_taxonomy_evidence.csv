@@ -1,0 +1,7 @@
+theme,observed_evidence,limitation
+transaction dispute,Transactions,Broad category; not a final cohort
+unauthorized charge,Transactions / Cargo no reconocido,Customer taxonomy; not confirmed fraud
+incorrect charge,Fees / Cobro indebido,May refer to fees rather than transaction amount
+payment dispute,No dedicated observed category/subcategory,Cannot infer from generic Transactions
+transfer dispute,No dedicated observed category/subcategory,Cannot infer from generic Transactions
+ATM/withdrawal dispute,No dedicated observed category/subcategory,Cannot infer from generic Transactions
