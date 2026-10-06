@@ -1,4 +1,4 @@
-"""Structural guardrail tests for module boundaries (README section 4).
+"""Structural guardrail tests for module boundaries (docs/ARCHITECTURE.md §4).
 
 These tests fail the build when a contributor re-introduces a layer violation:
 

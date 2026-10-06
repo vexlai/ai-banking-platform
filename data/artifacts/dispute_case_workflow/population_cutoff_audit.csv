@@ -1,0 +1,5 @@
+dataset,full_rows,cutoff_rows,after_cutoff_rows,invalid_or_missing_timestamp
+transactions,4425008,4423656,1352,0
+complaints,67095,67066,29,0
+call_center_interactions,686296,686121,175,0
+digital_events,15620994,15618934,2060,0

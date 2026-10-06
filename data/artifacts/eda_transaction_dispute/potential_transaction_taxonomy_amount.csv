@@ -1,0 +1,17 @@
+case_type,category,subcategory,complaints_count,claimed_amount_available,claimed_amount_coverage_pct,currency_coverage_pct,amount_and_currency_available,amount_and_currency_pct
+Claim,Fees,Cobro indebido,3026,1172,38.730998017184405,38.99537343027099,1114,36.81427627230668
+Claim,Fees,,331,121,36.5558912386707,35.34743202416919,113,34.13897280966767
+Claim,Transactions,Cargo no reconocido,3014,1187,39.3828798938288,39.18380889183809,1133,37.59124087591241
+Claim,Transactions,,321,121,37.69470404984423,37.07165109034268,114,35.51401869158879
+Complaint,Fees,Cobro indebido,7352,2863,38.9417845484222,39.050598476605,2710,36.86071817192601
+Complaint,Fees,,819,301,36.75213675213675,36.507936507936506,284,34.676434676434674
+Complaint,Transactions,Cargo no reconocido,7466,2903,38.88293597642647,38.775783552102865,2774,37.15510313420841
+Complaint,Transactions,,773,289,37.386804657179816,37.77490297542044,281,36.35187580853816
+Request,Fees,Cobro indebido,1230,0,0.0,0.0,0,0.0
+Request,Fees,,137,0,0.0,0.0,0,0.0
+Request,Transactions,Cargo no reconocido,1214,0,0.0,0.0,0,0.0
+Request,Transactions,,115,0,0.0,0.0,0,0.0
+Suggestion,Fees,Cobro indebido,586,0,0.0,0.0,0,0.0
+Suggestion,Fees,,72,0,0.0,0.0,0,0.0
+Suggestion,Transactions,Cargo no reconocido,603,0,0.0,0.0,0,0.0
+Suggestion,Transactions,,74,0,0.0,0.0,0,0.0

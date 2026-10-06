@@ -1,4 +1,4 @@
-"""Entrada programática del EDA; la ejecución revisable está en notebooks/02_eda.ipynb."""
+"""Programmatic EDA entry point; the reviewable run is in notebooks/02_eda.ipynb."""
 
 from src.data.eda.eda_core import start, finish
 from src.data.eda import (

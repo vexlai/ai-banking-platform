@@ -1,0 +1,11 @@
+evidence_source,availability,reliability,quantitative_basis,potential_agent_use,main_limitation
+transaction details,HIGH,HIGH,4425008 unique IDs; date/owner/amount/currency coverage 100.000%/100.000%/100.000%/100.000%,"Deterministic lookup, owner consistency and literal amount/status evidence","Structural reliability within extract, not authorization or settlement proof; amount_usd partial"
+is_fraud,HIGH,LOW,4425008 valid; 4316 positive,Visible recorded flag; conditional future label candidate,Undocumented provenance/availability; not confirmed fraud or decision authority
+fraud_score,MEDIUM,LOW,79.996% finite coverage,Supporting numeric evidence only,Label association and provenance/timing uncertainty; no operational threshold justified
+merchant,LOW,MEDIUM,name 23.259%; category 23.250%,Display observed merchant evidence when present,Incomplete; no independent verification or merchant identity reference
+geography,MEDIUM,LOW,country 100.000%; city 89.998%; valid coordinate pair 18.405%,"Optional raw location context, not required MVP decision logic",Physical ranges do not validate real location or country-coordinate coherence
+complaint taxonomy,HIGH,MEDIUM,67095 cases; actual categories Transactions and Fees,Exploratory intake language and scope discovery,Coarse recorded categories; no final cohort; no transfer/ATM-specific taxonomy
+claimed amount,LOW,MEDIUM,32.418% overall coverage,Possible future candidate-matching evidence when amount AND currency exist,Not a verified transaction amount; no matching performed; missingness by case type
+complaint outcome,LOW,LOW,resolution 22.818%; date 22.877%; compensation 6.917%; satisfaction 3.702%,Descriptive case outcomes; conditional future offline evaluation,Not dispute-validity ground truth; lifecycle/selection/timing and linkage limitations
+call interactions,HIGH,MEDIUM,686296 interactions; resolution/escalation coverage in labels CSV,Customer-level service evidence; interaction endpoints requiring semantic validation,UNUSABLE as direct transaction linkage without additional evidence
+transcripts,LOW,MEDIUM,171321/686296 interactions (24.963%),Future NLP candidate with privacy controls and evidence attribution,"Partial, selected coverage; transcript-interaction consistency is not a transaction link"

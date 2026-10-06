@@ -1,0 +1,10 @@
+{
+  "baseline_version": "regex-intake-v1",
+  "code_sha256": {
+    "src/evaluation/baseline_intake_parser.py": "bb4378445725149e2c48e18f7db2e82bb7591188c36dda303f61ea9f09a1520f",
+    "src/evaluation/metrics.py": "e84a67c52ba4d7db158359d3d301329a407206eed1cef42d3fc06f2f788ae6ac"
+  },
+  "dataset_sha256": "fac0cfa5117fc0b878e90375564bcb6bd65a7714a8c43ae2849e4057fb26ade2",
+  "dataset_version": "dispute-intake-eval-v1",
+  "retrieval_fixtures_sha256": "744ed9952ae2d67a302033c12d305c9d974d42667b274860f2613bc159a360ee"
+}

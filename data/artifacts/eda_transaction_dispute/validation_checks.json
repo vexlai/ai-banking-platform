@@ -1,0 +1,3082 @@
+{
+  "passed": 769,
+  "failed": 0,
+  "checks": [
+    {
+      "check": "label_partition",
+      "passed": true
+    },
+    {
+      "check": "valid_labels_partition",
+      "passed": true
+    },
+    {
+      "check": "score_buckets_conserve_rows",
+      "passed": true
+    },
+    {
+      "check": "score_buckets_conserve_positive_labels",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_channel.csv_row_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_channel.csv_fraud_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_currency.csv_row_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_currency.csv_fraud_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_merchant_category.csv_row_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_merchant_category.csv_fraud_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_category.csv_row_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_category.csv_fraud_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_country.csv_row_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_country.csv_fraud_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_status.csv_row_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_status.csv_fraud_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_type.csv_row_sum",
+      "passed": true
+    },
+    {
+      "check": "fraud_by_transaction_type.csv_fraud_sum",
+      "passed": true
+    },
+    {
+      "check": "transaction_ids_unique_nonnull",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_overall_ALL_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_ATM_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_App_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Branch_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_POS_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Transfer_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_channel_Web_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Adjustment_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Deposit_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Payment_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Purchase_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Transfer_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_type_Withdrawal_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Approved_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Declined_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Pending_longitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_transaction_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_transaction_date",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_product_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_customer_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_transaction_type",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_transaction_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_amount",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_currency",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_amount_usd",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_channel",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_branch_id",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_merchant_name",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_merchant_category",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_transaction_country",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_transaction_city",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_transaction_status",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_response_code",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_is_fraud",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_fraud_score",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_latitude",
+      "passed": true
+    },
+    {
+      "check": "transaction_evidence_coverage.csv_all_transaction_status_Reversed_longitude",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_overall_ALL_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_overall_ALL_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Claim_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Claim_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Complaint_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Complaint_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Request_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Request_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Suggestion_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_case_type_Suggestion_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Branch_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Branch_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Fees_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Fees_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Service_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Service_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Technical_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Technical_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Transactions_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_category_Transactions_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Calidad de servicio_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Calidad de servicio_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Cargo no reconocido_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Cargo no reconocido_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Cobro indebido_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Cobro indebido_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Problema con app_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory_Problema con app_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory__claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_subcategory__currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_ARS_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_ARS_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_COP_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_COP_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_MXN_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_MXN_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_USD_claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency_USD_currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency__claimed_amount",
+      "passed": true
+    },
+    {
+      "check": "complaint_claimed_amount_coverage.csv_all_currency__currency",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_overall_ALL_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Closed_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Escalated_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_In Process_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Open_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Rejected_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_status_Resolved_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Claim_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Complaint_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Request_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_case_type_Suggestion_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Branch_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Fees_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Service_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Technical_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_category_Transactions_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Atenci\u00f3n en sucursal_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Calidad de servicio_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cargo no reconocido_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Cobro indebido_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory_Problema con app_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_all_subcategory__priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_overall_ALL_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Closed_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Escalated_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_In Process_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Open_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Rejected_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_status_Resolved_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Claim_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Complaint_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Request_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_case_type_Suggestion_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Fees_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_category_Transactions_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cargo no reconocido_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory_Cobro indebido_priority",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__status",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__resolution",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__resolution_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__closing_date",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__compensation_granted",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__resolution_satisfaction",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__sla_breached",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__resolution_days",
+      "passed": true
+    },
+    {
+      "check": "complaint_outcome_coverage.csv_exploratory_Transactions_or_Fees_subcategory__priority",
+      "passed": true
+    },
+    {
+      "check": "claimed_amount_by_currency.csv_known_currencies_only",
+      "passed": true
+    },
+    {
+      "check": "claimed_amount_upper_tail_by_currency.csv_known_currencies_only",
+      "passed": true
+    },
+    {
+      "check": "compensation_by_currency_status.csv_known_currencies_only",
+      "passed": true
+    },
+    {
+      "check": "transactions.is_fraud_class_sum",
+      "passed": true
+    },
+    {
+      "check": "complaints.status_class_sum",
+      "passed": true
+    },
+    {
+      "check": "complaints.compensation_granted_class_sum",
+      "passed": true
+    },
+    {
+      "check": "complaints.resolution_satisfaction_class_sum",
+      "passed": true
+    },
+    {
+      "check": "call_center_interactions.was_resolved_class_sum",
+      "passed": true
+    },
+    {
+      "check": "call_center_interactions.was_escalated_class_sum",
+      "passed": true
+    }
+  ]
+}

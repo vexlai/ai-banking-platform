@@ -1,0 +1,32 @@
+dataset,variable,category,records,pct
+marketing_campaigns,campaign_type,Email,67,33.5
+marketing_campaigns,campaign_type,SMS,42,21.0
+marketing_campaigns,campaign_type,WhatsApp,37,18.5
+marketing_campaigns,campaign_type,Push,24,12.0
+marketing_campaigns,campaign_type,Mix,21,10.5
+marketing_campaigns,campaign_type,Voice,9,4.5
+marketing_campaigns,campaign_objective,Retention,62,31.0
+marketing_campaigns,campaign_objective,Cross-sell,51,25.5
+marketing_campaigns,campaign_objective,Acquisition,38,19.0
+marketing_campaigns,campaign_objective,Reactivation,25,12.5
+marketing_campaigns,campaign_objective,Up-sell,24,12.0
+marketing_campaigns,promoted_product,Tarjeta Crédito,52,26.0
+marketing_campaigns,promoted_product,Cuenta Ahorro,40,20.0
+marketing_campaigns,promoted_product,Préstamo Personal,28,14.0
+marketing_campaigns,promoted_product,,22,11.0
+marketing_campaigns,promoted_product,Inversión,20,10.0
+marketing_campaigns,promoted_product,Cuenta Corriente,17,8.5
+marketing_campaigns,promoted_product,Préstamo Hipotecario,11,5.5
+marketing_campaigns,promoted_product,Seguro,10,5.0
+marketing_campaigns,target_segment,,79,39.5
+marketing_campaigns,target_segment,Plus,32,16.0
+marketing_campaigns,target_segment,Premium,32,16.0
+marketing_campaigns,target_segment,Basic,30,15.0
+marketing_campaigns,target_segment,Student,27,13.5
+marketing_campaigns,target_country,,111,55.5
+marketing_campaigns,target_country,Colombia,33,16.5
+marketing_campaigns,target_country,Argentina,28,14.0
+marketing_campaigns,target_country,Mexico,28,14.0
+marketing_campaigns,campaign_status,Completed,172,86.0
+marketing_campaigns,campaign_status,Paused,25,12.5
+marketing_campaigns,campaign_status,Active,3,1.5

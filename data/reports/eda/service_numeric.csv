@@ -1,0 +1,4 @@
+dataset,variable,rows,valid,invalid_numeric,minimum,maximum,mean,median,p90,p95,p99
+call_center_interactions,duration_seconds,686296,590062,0,30.0,1204.0,321.45454545454544,291.0,538.0,614.0,762.0
+call_center_interactions,wait_time_seconds,686296,480678,0,0.0,424.0,119.93708054040334,119.0,196.0,218.0,259.0
+call_center_interactions,sentiment_score,686296,686296,0,-1.0,1.0,-0.03693742933078372,-0.02,0.44,0.62,0.89

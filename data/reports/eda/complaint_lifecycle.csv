@@ -1,0 +1,25 @@
+milestone,status,observed,before_creation,median_hours,p95_hours
+assignment_date,Open,0,,,
+assignment_date,Resolved,12830,0,12.0,23.0
+assignment_date,Closed,2477,0,13.0,23.0
+assignment_date,In Process,25482,0,12.0,23.0
+assignment_date,Rejected,0,,,
+assignment_date,Escalated,3178,0,12.0,23.0
+first_response_date,Open,0,,,
+first_response_date,Resolved,12861,0,38.0,62.0
+first_response_date,Closed,2500,0,38.0,62.0
+first_response_date,In Process,25492,0,37.0,62.0
+first_response_date,Rejected,0,,,
+first_response_date,Escalated,0,,,
+resolution_date,In Process,0,,,
+resolution_date,Rejected,0,,,
+resolution_date,Escalated,0,,,
+resolution_date,Open,0,,,
+resolution_date,Resolved,12880,0,384.0,696.0
+resolution_date,Closed,2469,0,384.0,696.0
+closing_date,In Process,0,,,
+closing_date,Rejected,0,,,
+closing_date,Escalated,0,,,
+closing_date,Open,0,,,
+closing_date,Resolved,0,,,
+closing_date,Closed,2481,0,480.0,792.0

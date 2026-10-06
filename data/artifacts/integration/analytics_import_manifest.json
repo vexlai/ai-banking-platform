@@ -1,0 +1,1409 @@
+{
+  "version": "analytics-import-v1",
+  "imported_at": "2026-10-03T17:13:49.403529+00:00",
+  "source_repository": "BankingCustomerServiceSystem",
+  "source_commit": "607d02cc246025c049aab5d1c2b739a2f224eb18",
+  "platform_commit": "c41aaf9844a51a4bbc95e08c651f5abe6f83fef7",
+  "files": [
+    {
+      "source": "notebooks/00_dataset_inventory.ipynb",
+      "destination": "notebooks/00_dataset_inventory.ipynb",
+      "sha256": "8f878b739b46f40d23204f434ee7c60450b8008630baba7740ac54fe59f0f949"
+    },
+    {
+      "source": "notebooks/01_ingestion_profiling.ipynb",
+      "destination": "notebooks/01_ingestion_profiling.ipynb",
+      "sha256": "1aa9cf8f43ce9a684706ecee469d77e9bc43b63d9408cc9c519f83838344a644"
+    },
+    {
+      "source": "notebooks/02_eda.ipynb",
+      "destination": "notebooks/02_eda.ipynb",
+      "sha256": "b0929f98f5da16e6488b03c2edf8a3de16d74d35d9acd55f63a6d22c2af3fabf"
+    },
+    {
+      "source": "notebooks/02b_transaction_dispute_eda_addendum.ipynb",
+      "destination": "notebooks/02b_transaction_dispute_eda_addendum.ipynb",
+      "sha256": "49dc7c16e45ec70bd807e789fedc52ffceda43cbee90be5d2cfff7df5254a037"
+    },
+    {
+      "source": "notebooks/03_customer_journey_discovery.ipynb",
+      "destination": "notebooks/03_customer_journey_discovery.ipynb",
+      "sha256": "4c49d4d83e18bf9a3ba7169dec04e12b763fb88ef471ddd3b71547ddc2e02ceb"
+    },
+    {
+      "source": "notebooks/03_dispute_case_workflow_discovery.ipynb",
+      "destination": "notebooks/03_dispute_case_workflow_discovery.ipynb",
+      "sha256": "1ed5f9abc85a5654407db66b9e663bccefc82fdc7a5a772d41ceeb408bd7a9ea"
+    },
+    {
+      "source": "notebooks/04_mvp_use_case_definition.ipynb",
+      "destination": "notebooks/04_mvp_use_case_definition.ipynb",
+      "sha256": "7d46193ca2b17f0a0e0c4e6d923175652cebcbd0a91570b805938a0c9ecf123c"
+    },
+    {
+      "source": "notebooks/04_use_case_definition.ipynb",
+      "destination": "notebooks/04_use_case_definition.ipynb",
+      "sha256": "8add3007fa5ccdd04aac66d9195f1e9f79ea46080549ff704d35fc4054ffcda1"
+    },
+    {
+      "source": "notebooks/05_baseline.ipynb",
+      "destination": "notebooks/05_baseline.ipynb",
+      "sha256": "3e5a48efb5106d186a5ca29a3c4d989e4c8e2baff3ebc16b605c1b4f4398f541"
+    },
+    {
+      "source": "notebooks/05_baseline_and_eval_dataset.ipynb",
+      "destination": "notebooks/05_baseline_and_eval_dataset.ipynb",
+      "sha256": "f89660783a003508dee6f474bc8628ee3f2aa97cb67b25430cf1f45699530745"
+    },
+    {
+      "source": "reports/BASELINE_AND_EVALUATION_FINDINGS.md",
+      "destination": "reports/BASELINE_AND_EVALUATION_FINDINGS.md",
+      "sha256": "c2db29dc5c291a29205368f2a1679ed70f39eb23880cb0983954a1eec4bc91bb"
+    },
+    {
+      "source": "reports/DISPUTE_CASE_WORKFLOW_FINDINGS.md",
+      "destination": "reports/DISPUTE_CASE_WORKFLOW_FINDINGS.md",
+      "sha256": "9320144ad73f693e4e47b8b362c1969cb287a7d53da3958ca60b81df0f28367b"
+    },
+    {
+      "source": "reports/EDA_TRANSACTION_DISPUTE_ADDENDUM.md",
+      "destination": "reports/EDA_TRANSACTION_DISPUTE_ADDENDUM.md",
+      "sha256": "95d4c5a346e5d39fd52847bd060243f61ce4a4f90ba782a1a9967d14f38625a5"
+    },
+    {
+      "source": "reports/FROZEN_MVP_CONTRACT.md",
+      "destination": "reports/FROZEN_MVP_CONTRACT.md",
+      "sha256": "79ba017027f50c4acc4d2360a05fe1bd05a017d83bf1cd74cbbdef94445979c7"
+    },
+    {
+      "source": "reports/MVP_USE_CASE_DEFINITION.md",
+      "destination": "reports/MVP_USE_CASE_DEFINITION.md",
+      "sha256": "10536f642fa3729e476eec935d079e90ae42f3e1ab4d9e619f14bb74fa94c2fb"
+    },
+    {
+      "source": "reports/eda/EDA_FINDINGS.md",
+      "destination": "reports/eda/EDA_FINDINGS.md",
+      "sha256": "f043c56fd8d65d81a0b6e10ed68b4b90ff184d5bf6a53f429353cde2e0955a62"
+    },
+    {
+      "source": "reports/eda/README.md",
+      "destination": "reports/eda/README.md",
+      "sha256": "d0bd17ef87571f404b36d19607e39b7f1c8df125ddae3633afa9401c6249c8bf"
+    },
+    {
+      "source": "reports/eda/abrupt_volume_changes.csv",
+      "destination": "reports/eda/abrupt_volume_changes.csv",
+      "sha256": "839bd7ed4c8b42798614e557044538472e70b463cde65bbe2cad08871ec88e7b"
+    },
+    {
+      "source": "reports/eda/amount_usd_histogram.csv",
+      "destination": "reports/eda/amount_usd_histogram.csv",
+      "sha256": "e5cc6f26b1caf18da90a76c25bd76a3dda3da084463d3252396929d60d4ccaa0"
+    },
+    {
+      "source": "reports/eda/analysis_context.json",
+      "destination": "reports/eda/analysis_context.json",
+      "sha256": "de3707365afe981743c6c1c479aa073133e3afbdf1928ce4ebc00308ea504e4d"
+    },
+    {
+      "source": "reports/eda/branch_geography.csv",
+      "destination": "reports/eda/branch_geography.csv",
+      "sha256": "76263401f2267ab7775dda6b991723f103e234937e4ec438c9eaa4fc4eafd2e2"
+    },
+    {
+      "source": "reports/eda/branch_relationship_limitations.csv",
+      "destination": "reports/eda/branch_relationship_limitations.csv",
+      "sha256": "50751c8b86e657a778be87bcd3c385a41ed11e13244402847ea9c7a3eef22c8d"
+    },
+    {
+      "source": "reports/eda/branch_validation.csv",
+      "destination": "reports/eda/branch_validation.csv",
+      "sha256": "7fdabfbc4753d989362b5e18c719317419915354bc24bc365ff97b3c2bbfc4c0"
+    },
+    {
+      "source": "reports/eda/call_customer_features.parquet",
+      "destination": "reports/eda/call_customer_features.parquet",
+      "sha256": "e2347ae96c7dc71c29bac373ca17cd5370fec69a94691136914d720d696f67ff"
+    },
+    {
+      "source": "reports/eda/campaign_categories.csv",
+      "destination": "reports/eda/campaign_categories.csv",
+      "sha256": "8ae285ade48f8fedd50d4d7ff02b46f631fafd70994faa729ff7968ef24e1ad2"
+    },
+    {
+      "source": "reports/eda/campaign_customer_features.parquet",
+      "destination": "reports/eda/campaign_customer_features.parquet",
+      "sha256": "10a95d97e2876e967d07680ed2e2e2afdf53f2458dfb972791c5db46875a793d"
+    },
+    {
+      "source": "reports/eda/campaign_dimension_summary.csv",
+      "destination": "reports/eda/campaign_dimension_summary.csv",
+      "sha256": "2ba4a78eb403a00b62803d5a97d4dbaa5762c92c51b36267b1ddf762cd53e67e"
+    },
+    {
+      "source": "reports/eda/campaign_funnel.csv",
+      "destination": "reports/eda/campaign_funnel.csv",
+      "sha256": "aa50afb91500fe783d0dc09683dcf12c14c3c57ebf55da4ca4293c22bebb2cff"
+    },
+    {
+      "source": "reports/eda/campaign_performance.csv",
+      "destination": "reports/eda/campaign_performance.csv",
+      "sha256": "c4876b52ab2a53d1c589e4f38cb0ebf0819b0366a044c78fa5994758ebf74516"
+    },
+    {
+      "source": "reports/eda/complaint_categories.csv",
+      "destination": "reports/eda/complaint_categories.csv",
+      "sha256": "8096199038242da7d7622efe7f3950487358ff5c4b890148e5716d31cc3e0ebb"
+    },
+    {
+      "source": "reports/eda/complaint_conditional_nulls.csv",
+      "destination": "reports/eda/complaint_conditional_nulls.csv",
+      "sha256": "84f9a4f23ed6dcfffc72ff4a25039c6b41525828eb6dd3fd47c272e2d698fc7d"
+    },
+    {
+      "source": "reports/eda/complaint_customer_features.parquet",
+      "destination": "reports/eda/complaint_customer_features.parquet",
+      "sha256": "78d6beff44e23b0257664a4cb5017a2dd1b7dc704532882174427c2126568d93"
+    },
+    {
+      "source": "reports/eda/complaint_lifecycle.csv",
+      "destination": "reports/eda/complaint_lifecycle.csv",
+      "sha256": "dd3e1056c2aee216e6212240c9b39e8c6ea2c2a58c65b26c091c24bb1be2723b"
+    },
+    {
+      "source": "reports/eda/complaint_money_by_currency.csv",
+      "destination": "reports/eda/complaint_money_by_currency.csv",
+      "sha256": "12007e22fc73ebdbfe7fdf145b3d5b62f3b353c2df1c81087fe90b13646aa53b"
+    },
+    {
+      "source": "reports/eda/complaint_resolution_by_status.csv",
+      "destination": "reports/eda/complaint_resolution_by_status.csv",
+      "sha256": "9918c224a0259b5be18a019ed6c1981364a8551e234d1fed568b2c4cb91409d5"
+    },
+    {
+      "source": "reports/eda/complaints_per_affected_product_id.csv",
+      "destination": "reports/eda/complaints_per_affected_product_id.csv",
+      "sha256": "e2bc32ccafc3ce1f107464624ef67d22e69d7cccfa6cadb22b382488e95a9c12"
+    },
+    {
+      "source": "reports/eda/complaints_per_customer_id.csv",
+      "destination": "reports/eda/complaints_per_customer_id.csv",
+      "sha256": "4d3958e6b681d0cd238b126b5f7a2db22401be87d319d0b1b2821d6b0d4d98b0"
+    },
+    {
+      "source": "reports/eda/coverage_daily.csv",
+      "destination": "reports/eda/coverage_daily.csv",
+      "sha256": "5f3e0a8ee13678b85e09cb508f8642d886df82bfaa3513e7e41021aca3963ab3"
+    },
+    {
+      "source": "reports/eda/coverage_monthly.csv",
+      "destination": "reports/eda/coverage_monthly.csv",
+      "sha256": "3ee3cb6c590711d5b5ce7a9b94ef681d7514397aa0fe11965aaa90ca5bf01731"
+    },
+    {
+      "source": "reports/eda/cross_domain_associations.csv",
+      "destination": "reports/eda/cross_domain_associations.csv",
+      "sha256": "6101d3f739e880c2371b7fc78153f6968352e6b9286fb9cdaf415ed06589afaf"
+    },
+    {
+      "source": "reports/eda/cross_domain_groups.csv",
+      "destination": "reports/eda/cross_domain_groups.csv",
+      "sha256": "c8785653aeab90dfe9b8eb13c217f58041edd540631a2a392dfecc9dceda2fca"
+    },
+    {
+      "source": "reports/eda/customer_360_eda.parquet",
+      "destination": "reports/eda/customer_360_eda.parquet",
+      "sha256": "427218494ca07e5dd627c6790377086f21135650733cc47f30b10ffa977789f0"
+    },
+    {
+      "source": "reports/eda/customer_age_bands.csv",
+      "destination": "reports/eda/customer_age_bands.csv",
+      "sha256": "7d3a644c2985a030f756d46ccb0fbb6f000c11ee8e65d84ea8f1394d8b8adb71"
+    },
+    {
+      "source": "reports/eda/customer_categories.csv",
+      "destination": "reports/eda/customer_categories.csv",
+      "sha256": "7654a6ae068f8ced292fb23097f0254e30e2bca29300279c881e6e42b0eb0466"
+    },
+    {
+      "source": "reports/eda/customer_feature_distributions.csv",
+      "destination": "reports/eda/customer_feature_distributions.csv",
+      "sha256": "b832bbd4fa9cd11fd28bd1d5aa713788f5a39a4083fd4886e9c6fc3364d30e93"
+    },
+    {
+      "source": "reports/eda/customer_income_by_country.csv",
+      "destination": "reports/eda/customer_income_by_country.csv",
+      "sha256": "e860f3d2235ef423d9ee287567f1a93cb7742282a72c3f837b3f9b404b173bed"
+    },
+    {
+      "source": "reports/eda/customer_numeric.csv",
+      "destination": "reports/eda/customer_numeric.csv",
+      "sha256": "1aab31e2e138d8a9d1a686d0fa2fe4cc951d15c80390e0bf65aa8e9713c25c97"
+    },
+    {
+      "source": "reports/eda/customer_registrations.csv",
+      "destination": "reports/eda/customer_registrations.csv",
+      "sha256": "36fb7ef0581f90bb6f7c27a98e2eb409dead419e155cfe0878713aad5ee5bcb2"
+    },
+    {
+      "source": "reports/eda/digital_anonymous_categories.csv",
+      "destination": "reports/eda/digital_anonymous_categories.csv",
+      "sha256": "6ec1c2b78733b9b14110468a87005fb3eb47ab62526d4cf236cbd5768b80c323"
+    },
+    {
+      "source": "reports/eda/digital_coverage.csv",
+      "destination": "reports/eda/digital_coverage.csv",
+      "sha256": "be9da83b3f5533dff880f2fe9c17cdecfe01fd1e5c9e9d2d5d9dc4974d4d22ec"
+    },
+    {
+      "source": "reports/eda/digital_customer_features.parquet",
+      "destination": "reports/eda/digital_customer_features.parquet",
+      "sha256": "2fe6c00639b51a5c59af00ec56618bc566ce96266eee187541ac961f4fe9026b"
+    },
+    {
+      "source": "reports/eda/digital_events_per_customer.csv",
+      "destination": "reports/eda/digital_events_per_customer.csv",
+      "sha256": "ebb08ecbace2f8bb60ee6f1e1f30ffefa78263c43d5407559f8f59c3f6f2c090"
+    },
+    {
+      "source": "reports/eda/digital_identified_categories.csv",
+      "destination": "reports/eda/digital_identified_categories.csv",
+      "sha256": "ed16d571bc342d56e5ddc38da7132530bc771060b4794f1e8e29c024433a3b1d"
+    },
+    {
+      "source": "reports/eda/digital_sessions_numeric.csv",
+      "destination": "reports/eda/digital_sessions_numeric.csv",
+      "sha256": "04966484eb78ddb56f8a5a8099b34a0eb2f0b964d308dc94e01bf6d88d014426"
+    },
+    {
+      "source": "reports/eda/digital_sessions_quality.csv",
+      "destination": "reports/eda/digital_sessions_quality.csv",
+      "sha256": "94e76cb09496ac41bbf3e061750edc0d6aa00e3a6458a9b3be84010830471203"
+    },
+    {
+      "source": "reports/eda/dimension_date_windows.csv",
+      "destination": "reports/eda/dimension_date_windows.csv",
+      "sha256": "96a865d741fa6310fe4d2800469f9889873a26c86d86ab9275ef989db6971553"
+    },
+    {
+      "source": "reports/eda/exchange_rate_coverage.csv",
+      "destination": "reports/eda/exchange_rate_coverage.csv",
+      "sha256": "bffe1c01abfef20e1c3439b3d145497fdcf5b882142bade7dfe7b333412021f4"
+    },
+    {
+      "source": "reports/eda/exchange_rate_pairs.csv",
+      "destination": "reports/eda/exchange_rate_pairs.csv",
+      "sha256": "2a11e8699a5aa4987ae25abdde93d9018fd6fb14bf7dd4c8cd6c5a88f127c45e"
+    },
+    {
+      "source": "reports/eda/exchange_rate_validation.csv",
+      "destination": "reports/eda/exchange_rate_validation.csv",
+      "sha256": "90e1d978b066474183689cdef3f1f3ee835e8d495528c4b01d51e7ce3343d4c8"
+    },
+    {
+      "source": "reports/eda/execution_status.json",
+      "destination": "reports/eda/execution_status.json",
+      "sha256": "c4f25b588bf30ddf3da0549cb0c87dd2e91f8488d35b610ec71924e24c674fcf"
+    },
+    {
+      "source": "reports/eda/feature_cardinality.csv",
+      "destination": "reports/eda/feature_cardinality.csv",
+      "sha256": "8818267cb8f0eed27a9ca41535cb0dd73e2310dd71a6d9794b7432f233fcbb3e"
+    },
+    {
+      "source": "reports/eda/feature_temporal_audit.csv",
+      "destination": "reports/eda/feature_temporal_audit.csv",
+      "sha256": "2003c425b6f1b4c03bdb9176e6c57a49db442696eb1667a21b2615d322d703a1"
+    },
+    {
+      "source": "reports/eda/key_eda_metrics.csv",
+      "destination": "reports/eda/key_eda_metrics.csv",
+      "sha256": "eddfc2399f2eb9f87b3b8530b62c33d8f1a1c3652869291fc8a346a33507c11f"
+    },
+    {
+      "source": "reports/eda/lifecycle_windows.csv",
+      "destination": "reports/eda/lifecycle_windows.csv",
+      "sha256": "6e9b18623c1b34ade52a4356f89e87a68356de9490226fc87dd6578148bc8364"
+    },
+    {
+      "source": "reports/eda/partition_day_check.csv",
+      "destination": "reports/eda/partition_day_check.csv",
+      "sha256": "12e5573856d0c5d10e75ad2ea7779acafc5ecc4f8fea4a7ee678b72f7fda18dc"
+    },
+    {
+      "source": "reports/eda/product_categories.csv",
+      "destination": "reports/eda/product_categories.csv",
+      "sha256": "baa724ea037fd6327cb2331c11e357651f49e798754ef3f5f845fa4325e80600"
+    },
+    {
+      "source": "reports/eda/product_date_ranges.csv",
+      "destination": "reports/eda/product_date_ranges.csv",
+      "sha256": "0cc9b87b2cedee55a71fb83793d31e04e14bc66ddabfb527b93425f99a76fea8"
+    },
+    {
+      "source": "reports/eda/product_money_by_currency.csv",
+      "destination": "reports/eda/product_money_by_currency.csv",
+      "sha256": "74438a14a30d6518264c7981273e7239581832fb7606cc04c953dece7234def2"
+    },
+    {
+      "source": "reports/eda/product_numeric.csv",
+      "destination": "reports/eda/product_numeric.csv",
+      "sha256": "33331a90589ef35059e77f15ccf287555ad00dde3d2bb5f2208f2cfdf3b421b7"
+    },
+    {
+      "source": "reports/eda/product_openings.csv",
+      "destination": "reports/eda/product_openings.csv",
+      "sha256": "d38d4660ab249b21127fc9f04cf089b57cd791cbb03bbe67120bae2f5ace33f3"
+    },
+    {
+      "source": "reports/eda/products_customer_features.parquet",
+      "destination": "reports/eda/products_customer_features.parquet",
+      "sha256": "000e9102d350015c797c0e93eb0dc1671c416440ae24ddaf098d958b244775f6"
+    },
+    {
+      "source": "reports/eda/products_per_customer.csv",
+      "destination": "reports/eda/products_per_customer.csv",
+      "sha256": "4ef3d159048efc80bcd6d787c845492a1356848abc03bc0c3ae48274b6ad4d3a"
+    },
+    {
+      "source": "reports/eda/semantic_validation.csv",
+      "destination": "reports/eda/semantic_validation.csv",
+      "sha256": "fde21ed18f9df35c273d4c870115a7e3f8d86195bea15dcfc37092d56e71faa3"
+    },
+    {
+      "source": "reports/eda/semantic_validation_examples.csv",
+      "destination": "reports/eda/semantic_validation_examples.csv",
+      "sha256": "ba2e16438d8d126de64642a1a10a33b7dfaf7fc5d1525507252fd82fa4a6e58a"
+    },
+    {
+      "source": "reports/eda/service_categories.csv",
+      "destination": "reports/eda/service_categories.csv",
+      "sha256": "9275d6723b9b4d0becdaff2d881ed6faf8760baddcd3a37ce79b82f3f35359d0"
+    },
+    {
+      "source": "reports/eda/service_histograms.csv",
+      "destination": "reports/eda/service_histograms.csv",
+      "sha256": "d702b2aa2914027fea548fcc9bfc942449e000c51977f57a473589d4fea85f78"
+    },
+    {
+      "source": "reports/eda/service_numeric.csv",
+      "destination": "reports/eda/service_numeric.csv",
+      "sha256": "b4b9cfeb7edc0d333166d249a85de9761dd1f148199a862bd554e725361b3de8"
+    },
+    {
+      "source": "reports/eda/service_per_customer.csv",
+      "destination": "reports/eda/service_per_customer.csv",
+      "sha256": "da1993d2bc5023da2a1a161f6e8b10da284716f51115c13b98db242af86ac962"
+    },
+    {
+      "source": "reports/eda/source_integrity.json",
+      "destination": "reports/eda/source_integrity.json",
+      "sha256": "4aef11bf9dd117d7cf8ceb60f7a1466036b942d8d7cf79e802062629e9e63a06"
+    },
+    {
+      "source": "reports/eda/survey_coverage.csv",
+      "destination": "reports/eda/survey_coverage.csv",
+      "sha256": "cccbe2d9dcc5c660cbb221f4d3743ed45f92e42ac5e8202f79996b8031e80823"
+    },
+    {
+      "source": "reports/eda/survey_customer_features.parquet",
+      "destination": "reports/eda/survey_customer_features.parquet",
+      "sha256": "cbc69d2a2cc2645ce72f73ddf1f5660804e30ab1d009d218ce132eacacfc3440"
+    },
+    {
+      "source": "reports/eda/survey_questions.csv",
+      "destination": "reports/eda/survey_questions.csv",
+      "sha256": "3cbd13d5ae13db8154636627cb533eb4432d5b7f71c528ce0cf8f65d04eb0622"
+    },
+    {
+      "source": "reports/eda/survey_score_distribution.csv",
+      "destination": "reports/eda/survey_score_distribution.csv",
+      "sha256": "926fbda17bc6d893ac33864079eedb462f0e6333ec7967dfa9e28aa607e8efd1"
+    },
+    {
+      "source": "reports/eda/survey_scores_by_interaction.csv",
+      "destination": "reports/eda/survey_scores_by_interaction.csv",
+      "sha256": "37aaef75707cb039e9a6bd0bdbebc3c04b2a9ac43b82687395ebd804aa456114"
+    },
+    {
+      "source": "reports/eda/survey_scores_by_type.csv",
+      "destination": "reports/eda/survey_scores_by_type.csv",
+      "sha256": "dab891bd1022054002c7e88e5c2f6d312f39e859e5778cf4d7ed709d397b69a8"
+    },
+    {
+      "source": "reports/eda/survey_selection_categories.csv",
+      "destination": "reports/eda/survey_selection_categories.csv",
+      "sha256": "153c80471e41ad1074f53a34a609a6e71ecb19b83a0c35e13a2190deea9b3332"
+    },
+    {
+      "source": "reports/eda/survey_selection_monthly.csv",
+      "destination": "reports/eda/survey_selection_monthly.csv",
+      "sha256": "0e052ca44765b482d8134f72daf59d90a7ce05ec7520d0297925f1030b7cb233"
+    },
+    {
+      "source": "reports/eda/survey_selection_numeric.csv",
+      "destination": "reports/eda/survey_selection_numeric.csv",
+      "sha256": "1361f3e681822e400e528921851fab3888cec58540de1bee6ac50d305a8f2031"
+    },
+    {
+      "source": "reports/eda/temporal_coverage.csv",
+      "destination": "reports/eda/temporal_coverage.csv",
+      "sha256": "6fb7842d882a539755accf00b4797c6e4cbb3f6d1523a1b71d240e73b0392ded"
+    },
+    {
+      "source": "reports/eda/temporal_delays.csv",
+      "destination": "reports/eda/temporal_delays.csv",
+      "sha256": "291ddbe7d0553ac3c5d32f9bc862d6bb8de84d6337be4b8bd796a1d3a6db3c72"
+    },
+    {
+      "source": "reports/eda/temporal_gaps.csv",
+      "destination": "reports/eda/temporal_gaps.csv",
+      "sha256": "fa0088487ad143733ad65edefeb649edafe94082ea0f191c1537eda42535add0"
+    },
+    {
+      "source": "reports/eda/transaction_amount_by_currency.csv",
+      "destination": "reports/eda/transaction_amount_by_currency.csv",
+      "sha256": "933440dd0d984d7a632aebd7371c55567d518b46876ea79e1de830cdb8cb156b"
+    },
+    {
+      "source": "reports/eda/transaction_categories.csv",
+      "destination": "reports/eda/transaction_categories.csv",
+      "sha256": "d29bb97f0063ece073bde1d192f7e56c59ccda382349b44f0eff059e1a6a8619"
+    },
+    {
+      "source": "reports/eda/transaction_merchant_coverage.csv",
+      "destination": "reports/eda/transaction_merchant_coverage.csv",
+      "sha256": "d01ab9c1856c7fb9e9eb63b2ca922e57cfa99c86c3aa71cc103540dcd23e6cba"
+    },
+    {
+      "source": "reports/eda/transaction_numeric.csv",
+      "destination": "reports/eda/transaction_numeric.csv",
+      "sha256": "e00300adb22bd102367b9ea18d2ef5a265625737c4c0854f3162cd913583f22c"
+    },
+    {
+      "source": "reports/eda/transaction_top_merchants.csv",
+      "destination": "reports/eda/transaction_top_merchants.csv",
+      "sha256": "5ec55d55a8198d7a371921fe852f1af16bfcef5c199281b4d5c42b7133f5128c"
+    },
+    {
+      "source": "reports/eda/transactions_customer_features.parquet",
+      "destination": "reports/eda/transactions_customer_features.parquet",
+      "sha256": "1117956ec179ef9438315094f570a7d3dfd45569f38309f12e170e721fcf4b94"
+    },
+    {
+      "source": "reports/eda/transactions_per_customer_id.csv",
+      "destination": "reports/eda/transactions_per_customer_id.csv",
+      "sha256": "1be625533631ff1703a0831e3e675fd604dca2725d04bf404b07e348d320d680"
+    },
+    {
+      "source": "reports/eda/transactions_per_product_id.csv",
+      "destination": "reports/eda/transactions_per_product_id.csv",
+      "sha256": "22a8156ff3ad2090064226f3ebf5048d700ff576430ca5744a1fb04fb2da101e"
+    },
+    {
+      "source": "reports/eda/transcript_coverage.csv",
+      "destination": "reports/eda/transcript_coverage.csv",
+      "sha256": "dc04bd964bbb130e135d1e29dca4360f5544a073f6832acb93f2137a79337709"
+    },
+    {
+      "source": "reports/eda/transcript_length_histogram.csv",
+      "destination": "reports/eda/transcript_length_histogram.csv",
+      "sha256": "fafeefd9d6a5fc40198faa69cd2046d505ee2e31ca5e44c9e6d5d2275c3bb0dd"
+    },
+    {
+      "source": "reports/eda/transcript_selection_categories.csv",
+      "destination": "reports/eda/transcript_selection_categories.csv",
+      "sha256": "5cefe63774bf5a926a464858fb84b014139926eb08eca75bca12c2651d65e3cb"
+    },
+    {
+      "source": "reports/eda/transcript_selection_monthly.csv",
+      "destination": "reports/eda/transcript_selection_monthly.csv",
+      "sha256": "e75ad18a5c66c87af46d5043b564adbc6a2a6ca4ee7f6208f36854fd3cd9c2f7"
+    },
+    {
+      "source": "reports/eda/transcript_selection_numeric.csv",
+      "destination": "reports/eda/transcript_selection_numeric.csv",
+      "sha256": "ac31c3cde3edfdf174844b579458f993338603a87cff5dd668319d2b1477587d"
+    },
+    {
+      "source": "reports/eda/transcript_text_lengths.csv",
+      "destination": "reports/eda/transcript_text_lengths.csv",
+      "sha256": "b12d8f5b6cc79b90b1a27c585f14d0482b963f1f786a4bc293c6b1ac854c8a31"
+    },
+    {
+      "source": "reports/figures/eda/amount_usd_distribution.png",
+      "destination": "reports/figures/eda/amount_usd_distribution.png",
+      "sha256": "8aa4dfbdbb080e52744e7d06c0d0223321d56e0febe9cb43ca69d1930a8ab6d1"
+    },
+    {
+      "source": "reports/figures/eda/monthly_coverage.png",
+      "destination": "reports/figures/eda/monthly_coverage.png",
+      "sha256": "3046cf566c9a47fd2848249fa40615cc9e210888ec342459ee806684933a2b38"
+    },
+    {
+      "source": "reports/figures/eda/selection_coverage.png",
+      "destination": "reports/figures/eda/selection_coverage.png",
+      "sha256": "4ce3b6e2f3dc3a24f43643829c3527501d4501dfd54c728c8569ca0209c813c3"
+    },
+    {
+      "source": "reports/figures/eda/service_duration_wait.png",
+      "destination": "reports/figures/eda/service_duration_wait.png",
+      "sha256": "c94d4068dd1d0b05589326795ecd30491623f1002d694f2814371dd189cf7005"
+    },
+    {
+      "source": "reports/profiling/SUMMARY.md",
+      "destination": "reports/profiling/SUMMARY.md",
+      "sha256": "7119aa2d2f3321c608fbe81390b1504a1298a2e340b90bb4a6cdca3189d6bf55"
+    },
+    {
+      "source": "reports/profiling/candidate_keys.csv",
+      "destination": "reports/profiling/candidate_keys.csv",
+      "sha256": "cbfec073806f4f342184ec36fc74169b9fbdea24bc2927b0a4f67dc28f42e276"
+    },
+    {
+      "source": "reports/profiling/column_profiles.csv",
+      "destination": "reports/profiling/column_profiles.csv",
+      "sha256": "bdc5f568b3e61d6a4543923cccc30364d66354aa5f26bebf7adae8f6d098a93b"
+    },
+    {
+      "source": "reports/profiling/column_profiles.partial.csv",
+      "destination": "reports/profiling/column_profiles.partial.csv",
+      "sha256": "bdc5f568b3e61d6a4543923cccc30364d66354aa5f26bebf7adae8f6d098a93b"
+    },
+    {
+      "source": "reports/profiling/datasets.csv",
+      "destination": "reports/profiling/datasets.csv",
+      "sha256": "7b0e91a2776de0ff9fdcb27950552d737002d835e3570beb0f31a6f8058ac2b8"
+    },
+    {
+      "source": "reports/profiling/datasets.partial.csv",
+      "destination": "reports/profiling/datasets.partial.csv",
+      "sha256": "7b0e91a2776de0ff9fdcb27950552d737002d835e3570beb0f31a6f8058ac2b8"
+    },
+    {
+      "source": "reports/profiling/duplicates.csv",
+      "destination": "reports/profiling/duplicates.csv",
+      "sha256": "001d61d35c551b60a4ed5788397485122967241e0c4a749d48ada8b21f1fcde7"
+    },
+    {
+      "source": "reports/profiling/duplicates.partial.csv",
+      "destination": "reports/profiling/duplicates.partial.csv",
+      "sha256": "001d61d35c551b60a4ed5788397485122967241e0c4a749d48ada8b21f1fcde7"
+    },
+    {
+      "source": "reports/profiling/execution_progress.json",
+      "destination": "reports/profiling/execution_progress.json",
+      "sha256": "314c6773f05c137d439bdac21099cd4aa26eeb5e0156de5cee023f45649723e1"
+    },
+    {
+      "source": "reports/profiling/files.csv",
+      "destination": "reports/profiling/files.csv",
+      "sha256": "ab8abea4d8252a9a0840497b3323ddf1035a2ffe16f57c927b57ff76d11d44a8"
+    },
+    {
+      "source": "reports/profiling/inventory.json",
+      "destination": "reports/profiling/inventory.json",
+      "sha256": "9793fa26d368aeab9952ef559e759f8b5085260e91d639405668c10ed154680e"
+    },
+    {
+      "source": "reports/profiling/inventory_columns.csv",
+      "destination": "reports/profiling/inventory_columns.csv",
+      "sha256": "dd9f7e22c803532689967c767f7cd43c093068caf8126d91e5c014a3d3958956"
+    },
+    {
+      "source": "reports/profiling/inventory_integrity.json",
+      "destination": "reports/profiling/inventory_integrity.json",
+      "sha256": "4aef11bf9dd117d7cf8ceb60f7a1466036b942d8d7cf79e802062629e9e63a06"
+    },
+    {
+      "source": "reports/profiling/profiling.json",
+      "destination": "reports/profiling/profiling.json",
+      "sha256": "66049d01b028703765601b37c9a75c6e245a08db9f90d26b857931ee839143d1"
+    },
+    {
+      "source": "reports/profiling/profiling_integrity.json",
+      "destination": "reports/profiling/profiling_integrity.json",
+      "sha256": "4aef11bf9dd117d7cf8ceb60f7a1466036b942d8d7cf79e802062629e9e63a06"
+    },
+    {
+      "source": "reports/profiling/relationships.csv",
+      "destination": "reports/profiling/relationships.csv",
+      "sha256": "0725f09c45889610dd5f354815b9314305324c4e1c8cd2f807cc2255e58bbf02"
+    },
+    {
+      "source": "reports/profiling/source_manifest.json",
+      "destination": "reports/profiling/source_manifest.json",
+      "sha256": "7397fbca1e1ca2f47477f1720e2f75d83b08d644e9fb3a9fb0150f8bda0cb3cb"
+    },
+    {
+      "source": "reports/profiling/source_manifest.previous.json",
+      "destination": "reports/profiling/source_manifest.previous.json",
+      "sha256": "52cfc7bbda19e932f56b8e76a24dbd190c6d71ac795e2b75f4e6b56650823d7c"
+    },
+    {
+      "source": "reports/profiling/source_relocation.json",
+      "destination": "reports/profiling/source_relocation.json",
+      "sha256": "9db79156f71d0c053a5146e273e595a14dc89763c1db651d5e55bb958d5bf69f"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/README.md",
+      "destination": "artifacts/dispute_case_workflow/README.md",
+      "sha256": "adebea808325638ddcfc2d06eca03bf177a4f1a7f396b311a9953cb2b2f8cbd0"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/amount_currency_candidate_matching.csv",
+      "destination": "artifacts/dispute_case_workflow/amount_currency_candidate_matching.csv",
+      "sha256": "60c3d72a3a7cbafd915746ccaefc9a77c30cbdcc78d20874082f4e289ef972c4"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/analysis_context.json",
+      "destination": "artifacts/dispute_case_workflow/analysis_context.json",
+      "sha256": "e5b7325495d053ae957463ff1dda1d8a58fdfa36a92b709c2549809563acec16"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/behavioral_feature_feasibility.csv",
+      "destination": "artifacts/dispute_case_workflow/behavioral_feature_feasibility.csv",
+      "sha256": "649bc544faddfa8990702f410a6bd0678c291052a26dc55f0adc10bd822039e9"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_behavioral_context.parquet",
+      "destination": "artifacts/dispute_case_workflow/candidate_behavioral_context.parquet",
+      "sha256": "aad414d2b73b1ddc2390b92e5087d00cc431c20acfdaba2cb7e7b6dd7d85cacd"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_cohort_definitions.csv",
+      "destination": "artifacts/dispute_case_workflow/candidate_cohort_definitions.csv",
+      "sha256": "9b8384c1902963d0f07affd8bc8e95eb1d7163b3b3f7e82e9bb479d32996cc2f"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_cohort_distributions.csv",
+      "destination": "artifacts/dispute_case_workflow/candidate_cohort_distributions.csv",
+      "sha256": "b5dbee85aa3c4dc330b8b1d19f1c0ba1fe755203d6adffd6e199ae65798f27b8"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_currency_support.csv",
+      "destination": "artifacts/dispute_case_workflow/candidate_currency_support.csv",
+      "sha256": "a0b17f3d0fc8e5413abcf51c423ee912d2575849316c02e8deb6c60038e54a0d"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_dispute_cohorts.csv",
+      "destination": "artifacts/dispute_case_workflow/candidate_dispute_cohorts.csv",
+      "sha256": "80ef075f83b1304d6d4d8ddedc3608ac5d5903bfa3ba5d72877268c75a160b6e"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_rule_comparison.csv",
+      "destination": "artifacts/dispute_case_workflow/candidate_rule_comparison.csv",
+      "sha256": "eebb395fc4e82f3970d5d55253569bccb07402384a3cbab63bc2893fe8d84e59"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_rules_common_eligibility.csv",
+      "destination": "artifacts/dispute_case_workflow/candidate_rules_common_eligibility.csv",
+      "sha256": "0cbdb9c4afc0a8f0ee3c29edaf4b5e1ccfab804e674f80024a65349a9fec5377"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/candidate_transaction_characteristics.csv",
+      "destination": "artifacts/dispute_case_workflow/candidate_transaction_characteristics.csv",
+      "sha256": "42ed0b31edd97278e977ba60bd025654d1ba095270bf6403b4501743cd63c29e"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/case_archetypes.csv",
+      "destination": "artifacts/dispute_case_workflow/case_archetypes.csv",
+      "sha256": "5d1412a818fed71d0f23a345c96a6085112827aa09ee59eb451b01d570d5d2e7"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/case_evidence_bundles.parquet",
+      "destination": "artifacts/dispute_case_workflow/case_evidence_bundles.parquet",
+      "sha256": "823a5f0ada91c151183db9d3836951d6388ebe4c38ed0c8f459ceba851cc2bbe"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/case_register.parquet",
+      "destination": "artifacts/dispute_case_workflow/case_register.parquet",
+      "sha256": "5788e87f07beccbcfd0100a1dfc889460ed4cb266262595d7eec7e40b71bcbf6"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/cohort_overlap.csv",
+      "destination": "artifacts/dispute_case_workflow/cohort_overlap.csv",
+      "sha256": "44c2a5b412f767b004139c833284dc2ec7a973cc59adcbc854b2563e7d66fecd"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/complaint_candidate_counts.parquet",
+      "destination": "artifacts/dispute_case_workflow/complaint_candidate_counts.parquet",
+      "sha256": "75923d94df49037202468afcbc3728357b21ee4a622f0b01dc86dae3ae2eefb0"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/complaint_transaction_window_summary.csv",
+      "destination": "artifacts/dispute_case_workflow/complaint_transaction_window_summary.csv",
+      "sha256": "30323cf90c52009f8860c66309194f56672277521adc9b65e4ed1f55ed79a935"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/digital_context_distributions.csv",
+      "destination": "artifacts/dispute_case_workflow/digital_context_distributions.csv",
+      "sha256": "66785ccd63202f3abffa7c957f55e940fbd6bd761f34d1fecdc9dbcf19d0a212"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/digital_context_feasibility.csv",
+      "destination": "artifacts/dispute_case_workflow/digital_context_feasibility.csv",
+      "sha256": "f408ea1273d9b18b887e011256cdc9add0f53a2a384ead749c0d1bc18dcca4a7"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/digital_event_value_availability.csv",
+      "destination": "artifacts/dispute_case_workflow/digital_event_value_availability.csv",
+      "sha256": "47cb9a455848a6a62604f0df3ebea23e56cd9a8399827daa113abdabb91326c4"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/evidence_bundle_summary.csv",
+      "destination": "artifacts/dispute_case_workflow/evidence_bundle_summary.csv",
+      "sha256": "2aa2ae5612a28b4538173e0d36993433653bfe2571fd618f2d1a7be8e6ede4d4"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/execution_status.json",
+      "destination": "artifacts/dispute_case_workflow/execution_status.json",
+      "sha256": "91288eb31a9f7362573b80a68a32a6afa4a02ad7c8bcbd9c43e8d95b535e573a"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/fraud_amount_without_score_by_currency.csv",
+      "destination": "artifacts/dispute_case_workflow/fraud_amount_without_score_by_currency.csv",
+      "sha256": "fb294edb531133753347217a3a29123b5eb5ea8e0d91a9576d5962bba283aebf"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/fraud_prior_behavior_without_score.csv",
+      "destination": "artifacts/dispute_case_workflow/fraud_prior_behavior_without_score.csv",
+      "sha256": "c78b3b541f6b556caa208a25975d33df4b4e21111b825e933e4484291157ae4c"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/fraud_signal_without_score.csv",
+      "destination": "artifacts/dispute_case_workflow/fraud_signal_without_score.csv",
+      "sha256": "208151562076a9eb6b2d47b46dcb59d57f63d96fddd81c70e9884a3c1c51b93e"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/integrity.json",
+      "destination": "artifacts/dispute_case_workflow/integrity.json",
+      "sha256": "4f7c3db775cdacb289d95f87dbbb5d7e9d9176c142966ba4dbb54b34df76041a"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/mvp_scope_assessment.csv",
+      "destination": "artifacts/dispute_case_workflow/mvp_scope_assessment.csv",
+      "sha256": "1ddd973b2f1a9f51f471240639c27fe47ff4e2fac52a425e5cd16772fbe6e70f"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/non_score_fraud_rate_ranges.csv",
+      "destination": "artifacts/dispute_case_workflow/non_score_fraud_rate_ranges.csv",
+      "sha256": "681bd2964ca9f81efa435c5023fc6ddb984ec0d2633f6082fa2126235adf2c26"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/population_cutoff_audit.csv",
+      "destination": "artifacts/dispute_case_workflow/population_cutoff_audit.csv",
+      "sha256": "0f020a92086b2cac86e7adfe187bcd67262b6343dad2a627e41c57a5888ab51c"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/proposed_case_state_machine.csv",
+      "destination": "artifacts/dispute_case_workflow/proposed_case_state_machine.csv",
+      "sha256": "8c52ddbec2d9ba334eb1204c1b77d549a5a9928a041067715100cdd926a674bb"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/proposed_case_state_machine.json",
+      "destination": "artifacts/dispute_case_workflow/proposed_case_state_machine.json",
+      "sha256": "a990bd627f544d12382ebd6165ddb711fcca5f6e94bffa6e6a499c77e31a1e14"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/retrieval_population.csv",
+      "destination": "artifacts/dispute_case_workflow/retrieval_population.csv",
+      "sha256": "da4783eeef9f002e4d304c6b1756875e6a6e01cf854a1afb6128caeb4d2385ad"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/service_interaction_proximity.csv",
+      "destination": "artifacts/dispute_case_workflow/service_interaction_proximity.csv",
+      "sha256": "7b9db291a1811b6e10e75764d026ebed068808d3ff25f2d16613dbdf87769c1b"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/service_proximity_distributions.csv",
+      "destination": "artifacts/dispute_case_workflow/service_proximity_distributions.csv",
+      "sha256": "b8b1fb9a7532379f02c8fbbb372abdf367497d391548d25aa9c391ce71146bbb"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/temporal_candidate_distribution.csv",
+      "destination": "artifacts/dispute_case_workflow/temporal_candidate_distribution.csv",
+      "sha256": "53c191c35fa787a4123dfdb57ff2cffcd45f14a8f05ddb6da1de118f7807c3d5"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/transcript_feasibility.csv",
+      "destination": "artifacts/dispute_case_workflow/transcript_feasibility.csv",
+      "sha256": "d29cb06ca8a663fea17ab2f4f98438bce621787a39b46cf4d611236146a11044"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/transcript_metadata_feasibility.csv",
+      "destination": "artifacts/dispute_case_workflow/transcript_metadata_feasibility.csv",
+      "sha256": "bac745e863523bb94daf5e26d1c16d8659b262269935c023acd16678c93f316a"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/transcript_selection_comparison.csv",
+      "destination": "artifacts/dispute_case_workflow/transcript_selection_comparison.csv",
+      "sha256": "d3fa6531c720d1054af062a9d22ef2be93c05c92aeebfa27508566eedb1318b3"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/validation_checks.json",
+      "destination": "artifacts/dispute_case_workflow/validation_checks.json",
+      "sha256": "2af030dfd587d54537bc11d7b3fc732318d52c96f58304ae0cf879dba133fc68"
+    },
+    {
+      "source": "artifacts/dispute_case_workflow/workflow_responsibility_matrix.csv",
+      "destination": "artifacts/dispute_case_workflow/workflow_responsibility_matrix.csv",
+      "sha256": "7f9a7a212c4545952279a90b311f804a66d95ee329f12ebea4f180c1ea3715aa"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/README.md",
+      "destination": "artifacts/eda_transaction_dispute/README.md",
+      "sha256": "6e96ea0f1e64173acfd2db610948432127434c8b98461409fdd2e214880ec121"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/analysis_context.json",
+      "destination": "artifacts/eda_transaction_dispute/analysis_context.json",
+      "sha256": "7b039bae816a505f8f673e1c16d0df584c8e672f7a28a208bbc8a57d457b74d2"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/claimed_amount_by_currency.csv",
+      "destination": "artifacts/eda_transaction_dispute/claimed_amount_by_currency.csv",
+      "sha256": "2f4cc91e29f78e6c00cf35f38d72d6f2bed949d140438f6da9753700df3d1016"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/claimed_amount_checks_case_type.csv",
+      "destination": "artifacts/eda_transaction_dispute/claimed_amount_checks_case_type.csv",
+      "sha256": "e4f5d0b4e0946e92ae4c54312cc8587a1351bdde9f276b319c40aed40989496b"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/claimed_amount_checks_category.csv",
+      "destination": "artifacts/eda_transaction_dispute/claimed_amount_checks_category.csv",
+      "sha256": "4c8253421a9356190b4eddc13a05e9ce9ebd129121bc262fa3c71e50cd8f7cd7"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/claimed_amount_checks_currency.csv",
+      "destination": "artifacts/eda_transaction_dispute/claimed_amount_checks_currency.csv",
+      "sha256": "98ac62aa82033f4ba9e8112efba5ab198092801505e911661d980bab36c5d5f5"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/claimed_amount_checks_overall.csv",
+      "destination": "artifacts/eda_transaction_dispute/claimed_amount_checks_overall.csv",
+      "sha256": "79abd8000c17134dde6212b22e290d1ba4f4a16b32df426c5315cbe70af7ac26"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/claimed_amount_checks_subcategory.csv",
+      "destination": "artifacts/eda_transaction_dispute/claimed_amount_checks_subcategory.csv",
+      "sha256": "96354b4b4d082d6d70b981cd69f6accea6e576eeae143f45ebb4f419ab5f1906"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/claimed_amount_upper_tail_by_currency.csv",
+      "destination": "artifacts/eda_transaction_dispute/claimed_amount_upper_tail_by_currency.csv",
+      "sha256": "e973531b271d4431fca0f4f012e6bb3d362daa32e86b48d06097066e9d3c605b"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/compensation_by_currency_status.csv",
+      "destination": "artifacts/eda_transaction_dispute/compensation_by_currency_status.csv",
+      "sha256": "e99e89e6198710cba5aa5ab2df839af4e5cd6e15a72d100984dfaf46474bf211"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_case_category.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_case_category.csv",
+      "sha256": "9b83a9022cbabcfba2c71937ae6f80536d19d565a93aaea9442177b19459c910"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_category_subcategory.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_category_subcategory.csv",
+      "sha256": "dfe7041d03c97b9af5be807273977d9d466722c8f53b7d3a922ab82bcd548e2e"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_claimed_amount_coverage.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_claimed_amount_coverage.csv",
+      "sha256": "70fcd4716e0a21b2c6fe9b4f80f3fbddff4fd16d37b3d76937dd0b3b8b82abbe"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_outcome_coverage.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_outcome_coverage.csv",
+      "sha256": "113ad575379531cda62c369a1089334d85f449100e192b02970ecf1176bc01ae"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_outcome_cutoff_audit.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_outcome_cutoff_audit.csv",
+      "sha256": "37d825c52d41efb93ca19dbf7120b8d70a8446b1dca4aef0bf191c4408828fac"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_outcome_distributions.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_outcome_distributions.csv",
+      "sha256": "5f112f890f133484e2f1c029c2ff0ee5ff3798b09076423e9b8e48444b78c555"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_resolution_days_by_status.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_resolution_days_by_status.csv",
+      "sha256": "bdae26ce62d877a773186423312c71f14b616b321c4b3963b904c5bd89eccc2e"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/complaint_taxonomy.csv",
+      "destination": "artifacts/eda_transaction_dispute/complaint_taxonomy.csv",
+      "sha256": "f802e289efd3ffd5650b785e756690bbabbc8be488874eb125415943e28d5bf2"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/execution_status.json",
+      "destination": "artifacts/eda_transaction_dispute/execution_status.json",
+      "sha256": "3601812e804bf08fa8814a01cde7416a398fe09494ca5db6f9318c6782d97684"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_by_channel.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_by_channel.csv",
+      "sha256": "ffde7e9c4a4b037515745f3cfffe71c4d683b0d41e1817e34f159e3908f78b25"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_by_currency.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_by_currency.csv",
+      "sha256": "b2407b93c5c3aab36713ef84c14bbcf1d8725d6a16dfec0e30735bdea2c0b2ed"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_by_merchant_category.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_by_merchant_category.csv",
+      "sha256": "be647143eb2285b321c8343b9057ae284fd5f01ebd76e66ce07dd517cc0c6988"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_by_transaction_category.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_by_transaction_category.csv",
+      "sha256": "36b1765088976f5b653547ae6dc7a82bb997557b4a2e1dca14243bb1b6ea8733"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_by_transaction_country.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_by_transaction_country.csv",
+      "sha256": "6ec718de2d61e3228eff0423f5087a842d2cb97841cd301fe494f5e7e833cb1c"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_by_transaction_status.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_by_transaction_status.csv",
+      "sha256": "cf2992043c23a9e56ce8f15b502675eee99f6e2b13c3968b9484f07f7f21a964"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_by_transaction_type.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_by_transaction_type.csv",
+      "sha256": "dad207a691bad653b94eb6a28dd94904840e179aefd076f8154b75eac788893e"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_label_summary.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_label_summary.csv",
+      "sha256": "57f95cd1c427e5671968a3fda308aed895b506db5042d5846576594347f98b24"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_label_tokens.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_label_tokens.csv",
+      "sha256": "2ccc0f00674d43e57efd8acffc1b3cc8df5772c7b66d719c419e428f24f55f7e"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_score_buckets.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_score_buckets.csv",
+      "sha256": "3127798525b91eecfb9ee4f04e2a2a180cbe7eaf1b54351f199ecb79178540af"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_score_by_channel.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_score_by_channel.csv",
+      "sha256": "a408053bfa1058401b29d92330302f321b863dfb71dafe5403a3414c8f255105"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_score_by_label_state.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_score_by_label_state.csv",
+      "sha256": "0f9587065a659e11db0da627637bbfaf8a0411a908903c28d68267563fd6728d"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_score_by_transaction_status.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_score_by_transaction_status.csv",
+      "sha256": "8cf40581d121e197f785d83170b59dbc5b9fed15186cae92d5110cefee92d955"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_score_by_transaction_type.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_score_by_transaction_type.csv",
+      "sha256": "222d0dc801b2f1dffdf84bc7ed858c1cdcd092a1b190999ad2d06cdc3843c28e"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/fraud_segment_rate_ranges.csv",
+      "destination": "artifacts/eda_transaction_dispute/fraud_segment_rate_ranges.csv",
+      "sha256": "93240db447b62598886021aefcb3aabef3561045e8d80c7962e70fc73fc7925b"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/integrity.json",
+      "destination": "artifacts/eda_transaction_dispute/integrity.json",
+      "sha256": "04494a98ae4c29e09d2e348e779c3b35243f50813565f95365c149aaccb72612"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/population_cutoff_audit.csv",
+      "destination": "artifacts/eda_transaction_dispute/population_cutoff_audit.csv",
+      "sha256": "a7f79be2f333c960a33090c4c8761e4b512eba3b7342458de4c2ce5d577dcaa8"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/potential_label_coverage.csv",
+      "destination": "artifacts/eda_transaction_dispute/potential_label_coverage.csv",
+      "sha256": "833d3026980b322292646040fb2e08db9b0d2506777e177197ae8c2bb985f2e7"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/potential_label_distributions.csv",
+      "destination": "artifacts/eda_transaction_dispute/potential_label_distributions.csv",
+      "sha256": "aa03d1d68503de1684b47889139cf70d22825e30b7ae7d661eed1a0df70adb39"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/potential_labels_assessment.csv",
+      "destination": "artifacts/eda_transaction_dispute/potential_labels_assessment.csv",
+      "sha256": "6b52806dc5077dd1826b08e195164cbd47347ae898c0dcc193141259c8a9531f"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/potential_transaction_taxonomy_amount.csv",
+      "destination": "artifacts/eda_transaction_dispute/potential_transaction_taxonomy_amount.csv",
+      "sha256": "edb2948c162aa5b4dae48b00566853e7ce959517e75cb718444d2b60dded5a55"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/requested_themes_taxonomy_evidence.csv",
+      "destination": "artifacts/eda_transaction_dispute/requested_themes_taxonomy_evidence.csv",
+      "sha256": "6e08c0af686424e23a3c94e069467da172619819c89c03aa6f78c4134ec573a6"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/response_code_associations.csv",
+      "destination": "artifacts/eda_transaction_dispute/response_code_associations.csv",
+      "sha256": "9dd7f65b9adcef308ea09eff00d9f57d26c0b1ffbec5fef96e9b3ad32d8a369a"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/status_by_channel.csv",
+      "destination": "artifacts/eda_transaction_dispute/status_by_channel.csv",
+      "sha256": "a1b1d7f01d918e0d4f0a20cb1e255ab1cfb070f3a172127a6dc93caa4dd54765"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/status_by_response_code.csv",
+      "destination": "artifacts/eda_transaction_dispute/status_by_response_code.csv",
+      "sha256": "9eb74efb112b19395a2b906d86d816243b06ac89f787c5ddd1bf7ebb68cbb1f8"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/status_by_transaction_type.csv",
+      "destination": "artifacts/eda_transaction_dispute/status_by_transaction_type.csv",
+      "sha256": "e386a8ddebc6196ba6c04a9985eb9c8d27aabeb96f5c419a48e82427970de4d2"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/taxonomy_relevance_annotations.csv",
+      "destination": "artifacts/eda_transaction_dispute/taxonomy_relevance_annotations.csv",
+      "sha256": "26c0feb59810ddde069c7a7d3dd68d93c7ceef4195f597b2a6767975d3f5ac27"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/transaction_dispute_evidence_matrix.csv",
+      "destination": "artifacts/eda_transaction_dispute/transaction_dispute_evidence_matrix.csv",
+      "sha256": "fb3ce8119d24846d5d8196604e6223c5fa08482495aea16dc370ce4dbd544cfa"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/transaction_evidence_coverage.csv",
+      "destination": "artifacts/eda_transaction_dispute/transaction_evidence_coverage.csv",
+      "sha256": "89ebe1de3547feed9d398651db5eddd2a3d142f64b22bbc778c0df0afbb0b0fc"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/transaction_geography_coverage.csv",
+      "destination": "artifacts/eda_transaction_dispute/transaction_geography_coverage.csv",
+      "sha256": "b597d14ef391f532c358921526f12bc930544ebc1a4d211f59d227b3c2a0dc80"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/transaction_identifier_check.csv",
+      "destination": "artifacts/eda_transaction_dispute/transaction_identifier_check.csv",
+      "sha256": "0c05f36d2546f9d1ab67134b2d041a8f1bead5c14de1e78ff434d99c94be69cc"
+    },
+    {
+      "source": "artifacts/eda_transaction_dispute/validation_checks.json",
+      "destination": "artifacts/eda_transaction_dispute/validation_checks.json",
+      "sha256": "28d1fcc83dd045a94989517c3e372a942cab8bada431b0a7a92698a138021b1e"
+    },
+    {
+      "source": "artifacts/evaluation/README.md",
+      "destination": "artifacts/evaluation/README.md",
+      "sha256": "403ffd288ad0979c52c956d03b02c4fbe74b32decbeba8c341d495b8fe4a7c6b"
+    },
+    {
+      "source": "artifacts/evaluation/anchor_manifest.jsonl",
+      "destination": "artifacts/evaluation/anchor_manifest.jsonl",
+      "sha256": "0e11c383f2486c6fd6b45a281cc58354f16b77e7729be2a23a5f1f69bc300c7d"
+    },
+    {
+      "source": "artifacts/evaluation/baseline_lock.json",
+      "destination": "artifacts/evaluation/baseline_lock.json",
+      "sha256": "06e8a00277f15e2a73250968f49ee51020a72bea7e3def1386e8e8c9795a210a"
+    },
+    {
+      "source": "artifacts/evaluation/baseline_metrics.json",
+      "destination": "artifacts/evaluation/baseline_metrics.json",
+      "sha256": "c104fd15d3ba75f8e6f69a8674c92de9b7807620fda4141c2e3992f9cd42e3e1"
+    },
+    {
+      "source": "artifacts/evaluation/baseline_predictions.jsonl",
+      "destination": "artifacts/evaluation/baseline_predictions.jsonl",
+      "sha256": "7c9e3c413b90f64bdca0937f25bd6e537ec3ea836f3156595e4bcb0560f3f35b"
+    },
+    {
+      "source": "artifacts/evaluation/dispute_intake_eval.jsonl",
+      "destination": "artifacts/evaluation/dispute_intake_eval.jsonl",
+      "sha256": "fac0cfa5117fc0b878e90375564bcb6bd65a7714a8c43ae2849e4057fb26ade2"
+    },
+    {
+      "source": "artifacts/evaluation/dispute_intake_eval_es.jsonl",
+      "destination": "artifacts/evaluation/dispute_intake_eval_es.jsonl",
+      "sha256": "7c33d66f5583d4ff5e78d03e78ec8258c1a47357b574e2e9c04badd84fc41976"
+    },
+    {
+      "source": "artifacts/evaluation/dispute_intake_eval_pt.jsonl",
+      "destination": "artifacts/evaluation/dispute_intake_eval_pt.jsonl",
+      "sha256": "e0af4f82750ac9f2ab3050467ef3209cd9b3abd41d6226d1725d5f4be0f294bc"
+    },
+    {
+      "source": "artifacts/evaluation/eval_manifest.json",
+      "destination": "artifacts/evaluation/eval_manifest.json",
+      "sha256": "88d232db3f44356ef1e432f159052347e7669cbd712de786e37bdc42792e4e89"
+    },
+    {
+      "source": "artifacts/evaluation/execution_status.json",
+      "destination": "artifacts/evaluation/execution_status.json",
+      "sha256": "b46fa2ca91a021332ba77a444b303e3354a2d44ff7f4522301c07e8eeec960ea"
+    },
+    {
+      "source": "artifacts/evaluation/future_llm_evaluation_contract.json",
+      "destination": "artifacts/evaluation/future_llm_evaluation_contract.json",
+      "sha256": "723d5d05104b64b286682dd5f996aae8d7ffae9041f3cc94f499dc21b4dd0f36"
+    },
+    {
+      "source": "artifacts/evaluation/handoff_fixture_results.json",
+      "destination": "artifacts/evaluation/handoff_fixture_results.json",
+      "sha256": "80562e88fdc8c6cf2ebd50a1dab83ecfbde941090fec2248044e3573ae514072"
+    },
+    {
+      "source": "artifacts/evaluation/handoff_rubric.json",
+      "destination": "artifacts/evaluation/handoff_rubric.json",
+      "sha256": "d6036e3b62b359edca6a36abcb1589ccfb58595e65d84d2cdc32e1f2da941611"
+    },
+    {
+      "source": "artifacts/evaluation/intake_output.schema.json",
+      "destination": "artifacts/evaluation/intake_output.schema.json",
+      "sha256": "176fe909d5d55ab0764f3245d4b2a1724c54d96dc199947c7dbd62500c54b961"
+    },
+    {
+      "source": "artifacts/evaluation/integrity.json",
+      "destination": "artifacts/evaluation/integrity.json",
+      "sha256": "ac13c98a2f8e39c00c7db4beba91ede733f27dc91f096ff14ac679f5f8a8b120"
+    },
+    {
+      "source": "artifacts/evaluation/retrieval_fixtures.jsonl",
+      "destination": "artifacts/evaluation/retrieval_fixtures.jsonl",
+      "sha256": "744ed9952ae2d67a302033c12d305c9d974d42667b274860f2613bc159a360ee"
+    },
+    {
+      "source": "artifacts/evaluation/retrieval_predictions.jsonl",
+      "destination": "artifacts/evaluation/retrieval_predictions.jsonl",
+      "sha256": "39ea898114f76ca7462500df7793f9d792d21faedd40c5d3f47ecd9667c2a13a"
+    },
+    {
+      "source": "artifacts/evaluation/safety_contract_status.json",
+      "destination": "artifacts/evaluation/safety_contract_status.json",
+      "sha256": "5c7c4c60f24fb29324f9471d269d2e176f4305c46ffab67f93493f2ccaa0eded"
+    },
+    {
+      "source": "artifacts/evaluation/safety_fixtures.jsonl",
+      "destination": "artifacts/evaluation/safety_fixtures.jsonl",
+      "sha256": "e686adcc150e252adfabf0e2230da5d071a6e23c05df60a6c5a53510d3dbff1a"
+    },
+    {
+      "source": "artifacts/mvp_definition/data_contracts.json",
+      "destination": "artifacts/mvp_definition/data_contracts.json",
+      "sha256": "3f53c720869bd4cbecf510f823236f79ada70763c113c8c9f080bab7ce928bc9"
+    },
+    {
+      "source": "artifacts/mvp_definition/frozen_mvp_contract.json",
+      "destination": "artifacts/mvp_definition/frozen_mvp_contract.json",
+      "sha256": "603751890965da79c08315cabf0e338e0b8853a808632e9a4cdca522cb94c7db"
+    },
+    {
+      "source": "artifacts/mvp_definition/source_language_coverage.json",
+      "destination": "artifacts/mvp_definition/source_language_coverage.json",
+      "sha256": "5e1a862f54f4d4eb126b1dbac5c8f21b6608110b6b64e0d0ecdd3d1e2aeaf005"
+    },
+    {
+      "source": "scripts/build_dispute_addendum.py",
+      "destination": "scripts/build_dispute_addendum.py",
+      "sha256": "650040f257ec3811f72e6f06cd3d0c5ffb76245ae243918ffb4c003ba90fc9f6"
+    },
+    {
+      "source": "scripts/build_dispute_workflow.py",
+      "destination": "scripts/build_dispute_workflow.py",
+      "sha256": "9a72549f04cdfd60d6a05760f4fe0e80eef3a5abe91baf0f6eeaa380b8c89a3a"
+    },
+    {
+      "source": "scripts/build_eda.py",
+      "destination": "scripts/build_eda.py",
+      "sha256": "c762d1e7f9013c992e4dbebbff785d43dc6ddafffce20f0b00b9d9ea51fe3bb3"
+    },
+    {
+      "source": "scripts/build_eda_notebook.py",
+      "destination": "scripts/build_eda_notebook.py",
+      "sha256": "4e86f415027c70b3a9cb3b6d0154f9d9b71ebb93aed6bab6944375c40339cdfc"
+    },
+    {
+      "source": "scripts/build_mvp_and_eval.py",
+      "destination": "scripts/build_mvp_and_eval.py",
+      "sha256": "caa5205cbd03be4c023905e97828d1f7b7331e3c9631eda354a2156d1cb7605a"
+    },
+    {
+      "source": "scripts/run_dispute_addendum.py",
+      "destination": "scripts/run_dispute_addendum.py",
+      "sha256": "f27b2ebd163b303086c284146c7996ea76d7774d620c99940c4c999d054f5d6f"
+    },
+    {
+      "source": "scripts/run_dispute_workflow.py",
+      "destination": "scripts/run_dispute_workflow.py",
+      "sha256": "be82019b87ed74a0df557451eb0924c03eb76abbe78de8b02ef965b9e4a95e42"
+    },
+    {
+      "source": "scripts/run_eda_notebook.py",
+      "destination": "scripts/run_eda_notebook.py",
+      "sha256": "8544e3d0e5e983010f833b6542e41e8596df3f7aef8f3dea7665343c158863fa"
+    },
+    {
+      "source": "scripts/run_mvp_and_eval.py",
+      "destination": "scripts/run_mvp_and_eval.py",
+      "sha256": "0243a0bad0e7987046c51966fbf8ca4e0999ec818e0d29380c34350d8b70082d"
+    },
+    {
+      "source": "scripts/run_notebooks.py",
+      "destination": "scripts/run_notebooks.py",
+      "sha256": "858b4acd73ef5acea1892cb9228955db34bf8377c429c14db84d69452aa45e81"
+    },
+    {
+      "source": "src/config.py",
+      "destination": "src/config.py",
+      "sha256": "3a8bf643adbbfc9840aa8d4b6fa0b79c6c0aa6ac6add829e2e6b8164a3ec285f"
+    },
+    {
+      "source": "src/data_utils.py",
+      "destination": "src/data_utils.py",
+      "sha256": "2ee53e7ad3b0be3a298715e6fee0b1abd37fafb85461e16a2666ea93dae9aa20"
+    },
+    {
+      "source": "src/dispute_eda.py",
+      "destination": "src/dispute_eda.py",
+      "sha256": "e23455ccaeffb2c60d0715d7303428f58290acac49d7244ddecbd936355b24bf"
+    },
+    {
+      "source": "src/dispute_reporting.py",
+      "destination": "src/dispute_reporting.py",
+      "sha256": "b27585b86c17bcff93888b17a0a79e935c410d90137c0085b0fe1663c9bb4f5c"
+    },
+    {
+      "source": "src/dispute_workflow_context.py",
+      "destination": "src/dispute_workflow_context.py",
+      "sha256": "746f755e5eaac2bc377e3ddaa617a495c738c65560d7fedce05c49b8077e6fa7"
+    },
+    {
+      "source": "src/dispute_workflow_data.py",
+      "destination": "src/dispute_workflow_data.py",
+      "sha256": "151773d27758b21656c3bfd2ed433a4e0c793395cac79233dd286edf680af6a6"
+    },
+    {
+      "source": "src/dispute_workflow_design.py",
+      "destination": "src/dispute_workflow_design.py",
+      "sha256": "2242e83144f81d11f31442d620b3bcf74bfb72cca49b63bee73a55e26c7981b6"
+    },
+    {
+      "source": "src/eda_core.py",
+      "destination": "src/eda_core.py",
+      "sha256": "a10ed1d0bd2707e0515ce105763b098e03928b66cc19e7891987b3e8ab11cffb"
+    },
+    {
+      "source": "src/eda_domains.py",
+      "destination": "src/eda_domains.py",
+      "sha256": "5867e1f88a767eea28557fbd1730614a53d196509de5245f5ee32f73886fce3c"
+    },
+    {
+      "source": "src/eda_outputs.py",
+      "destination": "src/eda_outputs.py",
+      "sha256": "f3541f4c92526cbec8bcf5d745b89dc09172a95793bb9c12f3603da44d34fd62"
+    },
+    {
+      "source": "src/eda_readiness.py",
+      "destination": "src/eda_readiness.py",
+      "sha256": "2bcfebdc44c156455f74b90ce5a503249eeea4f334a5997e87740cdb64ea658b"
+    },
+    {
+      "source": "src/eda_utils.py",
+      "destination": "src/eda_utils.py",
+      "sha256": "592af82a433430fb61ea2fdce7ecc0f01a83a8cb8a3eeaa6fee99f9d1ddf5dd9"
+    },
+    {
+      "source": "src/evaluation/__init__.py",
+      "destination": "src/evaluation/__init__.py",
+      "sha256": "6c9c0d639ce0c4e98a6d05b6d92fcdba24970bb6399ecaab2e265d75c9ce0b1f"
+    },
+    {
+      "source": "src/evaluation/baseline_intake_parser.py",
+      "destination": "src/evaluation/baseline_intake_parser.py",
+      "sha256": "bb4378445725149e2c48e18f7db2e82bb7591188c36dda303f61ea9f09a1520f"
+    },
+    {
+      "source": "src/evaluation/dataset.py",
+      "destination": "src/evaluation/dataset.py",
+      "sha256": "d2d81aaea2b627956302817d5bbfab5fa61baa8d42063dbaa0744f0694d072f8"
+    },
+    {
+      "source": "src/evaluation/metrics.py",
+      "destination": "src/evaluation/metrics.py",
+      "sha256": "e84a67c52ba4d7db158359d3d301329a407206eed1cef42d3fc06f2f788ae6ac"
+    },
+    {
+      "source": "src/evaluation/run_baseline.py",
+      "destination": "src/evaluation/run_baseline.py",
+      "sha256": "db1b40b90a118bec12b61b4b71b2840d1a20a59cd86e6e9bba6579c624c2c5c3"
+    },
+    {
+      "source": "src/mvp_definition.py",
+      "destination": "src/mvp_definition.py",
+      "sha256": "759f4fa5faf21a9bfa05d4a34e4cb2eb0783d5762e7562d47b5a2329c09675eb"
+    },
+    {
+      "source": "src/profiling_utils.py",
+      "destination": "src/profiling_utils.py",
+      "sha256": "208dea9cc5bd197f1e5d466fd263014089937eb6c5ab192cd39201b5e47b621e"
+    },
+    {
+      "source": "src/reporting.py",
+      "destination": "src/reporting.py",
+      "sha256": "9ab4a39d37ae5591f3788051723294fde4c37ada79956809c758c7bae1fc8eca"
+    },
+    {
+      "source": "tests/test_dispute_addendum.py",
+      "destination": "tests/test_dispute_addendum.py",
+      "sha256": "be7b27e0e22f15767d2cbc2e5d6aacd79488d7eb935057ef42682a64ab9119ec"
+    },
+    {
+      "source": "tests/test_dispute_workflow.py",
+      "destination": "tests/test_dispute_workflow.py",
+      "sha256": "bfdeae04597633ff102d7eda323e2bf2e10b68ad584bac953ec25dd57e8de4e6"
+    },
+    {
+      "source": "tests/test_intake_evaluation.py",
+      "destination": "tests/test_intake_evaluation.py",
+      "sha256": "aa8b9984cdbbcff1edf72b5d2b4d434701e369250bfd14db7b15e9b0b568bad9"
+    },
+    {
+      "source": "tests/test_profiling.py",
+      "destination": "tests/test_profiling.py",
+      "sha256": "cced0d6184a6a93f1dbb4b6c035d5df1ddf8c26e21084a228e05fa496db43f48"
+    },
+    {
+      "source": "AGENTS.md",
+      "destination": "AGENTS.md",
+      "sha256": "474715b0bb84044eed5a71a8c82bea65981882e0afca553c2fcd602409e46cb2"
+    },
+    {
+      "source": "requirements.txt",
+      "destination": "requirements-analytics.txt",
+      "sha256": "68e683905fede7e49e1e0fa3beb637efa99f7fea4be07d075a4d090e354dd4fe"
+    },
+    {
+      "source": "README.md",
+      "destination": "docs/ANALYTICS_ORIGINAL_README.md",
+      "sha256": "09d646df42fb18773dab907af443a0bdbed1fa07d041877bf605fd189460b000"
+    }
+  ],
+  "raw_files_stat_checked": 7671,
+  "dataset_link": "../BankingCustomerServiceSystem/dataset",
+  "raw_copied": false,
+  "cache_copied": false,
+  "note": "Original notebooks and manifests retain historical provenance; no analyses rerun."
+}

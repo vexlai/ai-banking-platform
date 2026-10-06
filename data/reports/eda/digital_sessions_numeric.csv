@@ -1,0 +1,4 @@
+dataset,variable,rows,valid,invalid_numeric,minimum,maximum,mean,median,p90,p95,p99
+eda_sessions,events,1837415,1837415,0,2.0,15.0,8.501614496452897,9.0,14.0,15.0,15.0
+eda_sessions,observed_span_seconds,1837415,1837415,0,5.0,699.0,243.83485603415667,240.0,433.0,470.0,532.0
+eda_sessions,identified_customers,1837415,1837415,0,0.0,1.0,0.8002389226168285,1.0,1.0,1.0,1.0

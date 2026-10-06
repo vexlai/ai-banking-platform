@@ -3,7 +3,7 @@
 import csv
 import json
 
-from src.data.config import ROOT
+from src.data.config import REPORTS_DIR
 from src.data.eda.dispute_eda import ART, REPORT, save, log
 
 
@@ -187,7 +187,7 @@ def validate_artifacts():
         json.dumps({"passed": len(checks), "failed": 0, "checks": checks}, indent=2)
         + "\n"
     )
-    log(f"Validaciones de artefactos: {len(checks)} correctas")
+    log(f"Artifact validations: {len(checks)} passed")
     return len(checks)
 
 
@@ -230,11 +230,11 @@ def build_report(context):
     def ov(field):
         return pct(outcome[field]["coverage_pct"])
 
-    with (ROOT / "reports/eda/transcript_coverage.csv").open() as f:
+    with (REPORTS_DIR / "eda" / "transcript_coverage.csv").open() as f:
         transcripts = next(csv.DictReader(f))
-    with (ROOT / "reports/eda/semantic_validation.csv").open() as f:
+    with (REPORTS_DIR / "eda" / "semantic_validation.csv").open() as f:
         semantic = list(csv.DictReader(f))
-    with (ROOT / "reports/eda/digital_coverage.csv").open() as f:
+    with (REPORTS_DIR / "eda" / "digital_coverage.csv").open() as f:
         digital = next(csv.DictReader(f))
     matrix_rows = [
         (
@@ -621,6 +621,6 @@ were implemented in this task.
         encoding="utf-8",
     )
     log(
-        "10. Matriz y reporte generados: GO WITH CONSTRAINTS para discovery, no adjudicación"
+        "10. Matrix and report generated: GO WITH CONSTRAINTS for discovery, not adjudication"
     )
     return report

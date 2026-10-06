@@ -1,0 +1,8 @@
+dimension,lowest_group,lowest_rate_pct,lowest_records,highest_group,highest_rate_pct,highest_records
+transaction_status,Reversed,0.08045,44750,Approved,0.09792,4070681
+transaction_type,Transfer,0.08902,896438,Adjustment,0.10899,132118
+transaction_category,Transport,0.09335,260316,Health,0.10683,173173
+channel,POS,0.09476,1548161,Branch,0.10793,132495
+transaction_country,Colombia,0.0929,1289503,Mexico,0.12341,40515
+currency,COP,0.09335,1194444,ARS,0.0993,792585
+merchant_category,Services,0.09555,205124,Health,0.10787,102903

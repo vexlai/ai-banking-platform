@@ -1,0 +1,7 @@
+dataset,total,processed_before_day,processed_same_day,processed_after_day,potential_late_over_1d,min_lag_days,max_lag_days,median_lag_days,p95_lag_days,nominal_median_hours
+transactions,4425008,1106307,3318701,0,0,-1,0,0.0,0.0,-18.003055555555555
+digital_events,15620994,3930816,11690178,0,0,-1,0,0.0,0.0,-18.045833333333334
+call_center_interactions,686296,228318,457978,0,0,-1,0,0.0,0.0,-19.98236111111111
+complaints,67095,22585,44510,0,0,-1,0,0.0,0.0,-20.088055555555556
+satisfaction_surveys,212759,169092,43667,0,0,-2,0,-1.0,0.0,-32.477777777777774
+campaign_sends,1746801,436429,1310372,0,0,-1,0,0.0,0.0,-17.990833333333335

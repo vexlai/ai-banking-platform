@@ -1,0 +1,4 @@
+observed_category,observed_subcategory,interpretation,limitation
+Transactions,Cargo no reconocido,Candidate transaction dispute / unauthorized charge signal,Recorded taxonomy only; not proof of unauthorized payment or a final cohort
+Fees,Cobro indebido,Candidate incorrect charge / fee dispute signal,May concern fees rather than a specific transaction; no matching attempted
+Transactions,,Broad transaction-related record; subtype unknown,"Missing subcategory preserved; no inference of payment, transfer or ATM dispute"

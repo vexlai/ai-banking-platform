@@ -1,0 +1,19 @@
+{
+  "required_fields": [
+    "user_request",
+    "authenticated_identity_reference",
+    "selected_transaction_or_candidates",
+    "verified_facts",
+    "evidence_references",
+    "actions_taken",
+    "missing_evidence",
+    "unresolved_questions",
+    "guard_results",
+    "state",
+    "as_of_time"
+  ],
+  "completeness": "present nonnull required sections / required sections",
+  "unsupported_claim": "structured fact lacks an equal field/value in its referenced evidence",
+  "evidence_reference_validity": "references found / supplied references; undefined if no references",
+  "limitations": "Presence does not prove meaningful content; prose entailment/policy meaning require human review; no LLM judge"
+}

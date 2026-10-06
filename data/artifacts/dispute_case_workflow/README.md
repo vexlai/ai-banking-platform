@@ -1,0 +1,44 @@
+# Dispute case workflow discovery
+
+All links are candidates/inferred, never true dispute matches. Percentages name their denominators; null CSV cells are unknown, not zero. Currencies remain separate; source response codes are strings. Cohort B is nested in A. Pair-grain bundles can include retrospective future candidates: filter candidate_exists_by_intake and require explicit selection for any future intake use. Event-time ordering does not prove ingestion-time availability.
+
+- amount_currency_candidate_matching.csv
+- analysis_context.json
+- behavioral_feature_feasibility.csv
+- candidate_behavioral_context.parquet
+- candidate_cohort_definitions.csv
+- candidate_cohort_distributions.csv
+- candidate_currency_support.csv
+- candidate_dispute_cohorts.csv
+- candidate_rule_comparison.csv
+- candidate_rules_common_eligibility.csv
+- candidate_transaction_characteristics.csv
+- case_archetypes.csv
+- case_evidence_bundles.parquet
+- case_register.parquet
+- cohort_overlap.csv
+- complaint_candidate_counts.parquet
+- complaint_transaction_window_summary.csv
+- digital_context_distributions.csv
+- digital_context_feasibility.csv
+- digital_event_value_availability.csv
+- evidence_bundle_summary.csv
+- execution_status.json
+- fraud_amount_without_score_by_currency.csv
+- fraud_prior_behavior_without_score.csv
+- fraud_signal_without_score.csv
+- integrity.json
+- mvp_scope_assessment.csv
+- non_score_fraud_rate_ranges.csv
+- population_cutoff_audit.csv
+- proposed_case_state_machine.csv
+- proposed_case_state_machine.json
+- retrieval_population.csv
+- service_interaction_proximity.csv
+- service_proximity_distributions.csv
+- temporal_candidate_distribution.csv
+- transcript_feasibility.csv
+- transcript_metadata_feasibility.csv
+- transcript_selection_comparison.csv
+- validation_checks.json
+- workflow_responsibility_matrix.csv

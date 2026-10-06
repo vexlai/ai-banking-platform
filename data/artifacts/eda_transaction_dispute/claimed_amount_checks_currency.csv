@@ -1,0 +1,6 @@
+group_value,records,null_amount,invalid_amount,zero_amount,negative_amount,amount_without_currency,currency_without_amount
+ARS,5402,270,0,0,0,0,270
+COP,5456,264,0,0,0,0,264
+MXN,5487,272,0,0,0,0,272
+USD,5431,259,0,0,0,0,259
+,45319,44279,0,0,0,1040,0

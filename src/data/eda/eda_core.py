@@ -7,11 +7,11 @@ import os
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import duckdb
-from src.data.config import ROOT
+from src.data.config import REPORTS, REPORTS_DIR, ROOT
 from src.data.data_utils import discover, ident, literal, manifest
 
-OUT = ROOT / "reports/eda"
-FIG = ROOT / "reports/figures/eda"
+OUT = REPORTS_DIR / "eda"
+FIG = REPORTS_DIR / "figures" / "eda"
 CACHE = ROOT / ".tmp/eda"
 EVENTS = {
     "transactions": "transaction_date",
@@ -97,11 +97,11 @@ def start():
     for p in (OUT, FIG, CACHE):
         p.mkdir(parents=True, exist_ok=True)
     os.environ["MPLCONFIGDIR"] = str(CACHE / "matplotlib")
-    log("Verificando SHA-256 de fuentes contra el profiling existente")
+    log("Verifying source SHA-256 against the existing profiling")
     current = manifest()
-    baseline = json.loads((ROOT / "reports/profiling/source_manifest.json").read_text())
-    assert current == baseline, "Originales distintos del manifiesto del profiling"
-    with (ROOT / "reports/profiling/datasets.csv").open() as f:
+    baseline = json.loads((REPORTS / "source_manifest.json").read_text())
+    assert current == baseline, "Sources differ from the profiling manifest"
+    with (REPORTS / "datasets.csv").open() as f:
         inventory = {r["dataset"]: r for r in csv.DictReader(f)}
     signature = hashlib.sha256(json.dumps(current, sort_keys=True).encode()).hexdigest()
     con = duckdb.connect(str(CACHE / "analysis.duckdb"))
@@ -119,10 +119,10 @@ def start():
             "SELECT signature FROM cache_info WHERE dataset=?", [ds]
         ).fetchone()
         if hit and hit[0] == key:
-            log("Cache verificada: " + ds)
+            log("Cache verified: " + ds)
             continue
         log(
-            f"Leyendo {ds}: {inventory[ds]['rows']} filas, {inventory[ds]['bytes']} bytes CSV"
+            f"Reading {ds}: {inventory[ds]['rows']} rows, {inventory[ds]['bytes']} bytes CSV"
         )
         paths = "[" + ",".join(literal(p) for p in files) + "]"
         schema = "{" + ",".join(literal(c) + ":'VARCHAR'" for c in cols) + "}"
@@ -163,7 +163,7 @@ def finish(con, ctx):
         + "\n"
     )
     con.close()
-    log("EDA completo; originales verificados SHA-256")
+    log("EDA complete; sources verified SHA-256")
 
 
 def numeric(con, table, columns, name, group=None, where="TRUE"):
