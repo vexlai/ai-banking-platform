@@ -13,7 +13,7 @@ API / orchestrator
 src/tools/context_tools.py    --> DuckDB (read-only) --> six serving views
 src/retrieval/vector_store.py --> FAISS index --------> top-k transcript matches
       |
-      +-- on any failure --> src/tools/mocks.py (deterministic fixtures)
+      +-- USE_MOCKS=true / strict=False --> src/tools/mocks.py (deterministic fixtures)
 ```
 
 - `src/tools/context_tools.py` serves the six customer-context views over the read-only
@@ -94,7 +94,7 @@ Paths are constants in `src/data/config.py` (`RAW_DATA_DIR`, `DUCKDB_PATH`,
 ## Validation
 
 ```bash
-pytest tests/                        # 54 tests, incl. test_context_tools / test_ingest / test_vector_store
+pytest tests/                        # 55 tests, incl. test_context_tools / test_ingest / test_vector_store
 ruff check . && ruff format --check .
 python evals/run_eval.py             # golden-set evaluation
 ```
@@ -112,3 +112,9 @@ for the suite.
   explicit demo assumption rather than certified bank time.
 - `open_cases` derives severity from `priority`/`severity` and treats
   `closed`/`resolved`/`cancelled`/`canceled` statuses as non-open.
+
+## See Also
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — system boundaries, deployment modes, and modularity guardrails.
+- [EDA_RUNBOOK.md](./EDA_RUNBOOK.md) — analytics runbook for the EDA notebooks.
+- [../README.md](../README.md) — quickstart, benchmark scorecard, and the docs index.
