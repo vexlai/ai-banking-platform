@@ -1,47 +1,65 @@
-# EDA — etapa 02
+# EDA Runbook
 
-El notebook notebooks/02_eda.ipynb es la entrada revisable. Ábrelo y ejecútalo desde la
-raíz del repositorio (Jupyter, JupyterLab o VS Code), por ejemplo:
+How to run and read the exploratory data analysis (EDA). The analysis lives in
+`notebooks/` and writes every output under `reports/` (**generated, not committed** —
+`.gitignore` excludes `*.parquet`, so re-run the notebooks to reproduce the artifacts).
 
-    .venv/bin/jupyter lab notebooks/02_eda.ipynb
+> Related: [ARCHITECTURE.md](./ARCHITECTURE.md) · [DATASET_BACKED_TOOLS.md](./DATASET_BACKED_TOOLS.md) · [../README.md](../README.md)
 
-No requiere ningún script auxiliar: el notebook se ejecuta completo desde su propia
-interfaz y conserva las salidas de la última ejecución.
+## Notebooks
 
-## Fuentes y rendimiento
+Run them in order from the repository root (Jupyter, JupyterLab, or VS Code); each notebook
+is self-contained and keeps the outputs of its last run.
 
-- Se reutilizan los resultados de reports/profiling. No se ejecutan 00 ni 01.
-- El manifiesto SHA-256 se verifica al inicio y al final. source_integrity.json documenta la comprobación final.
-- DuckDB usa dos hilos, 1.5 GB de memoria y proyecciones comprimidas en .tmp/eda/analysis.duckdb. La caché excluye PII/texto sin utilidad para este análisis; se invalida con cambios de fuentes o columnas.
-- Los CSV se leen con esquema VARCHAR explícito y validación estricta. No hay sampling, imputación, descarte de filas ni eliminación de outliers.
-- Las salidas pandas/matplotlib son agregados pequeños. Las tablas de eventos permanecen en DuckDB.
+| Notebook | Purpose |
+| --- | --- |
+| `00_dataset_inventory.ipynb` | Dataset inventory: tables, files, and row counts. |
+| `01_ingestion_profiling.ipynb` | Ingestion profiling: source manifest and per-dataset profiles. |
+| `02_eda.ipynb` | Cross-domain EDA — the primary reviewable notebook. |
+| `02b_transaction_dispute_eda_addendum.ipynb` | Transaction-dispute addendum to `02`. |
+| `03_dispute_case_workflow_discovery.ipynb` | Dispute case-workflow discovery. |
+| `04_mvp_use_case_definition.ipynb` | MVP use-case definition. |
+| `05_baseline_and_eval_dataset.ipynb` | Baseline and evaluation-dataset generation. |
 
-## Decisiones de interpretación
+`02_eda.ipynb` reuses the profiling results from step 01 instead of re-running `00`/`01`.
+For example:
 
-- Readiness precede al análisis descriptivo. Coincidencia de FK y coherencia de cliente/agente son comprobaciones distintas.
-- Cada dominio tiene su ventana de fechas de evento; transcripts solo tiene fecha de proceso. Los hitos posteriores de reclamos/campañas se informan por separado.
-- process_date tiene granularidad diaria. Las diferencias en horas contra medianoche son nominales y no deben interpretarse como latencia técnica.
-- Las features usan el último día de proceso compartido, inclusive. Excluyen resultados fechados después del corte y atributos snapshot de vigencia desconocida.
-- open_complaint_count queda NULL: no se reconstruye un estado histórico desde status sin fecha de vigencia. Se conserva un conteo distinto de reclamos sin resolución observada al corte.
-- CSAT, NPS y CES no se mezclan. avg_satisfaction/latest_satisfaction usan solo CSAT. Los promedios describen respuestas observadas.
-- Los NULL tras joins de agregados indican ausencia de observaciones en el dominio. No se reemplazan por cero; se añaden indicadores de presencia.
-- Los enlaces de reclamo a producto no permiten atribuir propiedad cuando customer_id discrepa; los conteos por affected_product_id describen referencias declaradas.
-- Los montos globales transaccionales usan amount_usd. amount, saldos y límites se segmentan por moneda. Moneda de income/costos/valor de conversión no documentada.
-- FX: contraste de ambas direcciones/fórmulas, fecha exacta y tolerancia max(0.02 USD, 1%). El ajuste empírico no confirma por sí solo las unidades contractuales.
-- Las asociaciones por cliente son descriptivas, condicionadas a tener observaciones en ambos dominios y sin inferencia causal.
+```bash
+.venv/bin/jupyter lab notebooks/02_eda.ipynb
+```
 
-## Resultados principales
+## Outputs (generated under `reports/`)
 
-- semantic_validation.csv y semantic_validation_examples.csv: consistencia y ejemplos seudonimizados.
-- temporal_coverage.csv, temporal_delays.csv, lifecycle_windows.csv: horizontes y coherencia temporal.
-- coverage_daily/monthly.csv, partition_day_check.csv, temporal_gaps.csv, abrupt_volume_changes.csv: cobertura y particiones.
-- transcript_coverage.csv, survey_coverage.csv y *_selection_*: denominadores y representatividad.
-- *_customer_features.parquet, customer_360_eda.parquet y feature_cardinality.csv: agregados, joins y validación de una fila por cliente.
-- cross_domain_associations.csv y cross_domain_groups.csv: asociaciones interpretables.
-- key_eda_metrics.csv: índice de métricas con fuente.
-- EDA_FINDINGS.md: hallazgos confirmados, limitaciones e hipótesis para revisar antes de 03.
-- reports/figures/eda/: cuatro figuras enfocadas en cobertura, colas financieras, duración/espera y selección.
+- `reports/profiling/` — `source_manifest.json` and `datasets.csv` (from step 01), reused by later steps.
+- `reports/eda/` — `EDA_FINDINGS.md`, `semantic_validation*.csv`, temporal/coverage tables, `*_customer_features.parquet`, `feature_cardinality.csv`, `key_eda_metrics.csv`, and `source_integrity.json`.
+- `reports/figures/eda/` — focused figures: coverage, financial tails, duration/wait, and selection.
 
-execution.log registra etapas; notebook_execution.log registra celdas. Un resultado intermedio no prueba finalización: comprobar el notebook sin errores y source_integrity.json de la ejecución final.
+## Execution notes
 
-No se implementa ni ejecuta el notebook 03.
+- The SHA-256 source manifest is verified at the start and end of the run; `source_integrity.json` records the final check.
+- DuckDB uses two threads, 1.5 GB of memory, and compressed projections in `.tmp/eda/analysis.duckdb`. The cache excludes PII/useless text and is invalidated when sources or columns change.
+- CSVs are read with an explicit `VARCHAR` schema and strict validation. No sampling, imputation, row-dropping, or outlier removal.
+- `execution.log` records stages; `notebook_execution.log` records cells. An intermediate result does not prove completion — confirm the notebook ran without errors and that `source_integrity.json` reflects the final run.
+
+## Interpretation decisions
+
+- Readiness precedes descriptive analysis. FK matches and customer/agent coherence are distinct checks.
+- Each domain has its own event-date window; transcripts carry only a process date. Post-cutoff claim/campaign milestones are reported separately.
+- `process_date` is daily-grained; hour-level offsets from midnight are nominal, not technical latency.
+- Features use the last shared process day (inclusive), excluding outcomes dated after the cutoff and snapshot attributes of unknown validity.
+- `open_complaint_count` stays `NULL`: no historical status is reconstructed without a validity date. A distinct count of complaints with no observed resolution at the cutoff is kept instead.
+- CSAT, NPS, and CES are never mixed; `avg_satisfaction`/`latest_satisfaction` use CSAT only, and averages describe observed responses.
+- `NULL`s after aggregate joins mean no observations in that domain; they are not replaced with zero but flagged with presence indicators.
+- Complaint→product links cannot attribute ownership when `customer_id` disagrees; counts by `affected_product_id` describe declared references.
+- Global transaction amounts use `amount_usd`; `amount`, balances, and limits are split by currency. Currency for income/cost/conversion value is undocumented.
+- FX: both directions/formulas are contrasted with the exact date and a tolerance of `max(0.02 USD, 1%)`. The empirical fit alone does not confirm contractual units.
+- Per-customer associations are descriptive, conditional on observations in both domains, and not causal.
+
+Notebook `03` is not implemented or executed.
+
+## See Also
+
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — system boundaries, deployment modes, and modularity guardrails.
+- [DATASET_BACKED_TOOLS.md](./DATASET_BACKED_TOOLS.md) — serving views, FAISS retrieval, and the offline build.
+- [../README.md](../README.md) — quickstart, benchmark scorecard, and the docs index.
+
