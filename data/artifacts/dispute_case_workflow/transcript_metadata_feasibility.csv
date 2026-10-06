@@ -1,0 +1,5 @@
+field,schema_status,relevant_interactions,relevant_transcripts,nonnull_transcripts,nonempty_transcripts,nonempty_pct_transcripts,nonempty_pct_interactions
+detected_keywords,present_in_raw_not_in_original_curated_projection,1624,410,392,392,95.60975609756098,24.137931034482758
+mentioned_entities,present_in_raw_not_in_original_curated_projection,1624,410,358,358,87.3170731707317,22.04433497536946
+detected_intents,present_in_raw_not_in_original_curated_projection,1624,410,386,386,94.14634146341463,23.76847290640394
+main_topics,present_in_raw_not_in_original_curated_projection,1624,410,410,410,100.0,25.246305418719214

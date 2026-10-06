@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from time import perf_counter
 from statistics import median
 
-from src.data.config import ROOT
+from src.data.config import ARTIFACTS_DIR, REPORTS_DIR, ROOT
 from src.data.eda.dispute_eda import digest
 from .baseline_intake_parser import (
     FIELDS,
@@ -286,9 +286,9 @@ def run():
     generated = previous.get(
         "generation_timestamp", datetime.now(timezone.utc).isoformat()
     )
-    source_paths = list((ROOT / "artifacts/dispute_case_workflow").glob("*.csv")) + [
-        ROOT / "artifacts/dispute_case_workflow/case_evidence_bundles.parquet",
-        ROOT / "artifacts/mvp_definition/frozen_mvp_contract.json",
+    source_paths = list((ARTIFACTS_DIR / "dispute_case_workflow").glob("*.csv")) + [
+        ARTIFACTS_DIR / "dispute_case_workflow/case_evidence_bundles.parquet",
+        ARTIFACTS_DIR / "mvp_definition/frozen_mvp_contract.json",
     ]
     manifest = {
         "dataset_version": VERSION,
@@ -436,7 +436,7 @@ or scripts/run_mvp_and_eval.py. Existing profiling/EDA/discovery outputs and raw
 The final MVP outcome remains HANDOFF_RECORDED, not DISPUTE_RESOLVED.
 """
     )
-    (ROOT / "reports/BASELINE_AND_EVALUATION_FINDINGS.md").write_text(
+    (REPORTS_DIR / "BASELINE_AND_EVALUATION_FINDINGS.md").write_text(
         text, encoding="utf-8"
     )
     (OUT / "README.md").write_text(

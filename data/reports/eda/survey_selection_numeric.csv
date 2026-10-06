@@ -1,0 +1,7 @@
+dataset,variable,has_child,rows,valid,invalid_numeric,minimum,maximum,mean,median,p90,p95,p99
+selected_calls,duration_seconds,True,212759,183008,0,30.0,1155.0,321.25421839482425,291.0,537.0,614.0,760.0
+selected_calls,duration_seconds,False,473537,407054,0,30.0,1204.0,321.54461078874056,291.0,539.0,614.0,762.0
+selected_calls,wait_time_seconds,True,212759,149106,0,0.0,421.0,119.88722117151556,119.0,196.0,218.0,259.0
+selected_calls,wait_time_seconds,False,473537,331572,0,0.0,424.0,119.95950200861351,119.0,196.0,218.0,259.0
+selected_calls,sentiment_score,True,212759,212759,0,-1.0,1.0,-0.03666115181966405,-0.02,0.44,0.62,0.8900000000000001
+selected_calls,sentiment_score,False,473537,473537,0,-1.0,1.0,-0.03706156013152013,-0.02,0.43999999999999995,0.62,0.89

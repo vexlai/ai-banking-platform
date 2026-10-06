@@ -1,4 +1,4 @@
-"""Lectura estricta, trazabilidad y resultados agregados; nunca escribe originales."""
+"""Strict reads, traceability and aggregate results; never writes to sources."""
 
 import csv
 import hashlib
@@ -41,7 +41,7 @@ def manifest():
             with path.open(encoding="utf-8-sig", newline="") as stream:
                 header = next(csv.reader(stream))
             if len(header) != len(set(header)):
-                raise ValueError(f"Columnas repetidas: {path.relative_to(ROOT)}")
+                raise ValueError(f"Duplicate columns: {path.relative_to(ROOT)}")
             records.append(
                 {
                     "dataset": dataset,
@@ -55,10 +55,10 @@ def manifest():
 
 
 def check_previous_manifest(current):
-    """Acepta reubicación del directorio raíz solo si todo el contenido coincide."""
+    """Accepts a root directory relocation only when all content matches."""
     previous_path = REPORTS / "source_manifest.json"
     if not current:
-        raise ValueError(f"No hay CSV en {DATA.relative_to(ROOT)}")
+        raise ValueError(f"No CSV files in {DATA.relative_to(ROOT)}")
     if not previous_path.exists():
         return
     previous = json.loads(previous_path.read_text())
@@ -75,7 +75,7 @@ def check_previous_manifest(current):
 
     if without_root(previous) != without_root(current):
         raise AssertionError(
-            "Los originales difieren del manifiesto previo en contenido o estructura"
+            "Sources differ from the previous manifest in content or structure"
         )
     save_json("source_manifest.previous.json", previous)
     save_json(
@@ -85,7 +85,7 @@ def check_previous_manifest(current):
             "current_root": str(DATA.relative_to(ROOT)),
             "files_verified": len(current),
             "sha256_unchanged": True,
-            "note": "Reubicación encontrada al reanudar; no realizada por el análisis.",
+            "note": "Relocation detected on resume; not performed by the analysis.",
         },
     )
 
@@ -110,8 +110,8 @@ def save_csv(name, records):
 
 @contextmanager
 def connect():
-    # Una base temporal en disco permite compresión y evita mantener la tabla
-    # VARCHAR grande sin comprimir en buffers temporales durante muchas consultas.
+    # A temporary on-disk database enables compression and avoids keeping the
+    # large uncompressed VARCHAR table in memory buffers across many queries.
     scratch = ROOT / ".tmp"
     scratch.mkdir(exist_ok=True)
     with TemporaryDirectory(prefix="profiling-", dir=scratch) as directory:
@@ -126,10 +126,10 @@ def connect():
 
 
 def load(con, files):
-    """Una tabla a la vez; strings preservan IDs, ceros iniciales y fechas inválidas.
+    """One table at a time; strings preserve IDs, leading zeros and invalid dates.
 
-    Las celdas CSV vacías se interpretan como NULL. No se infieren columnas Hive.
-    Los errores de estructura detienen la ejecución; no se omiten registros.
+    Empty CSV cells are read as NULL. Hive columns are not inferred.
+    Structure errors stop execution; no records are skipped.
     """
     paths = ",".join(literal(p) for p in files)
     con.execute("DROP TABLE IF EXISTS current_data")
@@ -149,5 +149,5 @@ def load(con, files):
 def verify_manifest(before):
     after = manifest()
     if before != after:
-        raise AssertionError("Los archivos originales cambiaron durante el análisis")
+        raise AssertionError("Source files changed during the analysis")
     return {"files_verified": len(after), "sha256_unchanged": True}

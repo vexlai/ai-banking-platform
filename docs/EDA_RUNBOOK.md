@@ -1,8 +1,8 @@
 # EDA Runbook
 
 How to run and read the exploratory data analysis (EDA). The analysis lives in
-`notebooks/` and writes every output under `reports/` (**generated, not committed** —
-`.gitignore` excludes `*.parquet`, so re-run the notebooks to reproduce the artifacts).
+`notebooks/` and writes every output under `data/reports/` (committed as the analytical
+handoff; re-run the notebooks to reproduce the artifacts).
 
 > Related: [ARCHITECTURE.md](./ARCHITECTURE.md) · [DATASET_BACKED_TOOLS.md](./DATASET_BACKED_TOOLS.md) · [../README.md](../README.md)
 
@@ -28,11 +28,11 @@ For example:
 .venv/bin/jupyter lab notebooks/02_eda.ipynb
 ```
 
-## Outputs (generated under `reports/`)
+## Outputs (generated under `data/reports/`)
 
-- `reports/profiling/` — `source_manifest.json` and `datasets.csv` (from step 01), reused by later steps.
-- `reports/eda/` — `EDA_FINDINGS.md`, `semantic_validation*.csv`, temporal/coverage tables, `*_customer_features.parquet`, `feature_cardinality.csv`, `key_eda_metrics.csv`, and `source_integrity.json`.
-- `reports/figures/eda/` — focused figures: coverage, financial tails, duration/wait, and selection.
+- `data/reports/profiling/` — `source_manifest.json` and `datasets.csv` (from step 01), reused by later steps.
+- `data/reports/eda/` — `EDA_FINDINGS.md`, `semantic_validation*.csv`, temporal/coverage tables, `*_customer_features.parquet`, `feature_cardinality.csv`, `key_eda_metrics.csv`, and `source_integrity.json`.
+- `data/reports/figures/eda/` — focused figures: coverage, financial tails, duration/wait, and selection.
 
 ## Execution notes
 

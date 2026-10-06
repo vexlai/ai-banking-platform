@@ -1,0 +1,6 @@
+x,y,paired_customers,pearson_raw,pearson_log1p_x,spearman,interpretation
+digital_event_count,interaction_count,148436,-0.0026958719886130016,-0.0021122771107814384,-0.002132703710436149,paired observed domains; CSAT only for satisfaction; no causal inference
+transaction_count,complaint_count,48806,0.006512509478587778,0.005893859841962811,0.0022807940322665224,paired observed domains; CSAT only for satisfaction; no causal inference
+complaint_count,avg_satisfaction,31079,0.005953249288842751,0.005809836353232083,0.005298072283931816,paired observed domains; CSAT only for satisfaction; no causal inference
+median_wait_time,avg_satisfaction,84728,0.0032376902282737676,0.0025497171749463356,0.0023181048480742936,paired observed domains; CSAT only for satisfaction; no causal inference
+interaction_count,avg_satisfaction,86087,-0.0018535410339412057,-0.002794513590754921,-0.013125350347184745,paired observed domains; CSAT only for satisfaction; no causal inference

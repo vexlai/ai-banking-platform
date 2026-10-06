@@ -1,0 +1,8 @@
+dataset,basis,min_timestamp,max_timestamp,min_date,max_date,active_days,calendar_days,days_without_records
+transactions,transaction_date,2023-06-17 06:01:30,2026-06-18 05:59:41,2023-06-17,2026-06-18,1098,1098,0
+digital_events,event_date,2023-06-17 06:02:03,2026-06-18 06:04:05,2023-06-17,2026-06-18,1098,1098,0
+call_center_interactions,interaction_date,2023-06-17 08:03:26,2026-06-18 07:58:13,2023-06-17,2026-06-18,1098,1098,0
+call_transcripts,process_date only; no independent event timestamp,2023-06-17 00:00:00,2026-06-17 00:00:00,2023-06-17,2026-06-17,1097,1097,0
+complaints,creation_date,2023-06-17 08:07:05,2026-06-18 07:56:52,2023-06-17,2026-06-18,1098,1098,0
+satisfaction_surveys,survey_date,2023-06-17 09:29:20,2026-06-19 06:54:58,2023-06-17,2026-06-19,1099,1099,0
+campaign_sends,send_date,2023-07-01 06:00:42,2026-06-18 05:59:53,2023-07-01,2026-06-18,1084,1084,0

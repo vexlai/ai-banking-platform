@@ -1,0 +1,35 @@
+{
+  "label": "local/offline warm-process benchmark, not production",
+  "selection": "first 50 lexical customer IDs with >=2 transactions in last observed 30 days",
+  "seed": "not sampled; deterministic SQL ordering",
+  "n_requests": 250,
+  "includes_startup": false,
+  "concurrency": 1,
+  "metrics": {
+    "window_search": {
+      "n": 50,
+      "p50_ms": 3.600126499804901,
+      "p95_ms": 5.184359700433561
+    },
+    "exact_id": {
+      "n": 50,
+      "p50_ms": 3.519058504025452,
+      "p95_ms": 4.8161582457396435
+    },
+    "missing_id": {
+      "n": 50,
+      "p50_ms": 1.3079415002721362,
+      "p95_ms": 1.9051288993068738
+    },
+    "amount_currency": {
+      "n": 50,
+      "p50_ms": 8.235850000346545,
+      "p95_ms": 11.580901200795779
+    },
+    "history": {
+      "n": 50,
+      "p50_ms": 2.3288240045076236,
+      "p95_ms": 3.612691049784189
+    }
+  }
+}

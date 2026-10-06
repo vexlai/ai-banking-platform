@@ -1,0 +1,19 @@
+x,y,x_band,customers,median_y,mean_y
+digital_event_count,interaction_count,1 <= p25,37616,4.0,4.6171575925138235
+digital_event_count,interaction_count,2 <= p50,37094,4.0,4.628727017846552
+digital_event_count,interaction_count,3 <= p75,37410,4.0,4.631970061480888
+digital_event_count,interaction_count,4 > p75,36316,4.0,4.610777618680471
+transaction_count,complaint_count,1 <= p25,12602,1.0,1.2393270909379464
+transaction_count,complaint_count,2 <= p50,12834,1.0,1.238429172510519
+transaction_count,complaint_count,3 <= p75,11517,1.0,1.2324390032126422
+transaction_count,complaint_count,4 > p75,11853,1.0,1.2470260693495319
+complaint_count,avg_satisfaction,1 <= p25,24656,3.0,2.7623697313123814
+complaint_count,avg_satisfaction,4 > p75,6423,3.0,2.770616015361461
+median_wait_time,avg_satisfaction,1 <= p25,21378,3.0,2.7645463293372345
+median_wait_time,avg_satisfaction,2 <= p50,20996,3.0,2.764816654419431
+median_wait_time,avg_satisfaction,3 <= p75,21684,3.0,2.7677613952793827
+median_wait_time,avg_satisfaction,4 > p75,20670,3.0,2.7665376552169043
+interaction_count,avg_satisfaction,1 <= p25,34180,3.0,2.7652233274819586
+interaction_count,avg_satisfaction,2 <= p50,16644,3.0,2.7645217495794285
+interaction_count,avg_satisfaction,3 <= p75,13777,3.0,2.770823352931216
+interaction_count,avg_satisfaction,4 > p75,21486,3.0,2.7652013714356616

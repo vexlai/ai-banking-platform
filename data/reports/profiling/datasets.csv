@@ -1,0 +1,14 @@
+dataset,files,rows,columns,bytes,schema_variants
+branches,1,350,22,89529,1
+call_center_interactions,1097,686296,21,139734950,1
+call_transcripts,1097,171321,18,137235657,1
+campaign_sends,1083,1746801,22,325976325,1
+complaints,1097,67095,27,17990612,1
+customers,1,150000,27,46897358,1
+daily_exchange_rates,1,13164,7,778914,1
+digital_events,1097,15620994,26,3757355051,1
+marketing_campaigns,1,200,13,32710,1
+products,1,400000,17,68213646,1
+satisfaction_surveys,1097,212759,20,46446098,1
+service_agents,1,1200,18,237992,1
+transactions,1097,4425008,22,808333639,1

@@ -1,0 +1,7 @@
+dataset,variable,status,rows,valid,invalid_numeric,minimum,maximum,mean,median,p90,p95,p99
+complaints,resolution_days,In Process,26823,0,0,,,,,,,
+complaints,resolution_days,Rejected,705,0,0,,,,,,,
+complaints,resolution_days,Escalated,3321,0,0,,,,,,,
+complaints,resolution_days,Open,20125,0,0,,,,,,,
+complaints,resolution_days,Resolved,13512,12871,0,1.0,30.0,15.605935824722243,16.0,28.0,29.0,30.0
+complaints,resolution_days,Closed,2609,2492,0,1.0,30.0,15.578250401284109,15.0,28.0,29.0,30.0

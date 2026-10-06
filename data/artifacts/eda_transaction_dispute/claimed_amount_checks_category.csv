@@ -1,0 +1,6 @@
+group_value,records,null_amount,invalid_amount,zero_amount,negative_amount,amount_without_currency,currency_without_amount
+Branch,13361,9138,0,0,0,194,212
+Fees,13553,9096,0,0,0,236,246
+Service,13194,8975,0,0,0,195,218
+Technical,13407,9055,0,0,0,217,204
+Transactions,13580,9080,0,0,0,198,185

@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "transactions": 4425008,
+  "source_sha256": "bd6d87c315103fa6d4e771b52dae2df69a382d7e223378a6464ecb1adecf2b8d",
+  "serving_sha256": "8b9005ede7618606721015b9b1155625bf9e82d418a16edef96003da6a203bf2",
+  "time_policy": "naive-as-utc-explicit-assumption",
+  "customer_index_scan_verified": true,
+  "exact_cross_customer_future_currency_checks": true,
+  "http": [
+    {
+      "clock": "real-server-UTC",
+      "branches": {
+        "single": "AWAITING_CONFIRMATION",
+        "multiple": "NO_CANDIDATE",
+        "none": "NO_CANDIDATE"
+      },
+      "restart_continued": true,
+      "counts": {
+        "cases": 3,
+        "handoffs": 3,
+        "audit": 11,
+        "commands": 11
+      }
+    },
+    {
+      "clock": "historical-controlled-replay",
+      "branches": {
+        "single": "AWAITING_CONFIRMATION",
+        "multiple": "MULTIPLE_CANDIDATES",
+        "none": "NO_CANDIDATE"
+      },
+      "restart_continued": true,
+      "counts": {
+        "cases": 3,
+        "handoffs": 3,
+        "audit": 11,
+        "commands": 11
+      }
+    }
+  ],
+  "source_type": "real organizer data; authored request and controlled principal",
+  "raw_files_metadata_unchanged": 7671,
+  "frozen_files_unchanged": 122
+}

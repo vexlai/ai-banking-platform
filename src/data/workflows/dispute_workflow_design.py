@@ -2,7 +2,7 @@
 
 import csv
 import json
-from src.data.config import ROOT
+from src.data.config import REPORTS_DIR
 from src.data.workflows.dispute_workflow_data import ART, save, query, log
 from src.data.workflows.dispute_reporting import table
 
@@ -529,7 +529,7 @@ def future_design():
         ],
     )
     log(
-        "14–16. Responsabilidades, máquina de estados propuesta y opciones MVP; sin implementación"
+        "14-16. Responsibilities, proposed state machine and MVP options; no implementation"
     )
 
 
@@ -636,7 +636,7 @@ def validate(con):
         json.dumps({"passed": len(checks), "failed": 0, "checks": checks}, indent=2)
         + "\n"
     )
-    log(f"{len(checks)} controles de consistencia correctos")
+    log(f"{len(checks)} consistency checks passed")
 
 
 def report(context):
@@ -1060,7 +1060,7 @@ analysis_context.json records cutoff, source signatures and prior artifacts; int
 source/cache/prior-result preservation; validation_checks.json records count and temporal invariants.
 No raw data or previous EDA conclusions were changed.
 """
-    (ROOT / "reports/DISPUTE_CASE_WORKFLOW_FINDINGS.md").write_text(
+    (REPORTS_DIR / "DISPUTE_CASE_WORKFLOW_FINDINGS.md").write_text(
         text, encoding="utf-8"
     )
     (ART / "README.md").write_text(

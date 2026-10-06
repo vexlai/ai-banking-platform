@@ -1,0 +1,61 @@
+field,status,category,records,null_date,date_at_or_before_cutoff,date_after_cutoff,invalid_date
+resolution_date,Closed,Branch,551,25,520,6,0
+resolution_date,Closed,Fees,486,33,444,9,0
+resolution_date,Closed,Service,493,17,466,10,0
+resolution_date,Closed,Technical,528,34,489,5,0
+resolution_date,Closed,Transactions,551,31,514,6,0
+resolution_date,Escalated,Branch,599,599,,,0
+resolution_date,Escalated,Fees,700,700,,,0
+resolution_date,Escalated,Service,692,692,,,0
+resolution_date,Escalated,Technical,653,653,,,0
+resolution_date,Escalated,Transactions,677,677,,,0
+resolution_date,In Process,Branch,5360,5360,,,0
+resolution_date,In Process,Fees,5468,5468,,,0
+resolution_date,In Process,Service,5169,5169,,,0
+resolution_date,In Process,Technical,5419,5419,,,0
+resolution_date,In Process,Transactions,5407,5407,,,0
+resolution_date,Open,Branch,4021,4021,,,0
+resolution_date,Open,Fees,4028,4028,,,0
+resolution_date,Open,Service,4039,4039,,,0
+resolution_date,Open,Technical,3997,3997,,,0
+resolution_date,Open,Transactions,4040,4040,,,0
+resolution_date,Rejected,Branch,155,155,,,0
+resolution_date,Rejected,Fees,133,133,,,0
+resolution_date,Rejected,Service,152,152,,,0
+resolution_date,Rejected,Technical,140,140,,,0
+resolution_date,Rejected,Transactions,125,125,,,0
+resolution_date,Resolved,Branch,2675,126,2516,33,0
+resolution_date,Resolved,Fees,2738,123,2586,29,0
+resolution_date,Resolved,Service,2649,127,2482,40,0
+resolution_date,Resolved,Technical,2670,125,2503,42,0
+resolution_date,Resolved,Transactions,2780,131,2616,33,0
+closing_date,Closed,Branch,551,33,506,12,0
+closing_date,Closed,Fees,486,17,460,9,0
+closing_date,Closed,Service,493,25,455,13,0
+closing_date,Closed,Technical,528,25,497,6,0
+closing_date,Closed,Transactions,551,28,516,7,0
+closing_date,Escalated,Branch,599,599,,,0
+closing_date,Escalated,Fees,700,700,,,0
+closing_date,Escalated,Service,692,692,,,0
+closing_date,Escalated,Technical,653,653,,,0
+closing_date,Escalated,Transactions,677,677,,,0
+closing_date,In Process,Branch,5360,5360,,,0
+closing_date,In Process,Fees,5468,5468,,,0
+closing_date,In Process,Service,5169,5169,,,0
+closing_date,In Process,Technical,5419,5419,,,0
+closing_date,In Process,Transactions,5407,5407,,,0
+closing_date,Open,Branch,4021,4021,,,0
+closing_date,Open,Fees,4028,4028,,,0
+closing_date,Open,Service,4039,4039,,,0
+closing_date,Open,Technical,3997,3997,,,0
+closing_date,Open,Transactions,4040,4040,,,0
+closing_date,Rejected,Branch,155,155,,,0
+closing_date,Rejected,Fees,133,133,,,0
+closing_date,Rejected,Service,152,152,,,0
+closing_date,Rejected,Technical,140,140,,,0
+closing_date,Rejected,Transactions,125,125,,,0
+closing_date,Resolved,Branch,2675,2675,,,0
+closing_date,Resolved,Fees,2738,2738,,,0
+closing_date,Resolved,Service,2649,2649,,,0
+closing_date,Resolved,Technical,2670,2670,,,0
+closing_date,Resolved,Transactions,2780,2780,,,0

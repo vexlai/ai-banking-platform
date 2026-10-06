@@ -1,0 +1,35 @@
+field,value,transcript_available,interactions,pct_within_value
+reason_category,Comercial,False,103,77.44360902255639
+reason_category,Comercial,True,30,22.55639097744361
+reason_category,Producto,False,257,73.63896848137536
+reason_category,Producto,True,92,26.361031518624642
+reason_category,Queja,False,207,72.88732394366197
+reason_category,Queja,True,77,27.112676056338028
+reason_category,Retención,False,49,81.66666666666667
+reason_category,Retención,True,11,18.333333333333332
+reason_category,Transaccional,False,419,77.0220588235294
+reason_category,Transaccional,True,125,22.977941176470587
+reason_category,Técnico,False,179,70.4724409448819
+reason_category,Técnico,True,75,29.52755905511811
+channel,App,False,40,71.42857142857143
+channel,App,True,16,28.571428571428573
+channel,Email,False,43,68.25396825396825
+channel,Email,True,20,31.746031746031747
+channel,Phone,False,1039,74.96392496392497
+channel,Phone,True,347,25.036075036075037
+channel,Web,False,3,50.0
+channel,Web,True,3,50.0
+channel,Web Chat,False,47,83.92857142857143
+channel,Web Chat,True,9,16.071428571428573
+channel,WhatsApp,False,42,73.6842105263158
+channel,WhatsApp,True,15,26.31578947368421
+interaction_type,Chat,False,125,77.1604938271605
+interaction_type,Chat,True,37,22.839506172839506
+interaction_type,Email,False,43,68.25396825396825
+interaction_type,Email,True,20,31.746031746031747
+interaction_type,Inbound Call,False,857,74.58659704090513
+interaction_type,Inbound Call,True,292,25.413402959094864
+interaction_type,Outbound Call,False,182,76.79324894514768
+interaction_type,Outbound Call,True,55,23.206751054852322
+interaction_type,Video,False,7,53.84615384615385
+interaction_type,Video,True,6,46.15384615384615

@@ -1,0 +1,4 @@
+currency,transactions,amount_usd_observed,amount_usd_coverage_pct,usd_identity_matches,missing_exact_date_rate
+USD,2437979,0,0.0,,0
+ARS,792585,752544,94.94804973599047,0,247
+COP,1194444,1135008,95.02396093914825,0,360

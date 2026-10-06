@@ -92,7 +92,7 @@ def customers_products(con, ctx):
         f"""SELECT customer_id,count(*) product_count,
       count(DISTINCT product_type) product_type_count FROM products WHERE opening_date::DATE<={ref} GROUP BY 1""",
     )
-    log("Clientes y productos completados")
+    log("Customers and products completed")
 
 
 def transactions(con, ctx):
@@ -160,7 +160,7 @@ def transactions(con, ctx):
       count(DISTINCT transaction_date::DATE) active_transaction_days FROM transactions
       WHERE transaction_date::DATE<={cutoff(ctx)} GROUP BY 1""",
     )
-    log("Transacciones completadas")
+    log("Transactions completed")
 
 
 def digital(con, ctx):
@@ -224,7 +224,7 @@ def digital(con, ctx):
       count(DISTINCT event_type) distinct_event_types FROM digital_events
       WHERE customer_id IS NOT NULL AND event_date::DATE<={cutoff(ctx)} GROUP BY 1""",
     )
-    log("Digital identificado, anónimo y sesiones completados")
+    log("Identified/anonymous digital events and sessions completed")
 
 
 def service(con, ctx):
@@ -275,7 +275,7 @@ def service(con, ctx):
       count_if(detected_sentiment IN ('Negativo','Muy Negativo')) negative_sentiment_interactions
       FROM call_center_interactions WHERE interaction_date::DATE<={cutoff(ctx)} GROUP BY 1""",
     )
-    log("Interacciones de servicio completadas")
+    log("Service interactions completed")
 
 
 def selection(con, table, prefix):
@@ -343,7 +343,7 @@ def transcripts(con):
         "transcript_length_histogram.csv",
         "SELECT floor(chars/200)*200 lower_chars,count(*) records FROM transcript_lengths GROUP BY 1 ORDER BY 1",
     )
-    log("Cobertura y selección de transcripts completadas")
+    log("Transcript coverage and selection completed")
     return coverage
 
 
@@ -427,7 +427,7 @@ def complaints(con, ctx):
         FILTER(WHERE resolution_date::DATE<={ref}) avg_resolution_days
       FROM complaints WHERE creation_date::DATE<={ref} GROUP BY 1""",
     )
-    log("Reclamos y nulos condicionales completados")
+    log("Complaints and conditional nulls completed")
 
 
 def satisfaction(con, ctx):
@@ -478,7 +478,7 @@ def satisfaction(con, ctx):
         FILTER(WHERE survey_type='CSAT') latest_satisfaction
       FROM satisfaction_surveys WHERE survey_date::DATE<={ref} GROUP BY 1""",
     )
-    log("Encuestas por escala y selección completadas")
+    log("Surveys by scale and selection completed")
     return coverage
 
 
@@ -538,7 +538,7 @@ def campaigns(con, ctx):
       count_if(had_conversion::BOOLEAN AND conversion_date::DATE<={ref}) conversions
       FROM campaign_sends WHERE send_date::DATE<={ref} GROUP BY 1""",
     )
-    log("Campañas y coherencia del funnel completadas")
+    log("Campaigns and funnel consistency completed")
 
 
 def branches(con):

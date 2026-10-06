@@ -1,0 +1,5 @@
+group_value,records,null_amount,invalid_amount,zero_amount,negative_amount,amount_without_currency,currency_without_amount
+Claim,16598,10247,0,0,0,302,302
+Complaint,40452,25052,0,0,0,738,763
+Request,6761,6761,0,,,0,0
+Suggestion,3284,3284,0,,,0,0

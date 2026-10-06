@@ -1,0 +1,103 @@
+time_window,field,value,event_pairs,pct_event_pairs
+before_30m,event_type,Click,14,20.0
+before_30m,event_type,Error,2,2.857142857142857
+before_30m,event_type,FormSubmit,4,5.714285714285714
+before_30m,event_type,Login,11,15.714285714285714
+before_30m,event_type,Logout,11,15.714285714285714
+before_30m,event_type,PageView,27,38.57142857142857
+before_30m,event_type,Purchase,1,1.4285714285714286
+before_30m,event_category,Authentication,22,31.428571428571427
+before_30m,event_category,Navigation,18,25.714285714285715
+before_30m,event_category,Product,16,22.857142857142858
+before_30m,event_category,Transaction,14,20.0
+before_30m,channel,Android App,54,77.14285714285714
+before_30m,channel,iOS App,16,22.857142857142858
+before_30m,action,initiate_payment,8,11.428571428571429
+before_30m,action,initiate_transfer,2,2.857142857142857
+before_30m,action,login,9,12.857142857142858
+before_30m,action,logout,9,12.857142857142858
+before_30m,action,view_accounts,5,7.142857142857143
+before_30m,action,view_help,3,4.285714285714286
+before_30m,action,view_home,6,8.571428571428571
+before_30m,action,view_product,15,21.428571428571427
+before_30m,action,view_products,3,4.285714285714286
+before_30m,action,view_transactions,3,4.285714285714286
+before_30m,action,,7,10.0
+before_2h,event_type,Click,56,20.363636363636363
+before_2h,event_type,Error,4,1.4545454545454546
+before_2h,event_type,FormSubmit,7,2.5454545454545454
+before_2h,event_type,Login,41,14.909090909090908
+before_2h,event_type,Logout,45,16.363636363636363
+before_2h,event_type,PageView,118,42.90909090909091
+before_2h,event_type,Purchase,4,1.4545454545454546
+before_2h,event_category,Authentication,86,31.272727272727273
+before_2h,event_category,Navigation,69,25.09090909090909
+before_2h,event_category,Product,72,26.181818181818183
+before_2h,event_category,Transaction,48,17.454545454545453
+before_2h,channel,Android App,145,52.72727272727273
+before_2h,channel,Desktop Web,32,11.636363636363637
+before_2h,channel,Mobile Web,53,19.272727272727273
+before_2h,channel,iOS App,45,16.363636363636363
+before_2h,action,initiate_payment,17,6.181818181818182
+before_2h,action,initiate_transfer,14,5.090909090909091
+before_2h,action,login,38,13.818181818181818
+before_2h,action,logout,40,14.545454545454545
+before_2h,action,view_accounts,17,6.181818181818182
+before_2h,action,view_help,16,5.818181818181818
+before_2h,action,view_home,19,6.909090909090909
+before_2h,action,view_product,65,23.636363636363637
+before_2h,action,view_products,12,4.363636363636363
+before_2h,action,view_transactions,14,5.090909090909091
+before_2h,action,,23,8.363636363636363
+before_24h,event_type,Click,631,23.677298311444652
+before_24h,event_type,Error,60,2.25140712945591
+before_24h,event_type,FormSubmit,91,3.4146341463414633
+before_24h,event_type,Login,427,16.02251407129456
+before_24h,event_type,Logout,436,16.360225140712945
+before_24h,event_type,PageView,980,36.77298311444653
+before_24h,event_type,Purchase,40,1.5009380863039399
+before_24h,event_category,Authentication,863,32.38273921200751
+before_24h,event_category,Navigation,654,24.54033771106942
+before_24h,event_category,Product,653,24.50281425891182
+before_24h,event_category,Transaction,495,18.574108818011258
+before_24h,channel,Android App,1017,38.16135084427767
+before_24h,channel,Desktop Web,481,18.048780487804876
+before_24h,channel,Mobile Web,575,21.575984990619137
+before_24h,channel,iOS App,592,22.213883677298313
+before_24h,action,initiate_payment,170,6.378986866791744
+before_24h,action,initiate_transfer,142,5.328330206378987
+before_24h,action,login,393,14.74671669793621
+before_24h,action,logout,389,14.596622889305817
+before_24h,action,view_accounts,138,5.178236397748593
+before_24h,action,view_help,148,5.553470919324578
+before_24h,action,view_home,161,6.041275797373358
+before_24h,action,view_product,593,22.25140712945591
+before_24h,action,view_products,144,5.4033771106941835
+before_24h,action,view_transactions,141,5.290806754221388
+before_24h,action,,246,9.23076923076923
+after_24h,event_type,Click,568,22.77465918203689
+after_24h,event_type,Error,48,1.9246190858059342
+after_24h,event_type,FormSubmit,100,4.0096230954290295
+after_24h,event_type,Login,393,15.757818765036086
+after_24h,event_type,Logout,400,16.038492381716118
+after_24h,event_type,PageView,957,38.372093023255815
+after_24h,event_type,Purchase,28,1.1226944667201284
+after_24h,event_category,Authentication,793,31.796311146752206
+after_24h,event_category,Navigation,590,23.656776263031276
+after_24h,event_category,Product,637,25.541299117882918
+after_24h,event_category,Transaction,474,19.0056134723336
+after_24h,channel,Android App,982,39.37449879711307
+after_24h,channel,Desktop Web,471,18.88532477947073
+after_24h,channel,Mobile Web,454,18.203688853247794
+after_24h,channel,iOS App,587,23.536487570168404
+after_24h,action,initiate_payment,147,5.894145950280674
+after_24h,action,initiate_transfer,142,5.693664795509222
+after_24h,action,login,372,14.91579791499599
+after_24h,action,logout,354,14.194065757818764
+after_24h,action,view_accounts,142,5.693664795509222
+after_24h,action,view_help,133,5.3327987169206095
+after_24h,action,view_home,134,5.3728949478749
+after_24h,action,view_product,581,23.29591018444266
+after_24h,action,view_products,125,5.012028869286287
+after_24h,action,view_transactions,147,5.894145950280674
+after_24h,action,,217,8.700882117080994

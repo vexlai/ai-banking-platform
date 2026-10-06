@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intent",
+    "transaction_id",
+    "amount",
+    "currency",
+    "merchant",
+    "date_hint",
+    "transaction_type_hint",
+    "channel_hint"
+  ],
+  "properties": {
+    "intent": {
+      "enum": [
+        "dispute_intake",
+        "transaction_inquiry",
+        "unsupported_action",
+        "unknown"
+      ]
+    },
+    "transaction_id": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^TX-[A-Z0-9]{12}$"
+        }
+      ]
+    },
+    "amount": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d{2}$"
+        }
+      ]
+    },
+    "currency": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        }
+      ]
+    },
+    "merchant": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "date_hint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^(\\d{4}-\\d{2}-\\d{2}|relative:(today|yesterday|days_ago:\\d+))$"
+        }
+      ]
+    },
+    "transaction_type_hint": {
+      "enum": [
+        null,
+        "Purchase",
+        "Withdrawal",
+        "Transfer",
+        "Payment",
+        "Deposit",
+        "Adjustment"
+      ]
+    },
+    "channel_hint": {
+      "enum": [
+        null,
+        "ATM",
+        "App",
+        "Web",
+        "POS",
+        "Branch"
+      ]
+    }
+  }
+}

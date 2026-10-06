@@ -1,4 +1,4 @@
-"""Perfilado completo, sin imputación, limpieza ni EDA."""
+"""Complete profiling, without imputation, cleaning or EDA."""
 
 import json
 
@@ -67,7 +67,7 @@ def inventory(reuse_verified=False):
         if integrity.get("sha256_unchanged") and saved_manifest == before:
             cached = json.loads((REPORTS / "inventory.json").read_text())
             print(
-                "Inventario completo reutilizado; SHA-256 de todos los originales verificado de nuevo.",
+                "Complete inventory reused; SHA-256 of all sources verified again.",
                 flush=True,
             )
             return cached["datasets"], cached["columns"]
@@ -75,13 +75,13 @@ def inventory(reuse_verified=False):
     summaries, profiles, file_rows = [], [], []
     with connect() as con:
         for dataset, files in discover().items():
-            print(f"Inventario: {dataset}", flush=True)
+            print(f"Inventory: {dataset}", flush=True)
             save_json(
                 "execution_progress.json", {"stage": "inventory", "dataset": dataset}
             )
             schemas = {tuple(r["columns"]) for r in before if r["dataset"] == dataset}
             if len(schemas) != 1:
-                raise ValueError(f"Schema drift en {dataset}: {schemas}")
+                raise ValueError(f"Schema drift in {dataset}: {schemas}")
             columns = load(con, files)
             n = con.execute("SELECT count(*) FROM current_data").fetchone()[0]
             counts = dict(
@@ -200,7 +200,7 @@ def detailed_column(con, base):
     return result
 
 
-# Nombres observados en los encabezados originales; son hipótesis semánticas.
+# Names observed in the original headers; they are semantic hypotheses.
 ALIASES = {
     "registration_branch_id": "branch_id",
     "opening_branch_id": "branch_id",
@@ -223,7 +223,7 @@ TARGETS = {
 def profiling():
     before = manifest()
     check_previous_manifest(before)
-    # Las métricas de 00 se pueden reutilizar solo con el mismo manifiesto íntegro.
+    # Metrics from 00 can be reused only with the same intact manifest.
     cached_columns = []
     if (REPORTS / "inventory.json").exists() and (
         REPORTS / "inventory_integrity.json"
@@ -244,7 +244,7 @@ def profiling():
             )
             schemas = {tuple(r["columns"]) for r in before if r["dataset"] == dataset}
             if len(schemas) != 1:
-                raise ValueError(f"Schema drift en {dataset}: {schemas}")
+                raise ValueError(f"Schema drift in {dataset}: {schemas}")
             columns = load(con, files)
             n = con.execute("SELECT count(*) FROM current_data").fetchone()[0]
             bases = [c for c in cached_columns if c["dataset"] == dataset]
@@ -253,7 +253,7 @@ def profiling():
             ):
                 bases = basic_profile(con, dataset, columns, n)
             cols = ",".join(map(ident, columns))
-            # Una columna única y no nula demuestra que no hay filas duplicadas.
+            # A unique, non-null column proves there are no duplicate rows.
             unique_rows = (
                 n
                 if any(b["unique_non_null"] for b in bases)
